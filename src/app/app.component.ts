@@ -1,10 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { HeaderComponent } from './shared/components/header/header.component';
+import { SummaryViewComponent } from './components/summary-view/summary-view.component';
+import { NavigationComponent } from './shared/components/navigation/navigation.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
+  imports: [RouterOutlet, HeaderComponent, NavigationComponent, SummaryViewComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

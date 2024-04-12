@@ -1,0 +1,12 @@
+<div class="header">
+    <p class="header-text">Kanban Project Management Tool</p>
+    <a href="">
+        <mat-icon class="help" aria-hidden="false" aria-label="Example help icon" fontIcon="help_outline"></mat-icon>
+    </a>
+    <div class="profile clickable" [matMenuTriggerFor]="menu"><span class="initials">SM</span></div>
+    <mat-menu #menu="matMenu" yPosition="below">
+        <button mat-menu-item>Legal Notice</button>
+        <button mat-menu-item>Privacy Policy</button>
+        <button mat-menu-item>Log out</button>
+    </mat-menu>
+</div>

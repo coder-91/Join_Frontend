@@ -1,0 +1,40 @@
+@import '../styles/media-queries';
+:host {
+    height: 100%;
+    display: block;
+}
+
+.grid-container {
+    height: 100%;
+    display: grid;
+    grid-template-columns: var(--navbar-desktop-width) calc(100% - var(--navbar-desktop-width));
+    grid-template-rows: var(--header-height) auto;
+    grid-template-areas: "navigation header" "navigation router-outlet";
+}
+
+app-navigation {
+    grid-area: navigation;
+}
+
+app-header {
+    grid-area: header;
+}
+
+.content {
+    grid-area: router-outlet;
+}
+
+@include small-screen {
+    .grid-container {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto var(--header-height);
+        grid-template-areas: "header" "router-outlet" "navigation ";
+    }
+    .grid-container>* {
+        width: 100%;
+    }
+}
+
+.grid-container>* {
+    border: 5px solid red;
+}

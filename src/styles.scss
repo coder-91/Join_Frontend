@@ -1,41 +1,52 @@
-
 // Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use '@angular/material' as mat;
-// Plus imports for other components in your app.
-
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
-
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$Join_Frontend-primary: mat.define-palette(mat.$indigo-palette);
-$Join_Frontend-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
-
-// The warn palette is optional (defaults to red).
-$Join_Frontend-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$Join_Frontend-theme: mat.define-light-theme((
-  color: (
-    primary: $Join_Frontend-primary,
-    accent: $Join_Frontend-accent,
-    warn: $Join_Frontend-warn,
-  ),
-  typography: mat.define-typography-config(),
-  density: 0
-));
-
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
+$custom-primary: ( 50: #e5e7e9, 100: #bfc3c8, 200: #959ba3, 300: #6a727e, 400: #4a5463, 500: #2a3647, 600: #253040, 700: #1f2937, 800: #19222f, 900: #0f1620, A100: #629eff, A200: #2f7fff, A400: #0060fb, A700: #0057e1, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #ffffff, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #ffffff, A400: #ffffff, A700: #ffffff, ));
+$custom-primary: mat.define-palette($custom-primary, 500);
+$custom-accent: ( 50: #e5e7e9, 100: #bfc3c8, 200: #959ba3, 300: #6a727e, 400: #4a5463, 500: #2a3647, 600: #253040, 700: #1f2937, 800: #19222f, 900: #0f1620, A100: #629eff, A200: #2f7fff, A400: #0060fb, A700: #0057e1, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #ffffff, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #ffffff, A400: #ffffff, A700: #ffffff, ));
+$custom-accent: mat.define-palette($custom-accent, A200, A100, A400);
+$custom-warn: ( 50: #ffe0e0, 100: #ffb3b3, 200: #ff8080, 300: #ff4d4d, 400: #ff2626, 500: #ff0000, 600: #ff0000, 700: #ff0000, 800: #ff0000, 900: #ff0000, A100: #ffffff, A200: #fff2f2, A400: #ffbfbf, A700: #ffa6a6, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$custom-warn: mat.define-palette($custom-warn, 400);
+$Join_Frontend-theme: mat.define-light-theme(( color: ( primary: $custom-primary, accent: $custom-accent, warn: $custom-warn, ), typography: mat.define-typography-config(), density: 0));
 @include mat.all-component-themes($Join_Frontend-theme);
+:root {
+    // Colors
+    --primary-col: #2A3647;
+    --col-light-1: #fff;
+    --col-dark-1: #000;
+    --col-light-blue-1: #29ABE2;
+    --col-light-gray-1: #F6F7F8;
+    // Variables
+    --box-shadow-1: 0px 2px 2px rgba(0, 0, 0, 0.1);
+    --font-family: Roboto, 'Arial', "Helvetica Neue", sans-serif;
+    --padding-content: 0 20px;
+    --header-height: 60px;
+    --navbar-desktop-width: 200px;
+    --mobile-max-width: 767px;
+}
 
-/* You can add global styles to this file, and also import other style files */
+* {
+    box-sizing: border-box;
+}
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-family);
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    outline: none;
+}
