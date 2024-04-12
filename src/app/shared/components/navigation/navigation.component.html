@@ -1,9 +1,13 @@
 <nav>
     <a href="summary"><img src="../../../assets/images/logo.svg" alt="Join Logo"></a>
-    <a href="summary">Summary</a>
-    <a href="task">Add Task</a>
-    <a href="board">Board</a>
-    <a href="contacts">Contacts</a>
-    <a href="privacy-policy">Privacy Policy</a>
-    <a href="legal-notice">Legal Notice</a>
+    <div class="app-navigation-links">
+        <a [routerLink]="['/summary']" [routerLinkActive]="['nav-active']"><span><mat-icon aria-hidden="false" aria-label="Example summary icon" fontIcon="dashboard_outline"></mat-icon></span> <span>Summary</span> </a>
+        <a [routerLink]="['/task']" [routerLinkActive]="['nav-active']"><span><mat-icon aria-hidden="false" aria-label="Example task icon" fontIcon="task_outline"></mat-icon></span> <span>Add Task</span> </a>
+        <a [routerLink]="['/board']" [routerLinkActive]="['nav-active']"><span><mat-icon aria-hidden="false" aria-label="Example board icon" fontIcon="view_kanban_outline"></mat-icon></span> <span>Board</span> </a>
+        <a [routerLink]="['/contacts']" [routerLinkActive]="['nav-active']"><span><mat-icon aria-hidden="false" aria-label="Example contact icon" fontIcon="contact_page_outline"></mat-icon></span> <span>Contacts</span> </a>
+    </div>
+    <div class="privacy-legal-container">
+        <a [routerLink]="['/privacy-policy']" [routerLinkActive]="['nav-active']">Privacy Policy</a>
+        <a [routerLink]="['/legal-notice']" [routerLinkActive]="['nav-active']">Legal Notice</a>
+    </div>
 </nav>

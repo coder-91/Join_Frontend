@@ -15,10 +15,17 @@
 
 .help {
     margin-left: auto;
+    color: var(--col-gray);
+    font-size: 17px;
+    display: flex;
+    align-items: center;
+    &:hover {
+        font-size: 20px;
+    }
 }
 
 .profile {
-    border: 2px solid var(--col-dark-1);
+    border: 3px solid var(--col-dark-1);
     border-radius: 100%;
     padding: 10px;
 }
