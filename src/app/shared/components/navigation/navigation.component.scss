@@ -1,4 +1,6 @@
-$line-height: 50px;
+@import '../../../../styles/media-queries';
+$line-height-desktop: 50px;
+$line-height-mobile: 0;
 $padding-left-nav: 20px;
 nav {
     height: 100%;
@@ -27,7 +29,7 @@ img {
         align-items: center;
         column-gap: 3px;
         padding-left: $padding-left-nav;
-        height: $line-height;
+        height: $line-height-desktop;
     }
     a:hover {
         background-color: var(--col-navbar-hover);
@@ -48,10 +50,46 @@ img {
         align-items: center;
         font-size: 11px;
         padding-left: $padding-left-nav;
-        height: calc($line-height / 2);
+        height: calc($line-height-desktop / 2);
         &:hover {
             font-size: 12px;
             color: var(--col-light-blue-1);
         }
+    }
+}
+
+@include medium-screen {
+    nav {
+        height: var(--mobile-nav-height);
+        display: block;
+        padding: 0;
+    }
+    .app-navigation-links {
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+        a {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 0 10px;
+            mat-icon {
+                font-size: 25px;
+            }
+            .nav-item-text {
+                font-size: 11px;
+            }
+            &:hover {
+                border-radius: 5px;
+            }
+        }
+    }
+    .logo,
+    .privacy-legal-container {
+        display: none;
+    }
+    .nav-active {
+        padding: 10px;
+        border-radius: 5px;
     }
 }

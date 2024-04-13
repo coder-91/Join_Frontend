@@ -22,19 +22,16 @@ app-header {
 
 .content {
     grid-area: router-outlet;
+    padding: var(--padding-content);
 }
 
-@include small-screen {
+@include medium-screen {
     .grid-container {
         grid-template-columns: 1fr;
-        grid-template-rows: auto auto var(--header-height);
+        grid-template-rows: var(--header-height) calc(100% - var(--header-height) - var(--mobile-nav-height)) var(--mobile-nav-height);
         grid-template-areas: "header" "router-outlet" "navigation ";
     }
     .grid-container>* {
         width: 100%;
     }
-}
-
-.grid-container>* {
-    border: 5px solid red;
 }

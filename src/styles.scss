@@ -25,7 +25,7 @@ $Join_Frontend-theme: mat.define-light-theme(( color: ( primary: $custom-primary
     --padding-content: 0 20px;
     --header-height: 60px;
     --navbar-desktop-width: 200px;
-    --mobile-max-width: 767px;
+    --mobile-nav-height: 50px;
 }
 
 * {
