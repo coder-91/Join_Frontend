@@ -18,11 +18,14 @@ app-navigation {
 
 app-header {
     grid-area: header;
+    box-shadow: var(--box-shadow-1);
 }
 
 .content {
     grid-area: router-outlet;
     padding: var(--padding-content);
+    overflow-y: auto;
+    background-color: var(--col-light-gray-1)
 }
 
 @include medium-screen {
