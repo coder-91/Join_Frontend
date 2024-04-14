@@ -1,27 +1,36 @@
 import { Routes } from '@angular/router';
-import { SummaryViewComponent } from './components/summary-view/summary-view.component';
-import { ContactViewComponent } from './components/contact-view/contact-view.component';
-import { BoardViewComponent } from './components/board-view/board-view.component';
-import { TaskViewComponent } from './components/task-view/task-view.component';
-import { PrivacyPolicyViewComponent } from './components/privacy-policy-view/privacy-policy-view.component';
-import { LegalNoticeViewComponent } from './components/legal-notice-view/legal-notice-view.component';
-import { HelpViewComponent } from './components/help-view/help-view.component';
-import { ImprintViewComponent } from './components/imprint-view/imprint-view.component';
-import { LoginViewComponent } from './components/login-view/login-view.component';
-import { RegisterViewComponent } from './components/register-view/register-view.component';
+import { AuthenticationLayoutComponent } from './components/authentication-layout/authentication-layout.component';
+import { MainLayoutComponent } from './components/main-layout/main-layout.component';
+import { LoginViewComponent } from './components/authentication-layout/login-view/login-view.component';
+import { RegisterViewComponent } from './components/authentication-layout/register-view/register-view.component';
+import { SummaryViewComponent } from './components/main-layout/summary-view/summary-view.component';
+import { TaskViewComponent } from './components/main-layout/task-view/task-view.component';
+import { BoardViewComponent } from './components/main-layout/board-view/board-view.component';
+import { ContactViewComponent } from './components/main-layout/contact-view/contact-view.component';
+import { PrivacyPolicyViewComponent } from './components/main-layout/privacy-policy-view/privacy-policy-view.component';
+import { LegalNoticeViewComponent } from './components/main-layout/legal-notice-view/legal-notice-view.component';
+import { ImprintViewComponent } from './components/main-layout/imprint-view/imprint-view.component';
+import { HelpViewComponent } from './components/main-layout/help-view/help-view.component';
 
 export const routes: Routes = [
-  { path: '', component: LoginViewComponent, outlet: 'auth' },
-  { path: 'login', component: LoginViewComponent, outlet: 'auth' },
-  { path: 'register', component: RegisterViewComponent, outlet: 'auth' },
-  { path: 'summary', component: SummaryViewComponent, outlet: 'primary'  },
-  { path: 'task', component: TaskViewComponent, outlet: 'primary'   },
-  { path: 'board', component: BoardViewComponent, outlet: 'primary'   },
-  { path: 'contacts', component: ContactViewComponent, outlet: 'primary'   },
-  { path: 'privacy-policy', component: PrivacyPolicyViewComponent, outlet: 'primary'   },
-  { path: 'legal-notice', component: LegalNoticeViewComponent, outlet: 'primary'   },
-  { path: 'imprint', component: ImprintViewComponent, outlet: 'primary'   },
-  { path: 'help', component: HelpViewComponent, outlet: 'primary'   },
+  { path: '', redirectTo: '/login', pathMatch: 'full'},
+
+
+  { path: '', component: AuthenticationLayoutComponent, children:[{
+    path: 'login', component: LoginViewComponent}, 
+    {path: 'register', component: RegisterViewComponent}
+  ] },
+
+  { path: '', component: MainLayoutComponent, children:[
+    {path: 'summary', component: SummaryViewComponent}, 
+    {path: 'task', component: TaskViewComponent},
+    {path: 'board', component: BoardViewComponent},
+    {path: 'contacts', component: ContactViewComponent},
+    {path: 'privacy-policy', component: PrivacyPolicyViewComponent},
+    {path: 'legal-notice', component: LegalNoticeViewComponent},
+    {path: 'imprint', component: ImprintViewComponent},
+    {path: 'help', component: HelpViewComponent},
+  ] },
 ];
 
 

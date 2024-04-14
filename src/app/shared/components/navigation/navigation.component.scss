@@ -1,11 +1,12 @@
+@import '../../../../styles/variables';
 @import '../../../../styles/media-queries';
 $line-height-desktop: 50px;
 $line-height-mobile: 0;
 $padding-left-nav: 20px;
 nav {
     height: 100%;
-    background-color: var(--primary-col);
-    color: var(--col-light-1);
+    background-color: $primary-col;
+    color: $col-light;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -32,12 +33,12 @@ img {
         height: $line-height-desktop;
     }
     a:hover {
-        background-color: var(--col-navbar-hover);
+        background-color: $col-navbar-hover;
     }
 }
 
 .nav-active {
-    background-color: var(--col-navbar-active);
+    background-color: $col-navbar-active;
 }
 
 .privacy-legal-container {
@@ -53,14 +54,14 @@ img {
         height: calc($line-height-desktop / 2);
         &:hover {
             font-size: 12px;
-            color: var(--col-light-blue-1);
+            color: $col-light-blue;
         }
     }
 }
 
 @include medium-screen {
     nav {
-        height: var(--mobile-nav-height);
+        height: $mobile-nav-height;
         display: block;
         padding: 0;
     }

@@ -9,25 +9,7 @@ $custom-warn: ( 50: #ffe0e0, 100: #ffb3b3, 200: #ff8080, 300: #ff4d4d, 400: #ff2
 $custom-warn: mat.define-palette($custom-warn, 400);
 $Join_Frontend-theme: mat.define-light-theme(( color: ( primary: $custom-primary, accent: $custom-accent, warn: $custom-warn, ), typography: mat.define-typography-config(), density: 0));
 @include mat.all-component-themes($Join_Frontend-theme);
-:root {
-    // Colors
-    --primary-col: #2A3647;
-    --col-light-1: #fff;
-    --col-dark-1: #000;
-    --col-light-blue-1: #29ABE2;
-    --col-light-gray-1: #F6F7F8;
-    --col-gray: #C4C4C4;
-    --col-navbar-hover: #2A3D59;
-    --col-navbar-active: #091931;
-    // Variables
-    --box-shadow-1: 0px 2px 2px rgba(0, 0, 0, 0.1);
-    --font-family: Roboto, 'Arial', "Helvetica Neue", sans-serif;
-    --padding-content: 0 20px;
-    --header-height: 60px;
-    --navbar-desktop-width: 200px;
-    --mobile-nav-height: 50px;
-}
-
+@import './styles/variables';
 * {
     box-sizing: border-box;
 }
@@ -40,7 +22,7 @@ body {
 
 body {
     margin: 0;
-    font-family: var(--font-family);
+    font-family: $font-family;
 }
 
 .clickable {

@@ -1,11 +1,12 @@
+@import '../../../../styles/variables';
 @import '../../../../styles/media-queries';
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     column-gap: 10px;
-    padding: var(--padding-content);
-    background-color: var(--col-light-1);
+    padding: $padding-content;
+    background-color: $col-light;
     height: 60px;
 }
 
@@ -20,7 +21,7 @@
 
 .help {
     margin-left: auto;
-    color: var(--col-gray);
+    color: $col-gray;
     font-size: 17px;
     display: flex;
     align-items: center;
@@ -30,17 +31,17 @@
 }
 
 .profile {
-    border: 3px solid var(--col-dark-1);
+    border: 3px solid $col-dark;
     border-radius: 100%;
     padding: 10px;
 }
 
 .initials {
-    color: var(--col-light-blue-1);
+    color: $col-light-blue;
 }
 
 .profile:hover {
-    background-color: var(--col-light-gray-1);
+    background-color: $col-light-gray;
 }
 
 @include medium-screen {
