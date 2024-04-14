@@ -1,10 +1,5 @@
 @import '../../../styles/variables';
 @import '../../../styles/media-queries';
-:host {
-    height: 100%;
-    display: block;
-}
-
 .grid-container {
     height: 100%;
     display: grid;
