@@ -1,0 +1,39 @@
+@import '../../../styles/variables';
+@import '../../../styles/media-queries';
+.background {
+    background-color: $col-light-gray;
+    position: relative;
+    height: 100%;
+}
+
+img {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 50px;
+    height: auto;
+}
+
+.auth-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.form-container {
+    margin: auto;
+}
+
+.privacy-legal-container {
+    display: flex;
+    column-gap: 25px;
+    font-size: 11px;
+    color: $col-gray;
+    padding-bottom: 20px;
+}
+
+.privacy-legal-container>*:hover {
+    color: $col-light-blue;
+}

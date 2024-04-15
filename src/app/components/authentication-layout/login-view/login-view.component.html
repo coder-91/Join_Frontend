@@ -1,1 +1,28 @@
-<p>login-view works!</p>
+<h2>Log in</h2>
+
+<form class="login-form" (ngSubmit)=" onSubmit() ">
+
+    <mat-form-field>
+        <mat-label>Email</mat-label>
+        <input type="email " matInput [formControl]="emailFormControl " placeholder="Ex. pat@example.com "> @if (emailFormControl.hasError('email')) {
+        <mat-error>Please enter a valid email</mat-error>
+        } @if (emailFormControl.hasError('required')) {
+        <mat-error>Email is <strong>required</strong></mat-error>
+        }
+    </mat-form-field>
+
+    <mat-form-field>
+        <mat-label>Confirm password</mat-label>
+        <input matInput [formControl]="passwordFormControl " type="password "> @if (passwordFormControl.hasError('required')) {
+        <mat-error>Password is <strong>required</strong></mat-error>
+        }
+    </mat-form-field>
+
+    <mat-checkbox [formControl]="rememberMeFormControl ">Remember me</mat-checkbox>
+
+    <button mat-raised-button color="primary " type="submit " [disabled]="!emailFormControl.valid || !passwordFormControl.valid ">Login</button>
+
+    <button mat-button color="accent ">Guest Log in</button>
+
+    <p>Not a Join user? <a href="# ">Sign up</a></p>
+</form>
