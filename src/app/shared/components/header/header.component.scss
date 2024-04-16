@@ -7,7 +7,9 @@
     column-gap: 10px;
     padding: $padding-content;
     background-color: $col-light;
-    height: 60px;
+    height: 63px;
+    box-sizing: border-box;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .help-menu,

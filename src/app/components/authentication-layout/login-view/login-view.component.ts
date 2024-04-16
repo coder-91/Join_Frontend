@@ -6,6 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { FormsModule }   from '@angular/forms';
 import {MatIconModule} from '@angular/material/icon';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-view',
@@ -16,13 +17,18 @@ import {MatIconModule} from '@angular/material/icon';
 })
 export class LoginViewComponent {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  passwordFormControl = new FormControl('', [Validators.required]);
+  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
   rememberMeFormControl = new FormControl(false);
   
+  constructor(private router: Router) { }
 
+  public register() {
+    this.router.navigateByUrl('/register');
+  }
 
   public onSubmit(): void {
-    console.log('Submit');
   }
+
+
 
 }
