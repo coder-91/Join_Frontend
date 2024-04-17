@@ -17,18 +17,15 @@ import { Router } from '@angular/router';
 })
 export class LoginViewComponent {
   emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  passwordFormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
+  passwordFormControl = new FormControl('', [Validators.required]);
   rememberMeFormControl = new FormControl(false);
   
   constructor(private router: Router) { }
 
-  public register() {
+  public navigateToRegister() {
     this.router.navigateByUrl('/register');
   }
 
   public onSubmit(): void {
   }
-
-
-
 }
