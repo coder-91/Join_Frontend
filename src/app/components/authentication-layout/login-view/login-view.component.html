@@ -1,29 +1,53 @@
-<form class="login-form" (ngSubmit)=" onSubmit() ">
-    <img src="../../../../assets/images/logo_dark.svg" alt="">
-    <h1>Login</h1>
-    <hr>
-    <mat-form-field>
-        <mat-label>Email</mat-label>
-        <input type="email " matInput [formControl]="emailFormControl " placeholder="Ex. pat@example.com "> @if (emailFormControl.hasError('email')) {
-        <mat-error>Please enter a valid email</mat-error>
-        } @if (emailFormControl.hasError('required')) {
-        <mat-error>Email is <strong>required</strong></mat-error>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+  <img src="../../../../assets/images/logo_dark.svg" alt="">
+  <h1>Login</h1>
+  <hr>
+
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput type="email" formControlName="email" placeholder="Ex. pat@example.com ">
+    @if (loginForm.get('email')?.touched) {
+      <mat-error>
+        @switch (true) {
+          @case (loginForm.get('email')?.hasError('required'))
+            { Email is required }
+          @case (loginForm.get('email')?.hasError('email'))
+            { Please enter a valid email }
         }
-    </mat-form-field>
+      </mat-error>
+    }
+  </mat-form-field>
 
-    <mat-form-field>
-        <mat-label>Password</mat-label>
-        <input matInput [formControl]="passwordFormControl" type="password"> @if (passwordFormControl.hasError('required')) {
-        <mat-error>Password is <strong>required</strong></mat-error>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput formControlName="password" type="password">
+    @if (loginForm.get('password')?.touched) {
+      <mat-error>
+        @switch (true) {
+          @case (loginForm.get('password')?.hasError('required'))
+          { Password is required }
+          @case (loginForm.get('password')?.hasError('minlength'))
+          { Password must be 6 characters in length }
         }
-    </mat-form-field>
+      </mat-error>
+    }
+  </mat-form-field>
 
-    <mat-checkbox [formControl]="rememberMeFormControl ">Remember me</mat-checkbox>
+  <mat-checkbox formControlName="rememberMe"><span class="remember-me">Remember me</span></mat-checkbox>
 
-    <div class="button-box">
-        <button mat-raised-button color="primary " type="submit" [disabled]="!emailFormControl.valid || !passwordFormControl.valid ">Login</button>
-        <button mat-raised-button color="accent ">Guest Login</button>
-    </div>
+  <div class="button-box">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
+      Login
+    </button>
 
-    <p class="sign-up">Not a Join user? <button (click)="navigateToRegister()" mat-button color="accent">Sign up</button></p>
+    <button mat-raised-button color="accent">
+      Guest Login
+    </button>
+  </div>
+
+  <p class="sign-up">Not a Join user?
+    <button (click)="navigateToSignUp()" mat-button color="accent">
+      Sign up
+    </button>
+  </p>
 </form>

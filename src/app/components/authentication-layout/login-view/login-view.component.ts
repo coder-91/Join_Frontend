@@ -3,27 +3,32 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
-import {FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { FormsModule }   from '@angular/forms';
-import {MatIconModule} from '@angular/material/icon';
 import { Router } from '@angular/router';
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-login-view',
   standalone: true,
-  imports: [FormsModule, MatInputModule , MatFormFieldModule , MatIconModule, MatCheckboxModule , MatButtonModule, ReactiveFormsModule],
+  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatButtonModule, ReactiveFormsModule, NgClass],
   templateUrl: './login-view.component.html',
   styleUrl: './login-view.component.scss'
 })
 export class LoginViewComponent {
-  emailFormControl = new FormControl('', [Validators.required, Validators.email]);
-  passwordFormControl = new FormControl('', [Validators.required]);
-  rememberMeFormControl = new FormControl(false);
-  
-  constructor(private router: Router) { }
+  loginForm: FormGroup;
 
-  public navigateToRegister() {
-    this.router.navigateByUrl('/register');
+  constructor(private router: Router) {
+    this.loginForm = new FormGroup({
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', [Validators.required]),
+        rememberMe: new FormControl(false)
+      }
+    );
+  }
+
+  public navigateToSignUp() {
+    this.router.navigateByUrl('/sign-up');
   }
 
   public onSubmit(): void {

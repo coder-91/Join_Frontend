@@ -19,19 +19,19 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 }
 
 @Component({
-  selector: 'app-register-view',
+  selector: 'sign-up-view',
   standalone: true,
   imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatButtonModule, FormsModule, NgClass],
-  templateUrl: './register-view.component.html',
-  styleUrl: './register-view.component.scss'
+  templateUrl: './sign-up-view.component.html',
+  styleUrl: './sign-up-view.component.scss'
 })
 
-export class RegisterViewComponent {
-  registerForm: FormGroup;
+export class SignUpViewComponent {
+  signUpForm: FormGroup;
   matcher = new MyErrorStateMatcher();
 
   constructor(private router: Router) {
-    this.registerForm = new FormGroup({
+    this.signUpForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(2)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       password: new FormControl('', [Validators.required, Validators.minLength(6)]),

@@ -1,4 +1,4 @@
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="register-form">
+<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="sign-up-form">
   <img src="../../../../assets/images/logo_dark.svg" alt="">
   <h1>Sign up</h1>
   <hr>
@@ -6,12 +6,12 @@
   <mat-form-field>
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" type="text" placeholder="Firstname Lastname">
-    @if (registerForm.get('name')?.dirty) {
+    @if (signUpForm.get('name')?.touched) {
       <mat-error>
         @switch (true) {
-          @case (registerForm.get('name')?.hasError('required'))
+          @case (signUpForm.get('name')?.hasError('required'))
             { Name is required }
-          @case (registerForm.get('name')?.hasError('minlength'))
+          @case (signUpForm.get('name')?.hasError('minlength'))
             { Name needs 2 characters }
         }
       </mat-error>
@@ -21,13 +21,13 @@
   <mat-form-field>
     <mat-label>Email</mat-label>
     <input matInput type="email" formControlName="email" placeholder="Ex. pat@example.com ">
-    @if (registerForm.get('email')?.dirty) {
+    @if (signUpForm.get('email')?.touched) {
       <mat-error>
         @switch (true) {
-          @case (registerForm.get('email')?.hasError('email'))
-            { Please enter a valid email }
-          @case (registerForm.get('email')?.hasError('required'))
+          @case (signUpForm.get('email')?.hasError('required'))
             { Email is required }
+          @case (signUpForm.get('email')?.hasError('email'))
+            { Please enter a valid email }
         }
       </mat-error>
     }
@@ -36,12 +36,12 @@
   <mat-form-field>
     <mat-label>Password</mat-label>
     <input matInput formControlName="password" type="password">
-    @if (registerForm.get('password')?.dirty) {
+    @if (signUpForm.get('password')?.touched) {
     <mat-error>
         @switch (true) {
-          @case (registerForm.get('password')?.hasError('required'))
+          @case (signUpForm.get('password')?.hasError('required'))
             { Password is required }
-          @case (registerForm.get('password')?.hasError('minlength'))
+          @case (signUpForm.get('password')?.hasError('minlength'))
             { Password must be 6 characters in length }
         }
     </mat-error>
@@ -51,25 +51,25 @@
   <mat-form-field>
     <mat-label>Confirm Password</mat-label>
     <input matInput formControlName="confirmPassword" type="password" [errorStateMatcher]="matcher">
-    @if (registerForm.get('confirmPassword')?.dirty) {
+    @if (signUpForm.get('confirmPassword')?.touched) {
       <mat-error>
           @switch (true) {
-            @case (registerForm.get('confirmPassword')?.hasError('required'))
+            @case (signUpForm.get('confirmPassword')?.hasError('required'))
               { Confirm Password is required }
-            @case (registerForm.errors?.['mismatch']) { Password does not match }
+            @case (signUpForm.errors?.['mismatch']) { Password does not match }
           }
       </mat-error>
     }
   </mat-form-field>
 
   <mat-checkbox formControlName="privacyPolicy">
-      <span [ngClass]="{'error-text': registerForm.get('privacyPolicy')?.hasError('required')}">
-        I accept the Privacy Policy
+      <span class="privacy-policy-box">
+        I accept the <a class="privacy-policy" href="privacy-policy">Privacy Policy</a>
       </span>
   </mat-checkbox>
 
   <div class="button-box">
-    <button mat-raised-button color="primary" type="submit" [disabled]="!registerForm.valid">
+    <button mat-raised-button color="primary" type="submit" [disabled]="!signUpForm.valid">
       Sign up
     </button>
 

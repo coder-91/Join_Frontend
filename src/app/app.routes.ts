@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { AuthenticationLayoutComponent } from './components/authentication-layout/authentication-layout.component';
 import { MainLayoutComponent } from './components/main-layout/main-layout.component';
 import { LoginViewComponent } from './components/authentication-layout/login-view/login-view.component';
-import { RegisterViewComponent } from './components/authentication-layout/register-view/register-view.component';
+import { SignUpViewComponent } from './components/authentication-layout/sign-up-view/sign-up-view.component';
 import { SummaryViewComponent } from './components/main-layout/summary-view/summary-view.component';
 import { TaskViewComponent } from './components/main-layout/task-view/task-view.component';
 import { BoardViewComponent } from './components/main-layout/board-view/board-view.component';
@@ -17,12 +17,12 @@ export const routes: Routes = [
 
 
   { path: '', component: AuthenticationLayoutComponent, children:[{
-    path: 'login', component: LoginViewComponent}, 
-    {path: 'register', component: RegisterViewComponent}
+    path: 'login', component: LoginViewComponent},
+    {path: 'sign-up', component: SignUpViewComponent}
   ] },
 
   { path: '', component: MainLayoutComponent, children:[
-    {path: 'summary', component: SummaryViewComponent}, 
+    {path: 'summary', component: SummaryViewComponent},
     {path: 'task', component: TaskViewComponent},
     {path: 'board', component: BoardViewComponent},
     {path: 'contacts', component: ContactViewComponent},
