@@ -1,0 +1,7 @@
+@import '../../../../styles/media-queries';
+
+@include small-screen {
+  h1, h2, h3, p {
+    font-size: 3vw;
+  }
+}
