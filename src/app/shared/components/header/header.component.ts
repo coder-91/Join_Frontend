@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
-import { RouterLink, RouterLinkActive } from '@angular/router';
+import {RouterLink, RouterLinkActive} from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -12,8 +12,8 @@ import { RouterLink, RouterLinkActive } from '@angular/router';
 })
 export class HeaderComponent {
 
-public logout() {
-  
-}
+  public logout() {
+
+  }
 
 }

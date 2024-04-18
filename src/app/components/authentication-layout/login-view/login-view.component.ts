@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { MatInputModule } from '@angular/material/input';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatButtonModule } from '@angular/material/button';
+import {Component} from '@angular/core';
+import {MatInputModule} from '@angular/material/input';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatButtonModule} from '@angular/material/button';
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
-import { FormsModule }   from '@angular/forms';
-import { Router } from '@angular/router';
+import {FormsModule} from '@angular/forms';
+import {Router} from '@angular/router';
 import {NgClass} from "@angular/common";
 
 @Component({

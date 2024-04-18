@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-authentication-layout',
@@ -9,5 +9,4 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './authentication-layout.component.scss'
 })
 export class AuthenticationLayoutComponent {
-
 }

@@ -1,37 +1,40 @@
 // Custom Theming for Angular Material
 @use '@angular/material' as mat;
+
 @include mat.core();
-$custom-primary: ( 50: #e5e7e9, 100: #bfc3c8, 200: #959ba3, 300: #6a727e, 400: #4a5463, 500: #2a3647, 600: #253040, 700: #1f2937, 800: #19222f, 900: #0f1620, A100: #629eff, A200: #2f7fff, A400: #0060fb, A700: #0057e1, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #ffffff, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #ffffff, A400: #ffffff, A700: #ffffff, ));
+$custom-primary: (50: #e5e7e9, 100: #bfc3c8, 200: #959ba3, 300: #6a727e, 400: #4a5463, 500: #2a3647, 600: #253040, 700: #1f2937, 800: #19222f, 900: #0f1620, A100: #629eff, A200: #2f7fff, A400: #0060fb, A700: #0057e1, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #ffffff, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #ffffff, A400: #ffffff, A700: #ffffff,));
 $custom-primary: mat.define-palette($custom-primary, 500);
-$custom-accent: ( 50: #e5e7e9, 100: #bfc3c8, 200: #959ba3, 300: #6a727e, 400: #4a5463, 500: #2a3647, 600: #253040, 700: #1f2937, 800: #19222f, 900: #0f1620, A100: #629eff, A200: #2f7fff, A400: #0060fb, A700: #0057e1, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #ffffff, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #ffffff, A400: #ffffff, A700: #ffffff, ));
+$custom-accent: (50: #e5e7e9, 100: #bfc3c8, 200: #959ba3, 300: #6a727e, 400: #4a5463, 500: #2a3647, 600: #253040, 700: #1f2937, 800: #19222f, 900: #0f1620, A100: #629eff, A200: #2f7fff, A400: #0060fb, A700: #0057e1, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #ffffff, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #ffffff, A400: #ffffff, A700: #ffffff,));
 $custom-accent: mat.define-palette($custom-accent, A200, A100, A400);
-$custom-warn: ( 50: #ffe0e0, 100: #ffb3b3, 200: #ff8080, 300: #ff4d4d, 400: #ff2626, 500: #ff0000, 600: #ff0000, 700: #ff0000, 800: #ff0000, 900: #ff0000, A100: #ffffff, A200: #fff2f2, A400: #ffbfbf, A700: #ffa6a6, contrast: ( 50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000, ));
+$custom-warn: (50: #ffe0e0, 100: #ffb3b3, 200: #ff8080, 300: #ff4d4d, 400: #ff2626, 500: #ff0000, 600: #ff0000, 700: #ff0000, 800: #ff0000, 900: #ff0000, A100: #ffffff, A200: #fff2f2, A400: #ffbfbf, A700: #ffa6a6, contrast: (50: #000000, 100: #000000, 200: #000000, 300: #000000, 400: #ffffff, 500: #ffffff, 600: #ffffff, 700: #ffffff, 800: #ffffff, 900: #ffffff, A100: #000000, A200: #000000, A400: #000000, A700: #000000,));
 $custom-warn: mat.define-palette($custom-warn, 400);
-$Join_Frontend-theme: mat.define-light-theme(( color: ( primary: $custom-primary, accent: $custom-accent, warn: $custom-warn, ), typography: mat.define-typography-config(), density: 0));
+$Join_Frontend-theme: mat.define-light-theme((color: (primary: $custom-primary, accent: $custom-accent, warn: $custom-warn,), typography: mat.define-typography-config(), density: 0));
+
 @include mat.all-component-themes($Join_Frontend-theme);
 @import './styles/variables';
+
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 body {
-    margin: 0;
-    font-family: $font-family;
+  margin: 0;
+  font-family: $font-family;
 }
 
 .clickable {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 a {
-    text-decoration: none;
-    color: inherit;
-    cursor: pointer;
-    outline: none;
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
 }

@@ -1,36 +1,37 @@
 @import '../../../styles/variables';
 @import '../../../styles/media-queries';
+
 .grid-container {
-    height: 100%;
-    display: grid;
-    grid-template-columns: $navbar-desktop-width calc(100% - $navbar-desktop-width);
-    grid-template-rows: $header-height auto;
-    grid-template-areas: "navigation header" "navigation router-outlet";
+  height: 100%;
+  display: grid;
+  grid-template-columns: $navbar-desktop-width calc(100% - $navbar-desktop-width);
+  grid-template-rows: $header-height auto;
+  grid-template-areas: "navigation header" "navigation router-outlet";
 }
 
 app-navigation {
-    grid-area: navigation;
+  grid-area: navigation;
 }
 
 app-header {
-    grid-area: header;
-    box-shadow: $box-shadow;
+  grid-area: header;
+  box-shadow: $box-shadow;
 }
 
 .content {
-    grid-area: router-outlet;
-    padding: $padding-content;
-    overflow-y: auto;
-    background-color: $col-light-gray
+  grid-area: router-outlet;
+  padding: $padding-content;
+  overflow-y: auto;
+  background-color: $col-light-gray
 }
 
 @include medium-screen {
-    .grid-container {
-        grid-template-columns: 1fr;
-        grid-template-rows: $header-height calc(100% - $header-height - $mobile-nav-height) $mobile-nav-height;
-        grid-template-areas: "header" "router-outlet" "navigation ";
-    }
-    .grid-container>* {
-        width: 100%;
-    }
+  .grid-container {
+    grid-template-columns: 1fr;
+    grid-template-rows: $header-height calc(100% - $header-height - $mobile-nav-height) $mobile-nav-height;
+    grid-template-areas: "header" "router-outlet" "navigation ";
+  }
+  .grid-container > * {
+    width: 100%;
+  }
 }

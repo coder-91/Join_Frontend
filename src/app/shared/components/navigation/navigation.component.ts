@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatIconModule} from '@angular/material/icon';
-import { RouterOutlet, RouterLinkActive, RouterLink } from '@angular/router';
+import {RouterOutlet, RouterLinkActive, RouterLink} from '@angular/router';
 
 @Component({
   selector: 'app-navigation',
@@ -10,5 +10,4 @@ import { RouterOutlet, RouterLinkActive, RouterLink } from '@angular/router';
   styleUrl: './navigation.component.scss'
 })
 export class NavigationComponent {
-
 }

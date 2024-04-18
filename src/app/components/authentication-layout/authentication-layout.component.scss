@@ -1,5 +1,6 @@
 @import '../../../styles/variables';
 @import '../../../styles/media-queries';
+
 .background {
   background-color: $col-light-gray;
   width: 100%;
@@ -19,23 +20,23 @@
   color: $col-gray;
 }
 
-.privacy-legal-container>*:hover {
+.privacy-legal-container > *:hover {
   color: $col-light-blue;
 }
 
 @include medium-screen {
   .background {
-      padding: 10px 0;
-      row-gap: 15px;
+    padding: 10px 0;
+    row-gap: 15px;
   }
   .auth-container {
-      display: flex;
-      justify-content: center;
-      width: calc(100% - 20px);
-      margin: 0;
+    display: flex;
+    justify-content: center;
+    width: calc(100% - 20px);
+    margin: 0;
   }
   .privacy-legal-container {
-      margin-top: 0;
+    margin-top: 0;
   }
 }
 
@@ -44,7 +45,7 @@
     height: unset;
   }
   .auth-container {
-      display: block;
-      width: calc(100% - 20px);
+    display: block;
+    width: calc(100% - 20px);
   }
 }

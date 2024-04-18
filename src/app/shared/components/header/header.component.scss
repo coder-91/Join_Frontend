@@ -1,64 +1,66 @@
 @import '../../../../styles/variables';
 @import '../../../../styles/media-queries';
+
 .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    column-gap: 10px;
-    padding: $padding-content;
-    background-color: $col-light;
-    height: 63px;
-    box-sizing: border-box;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+  padding: $padding-content;
+  background-color: $col-light;
+  height: 63px;
+  box-sizing: border-box;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 .help-menu,
 .logo {
-    display: none;
+  display: none;
 }
 
 .header-text {
-    margin-right: auto;
+  margin-right: auto;
 }
 
 .help {
-    margin-left: auto;
-    color: $col-gray;
-    font-size: 17px;
-    display: flex;
-    align-items: center;
-    &:hover {
-        font-size: 20px;
-    }
+  margin-left: auto;
+  color: $col-gray;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    font-size: 20px;
+  }
 }
 
 .profile {
-    border: 3px solid $col-dark;
-    border-radius: 100%;
-    padding: 10px;
+  border: 3px solid $col-dark;
+  border-radius: 100%;
+  padding: 10px;
 }
 
 .initials {
-    color: $col-light-blue;
+  color: $col-light-blue;
 }
 
 .profile:hover {
-    background-color: $col-light-gray;
+  background-color: $col-light-gray;
 }
 
 @include medium-screen {
-    .help-menu,
-    .logo {
-        display: block;
-    }
-    .help-icon,
-    .header-text {
-        display: none;
-    }
-    img {
-        width: 30px;
-        height: auto;
-        -o-object-fit: cover;
-        object-fit: cover;
-    }
+  .help-menu,
+  .logo {
+    display: block;
+  }
+  .help-icon,
+  .header-text {
+    display: none;
+  }
+  img {
+    width: 30px;
+    height: auto;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
 }

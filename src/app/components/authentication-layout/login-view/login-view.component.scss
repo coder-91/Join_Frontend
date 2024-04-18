@@ -1,31 +1,32 @@
 @import '../../../../styles/variables';
 @import '../../../../styles/media-queries';
+
 .login-form {
-    display: flex;
-    flex-direction: column;
-    width: 500px;
-    background: #fff;
-    padding: 20px 50px;
-    border-radius: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  background: #fff;
+  padding: 20px 50px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 img {
-    width: 50px;
-    height: auto;
+  width: 50px;
+  height: auto;
 }
 
 h1 {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
 }
 
 hr {
-    border: 2px solid $col-light-blue;
-    width: 100px;
-    border-radius: 2px;
-    margin-bottom: 30px;
+  border: 2px solid $col-light-blue;
+  width: 100px;
+  border-radius: 2px;
+  margin-bottom: 30px;
 }
 
 .remember-me {
@@ -33,34 +34,34 @@ hr {
 }
 
 .button-box {
-    display: flex;
-    column-gap: 10px;
+  display: flex;
+  column-gap: 10px;
 }
 
 .sign-up {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 .sign-up button:hover {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 @include medium-screen {
-    .login-form {
-        display: flex;
-        flex-direction: column;
-        background: #fff;
-        border-radius: 20px;
-        padding: 10px 20px;
-    }
+  .login-form {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 20px;
+    padding: 10px 20px;
+  }
 }
 
 @include small-screen {
-    .login-form {
-        width: 100%;
-    }
-    .button-box {
-        flex-direction: column;
-        row-gap: 10px;
-    }
+  .login-form {
+    width: 100%;
+  }
+  .button-box {
+    flex-direction: column;
+    row-gap: 10px;
+  }
 }
