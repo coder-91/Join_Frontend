@@ -1,13 +1,7 @@
 @import '../../../../styles/variables';
-@import '../../../../styles/media-queries';
+@import '../../../../styles/font-size';
 
 .text-color {
 color: $col-light-blue;
-}
-
-@include small-screen {
-  h1, h2, h3, p {
-    font-size: 3vw;
-  }
 }
 
