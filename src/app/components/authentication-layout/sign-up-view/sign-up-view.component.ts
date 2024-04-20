@@ -14,7 +14,7 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
     control: FormControl | null,
     form: FormGroupDirective | NgForm | null
   ): boolean {
-    return !!(form?.errors?.['mismatch'] && form?.touched);
+    return !!(form?.errors?.['mismatch'] && control?.touched);
   }
 }
 
