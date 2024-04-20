@@ -19,7 +19,7 @@ app-header {
 
 .content {
   grid-area: router-outlet;
-  padding: $padding-content;
+  padding: $padding-main-content;
   overflow-y: auto;
   background-color: $col-light-gray
 }
