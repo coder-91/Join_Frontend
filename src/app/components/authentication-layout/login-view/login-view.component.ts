@@ -33,4 +33,8 @@ export class LoginViewComponent {
 
   public onSubmit(): void {
   }
+
+  public loginAsGuest() {
+    console.log("Guest Login!");
+  }
 }

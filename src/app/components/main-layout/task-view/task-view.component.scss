@@ -1,0 +1,39 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/media-queries';
+
+.headline {
+  font-size: clamp(20px, 3vw, 40px);
+  font-weight: bold;
+}
+
+.form-field-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+
+
+}
+
+.form-field-group > * {
+  flex: 1 1 calc(50% - 20px); /* 50% width minus 20px for margin */
+  margin-right: 20px;
+}
+
+
+.priority-box {
+  display: flex;
+  align-items: center;
+}
+
+.button-box {
+  display: flex;
+  column-gap: 10px;
+}
+
+@include large-screen {
+  .form-field-group > * {
+    flex: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}

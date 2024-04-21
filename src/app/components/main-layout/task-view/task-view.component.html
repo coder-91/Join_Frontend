@@ -1,1 +1,83 @@
-<p>task-view works!</p>
+<div class="task-view-box">
+  <div class="headline">Add Task</div>
+
+
+  <form [formGroup]="createTaskForm" (ngSubmit)="onSubmit()" class="create-task-form">
+    <div class="form-field-group">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input matInput formControlName="title" type="text" placeholder="Enter a title">
+        @if (createTaskForm.get('title')?.touched) {
+          <mat-error>
+            @switch (true) {
+              @case (createTaskForm.get('title')?.hasError('required')) {
+                Title is required
+              }
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Choose a due date</mat-label>
+        <input matInput formControlName="dueDate" [matDatepicker]="picker">
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+        @if (createTaskForm.get('dueDate')?.touched) {
+          <mat-error>
+            @switch (true) {
+              @case (createTaskForm.get('dueDate')?.hasError('required')) {
+                Due Date is required
+              }
+            }
+          </mat-error>
+        }
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <textarea matInput formControlName="description" type="text" placeholder="Enter a Description"></textarea>
+      </mat-form-field>
+
+      <div class="priority-box">
+        <mat-button-toggle-group formControlName="priority" aria-label="Font Style">
+          @for (priority of priorities; track priority) {
+            <mat-button-toggle value={{priority.key}}>{{ priority.value }}</mat-button-toggle>
+          }
+        </mat-button-toggle-group>
+      </div>
+
+
+      <mat-form-field>
+        <mat-label>Category</mat-label>
+        <mat-select formControlName="category">
+          @for (category of categories; track category) {
+            <mat-option value={{category.key}}>{{category.value}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Assigned to</mat-label>
+        <mat-select formControlName="assignedTo" multiple>
+          @for (contact of contacts; track contact) {
+            <mat-option [value]="contact.id">{{contact.name}}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+
+
+    <div class="button-box">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!createTaskForm.valid">
+        Create Task
+      </button>
+      <button mat-raised-button color="warn" (click)="resetForm()">
+        Clear
+      </button>
+    </div>
+  </form>
+</div>
+
+

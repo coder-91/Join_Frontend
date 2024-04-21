@@ -1,5 +1,5 @@
 import { Contact } from './contact';
-import {Prio} from "../enums/prio";
+import {Priority} from "../enums/priority";
 import {Category} from "../enums/category";
 export interface Task {
   id: number,
@@ -7,6 +7,6 @@ export interface Task {
   description: string,
   contacts: Contact[],
   dueDate: Date,
-  prio: Prio,
+  prio: Priority,
   category: Category
 }
