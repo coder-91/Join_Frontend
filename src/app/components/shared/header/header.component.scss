@@ -1,0 +1,77 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/media-queries';
+
+:host {
+  background-color: #fff;
+  height: 100%;
+  box-shadow: $box-shadow;
+  z-index:2;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  column-gap: 10px;
+  padding: 0 20px;
+  height: 100%;
+}
+
+.help-menu,
+.logo {
+  display: none;
+}
+
+.header-text {
+  margin-right: auto;
+}
+
+.help {
+  margin-left: auto;
+  color: $col-gray;
+  font-size: 17px;
+  display: flex;
+  align-items: center;
+
+  &:hover {
+    font-size: 20px;
+  }
+}
+
+.profile {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: $col-primary;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.initials {
+  color: #fff;
+}
+
+.profile:hover {
+  background-color: $col-light-blue;
+}
+
+@include medium-screen {
+  .help-menu,
+  .logo {
+    display: block;
+  }
+  .help-icon,
+  .header-text {
+    display: none;
+  }
+  img {
+    width: 30px;
+    height: auto;
+    -o-object-fit: cover;
+    object-fit: cover;
+  }
+}
