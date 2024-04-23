@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
-import {HeaderComponent} from '../../shared/components/header/header.component';
-import {NavigationComponent} from '../../shared/components/navigation/navigation.component';
+import {HeaderComponent} from "../shared/header/header.component";
+import {NavigationComponent} from "../shared/navigation/navigation.component";
+
 
 
 @Component({
