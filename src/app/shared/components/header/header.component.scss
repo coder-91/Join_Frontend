@@ -2,7 +2,7 @@
 @import '../../../../styles/media-queries';
 
 :host {
-  background-color: $col-light;
+  background-color: #fff;
   height: 100%;
   box-shadow: $box-shadow;
   z-index:2;
@@ -13,7 +13,7 @@
   justify-content: space-between;
   align-items: center;
   column-gap: 10px;
-  padding: $padding-content;
+  padding: 0 20px;
   height: 100%;
 }
 
@@ -39,17 +39,24 @@
 }
 
 .profile {
-  border: 3px solid $col-dark;
-  border-radius: 100%;
-  padding: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    background-color: $col-primary;
+    font-size: 14px;
+    font-weight: bold;
 }
 
 .initials {
-  color: $col-light-blue;
+  color: #fff;
 }
 
 .profile:hover {
-  background-color: $col-light-gray;
+  background-color: $col-light-blue;
 }
 
 @include medium-screen {
