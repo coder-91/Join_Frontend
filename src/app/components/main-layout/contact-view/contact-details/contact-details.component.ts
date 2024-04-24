@@ -2,15 +2,17 @@ import { Component } from '@angular/core';
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {DialogService} from "../../../../services/dialog.service";
+import {MatMenuModule} from '@angular/material/menu';
 
 @Component({
   selector: 'app-contact-details',
   standalone: true,
-    imports: [
-        MatButton,
-        MatIcon,
-        MatIconButton
-    ],
+  imports: [
+    MatButton,
+    MatIcon,
+    MatIconButton,
+    MatMenuModule
+  ],
   templateUrl: './contact-details.component.html',
   styleUrl: './contact-details.component.scss'
 })

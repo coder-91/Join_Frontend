@@ -1,5 +1,19 @@
 <div class="contact-details-box">
 
+  <div class="mobile-contact-actions">
+    <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>edit</mat-icon>Edit
+      </button>
+      <button mat-menu-item>
+        <mat-icon color="warn">delete</mat-icon>Delete
+      </button>
+    </mat-menu>
+  </div>
+
   <div class="headline-box">
     <div class="top-line">
       <h1>Contacts</h1>
@@ -27,7 +41,7 @@
         </button>
         <button (click)="deleteContact()" mat-button color="primary">
           Delete
-          <mat-icon>delete</mat-icon>
+          <mat-icon color="warn">delete</mat-icon>
         </button>
       </div>
     </div>

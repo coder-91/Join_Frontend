@@ -2,7 +2,23 @@
 @import '../../../../../styles/media-queries';
 
 .contact-details-box {
+  height: 100%;
   padding: 50px 20px;
+  position: relative;
+}
+
+.mobile-contact-actions {
+  position: absolute;
+  z-index: 2;
+  right: 60px;
+  bottom: 60px;
+
+  button {
+    position: fixed;
+    background-color: $col-primary;
+    color: #fff;
+    display: none;
+  }
 }
 
 .headline-box {
@@ -129,6 +145,16 @@ h1 {
   .divider {
     width: 60px;
     height: 2px;
+  }
+
+  .mobile-contact-actions {
+    button {
+      display: block;
+    }
+  }
+
+  .contact-details .contact-info .icons-box {
+    display: none;
   }
 }
 
