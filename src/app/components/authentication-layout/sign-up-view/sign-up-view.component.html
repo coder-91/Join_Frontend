@@ -6,6 +6,7 @@
   <mat-form-field>
     <mat-label>Name</mat-label>
     <input matInput formControlName="name" type="text" placeholder="Firstname Lastname">
+    <mat-icon color="primary" matSuffix>person</mat-icon>
     @if (signUpForm.get('name')?.touched) {
       <mat-error>
         @switch (true) {
@@ -21,6 +22,7 @@
   <mat-form-field>
     <mat-label>Email</mat-label>
     <input matInput type="email" formControlName="email" placeholder="Ex. pat@example.com ">
+    <mat-icon color="primary" matSuffix>email</mat-icon>
     @if (signUpForm.get('email')?.touched) {
       <mat-error>
         @switch (true) {
@@ -36,6 +38,7 @@
   <mat-form-field>
     <mat-label>Password</mat-label>
     <input matInput formControlName="password" type="password">
+    <mat-icon color="primary" matSuffix>password</mat-icon>
     @if (signUpForm.get('password')?.touched) {
     <mat-error>
         @switch (true) {
@@ -51,6 +54,7 @@
   <mat-form-field>
     <mat-label>Confirm Password</mat-label>
     <input matInput formControlName="confirmPassword" type="password" [errorStateMatcher]="matcher">
+    <mat-icon color="primary" matSuffix>password</mat-icon>
     @if (signUpForm.get('confirmPassword')?.touched) {
       <mat-error>
           @switch (true) {

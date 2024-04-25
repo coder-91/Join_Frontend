@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatError, MatFormField, MatLabel} from "@angular/material/form-field";
-import {MatInput} from "@angular/material/input";
 import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
@@ -14,27 +13,28 @@ import {TitleCasePipe} from "@angular/common";
 import {MatSelect} from "@angular/material/select";
 import {Category} from "../../../models/enums/category";
 import {Contact} from "../../../models/entity/contact";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-task-view',
   standalone: true,
   providers: [provideNativeDateAdapter()],
-  imports: [
-    MatButton,
-    MatCheckbox,
-    MatError,
-    MatFormField,
-    MatInput,
-    MatLabel,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatInputModule,
-    MatFormFieldModule,
-    MatButtonToggleModule,
-    TitleCasePipe,
-    MatSelect,
-    MatOption
-  ],
+    imports: [
+        MatButton,
+        MatCheckbox,
+        MatError,
+        MatFormField,
+        MatLabel,
+        ReactiveFormsModule,
+        MatDatepickerModule,
+        MatInputModule,
+        MatFormFieldModule,
+        MatButtonToggleModule,
+        TitleCasePipe,
+        MatSelect,
+        MatOption,
+        MatIcon
+    ],
   templateUrl: './task-view.component.html',
   styleUrl: './task-view.component.scss'
 })

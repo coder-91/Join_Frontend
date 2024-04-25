@@ -7,11 +7,12 @@ import {FormControl, FormGroup, ReactiveFormsModule, Validators} from '@angular/
 import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {NgClass} from "@angular/common";
+import {MatIcon} from "@angular/material/icon";
 
 @Component({
   selector: 'app-login-view',
   standalone: true,
-  imports: [FormsModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatButtonModule, ReactiveFormsModule, NgClass],
+    imports: [FormsModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatButtonModule, ReactiveFormsModule, NgClass, MatIcon],
   templateUrl: './login-view.component.html',
   styleUrl: './login-view.component.scss'
 })

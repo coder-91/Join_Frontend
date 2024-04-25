@@ -7,6 +7,7 @@
       <mat-form-field>
         <mat-label>Title</mat-label>
         <input matInput formControlName="title" type="text" placeholder="Enter a title">
+        <mat-icon color="primary" matSuffix>subject</mat-icon>
         @if (createTaskForm.get('title')?.touched) {
           <mat-error>
             @switch (true) {
@@ -22,7 +23,9 @@
         <mat-label>Choose a due date</mat-label>
         <input matInput formControlName="dueDate" [matDatepicker]="picker">
         <mat-hint>MM/DD/YYYY</mat-hint>
-        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker-toggle matIconSuffix [for]="picker">
+          <mat-icon color="primary" matDatepickerToggleIcon>calendar_month</mat-icon>
+        </mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
         @if (createTaskForm.get('dueDate')?.touched) {
           <mat-error>
@@ -38,6 +41,7 @@
       <mat-form-field>
         <mat-label>Description</mat-label>
         <textarea matInput formControlName="description" type="text" placeholder="Enter a Description"></textarea>
+        <mat-icon color="primary" matSuffix>description</mat-icon>
       </mat-form-field>
 
       <div class="priority-box">
@@ -51,7 +55,9 @@
 
       <mat-form-field>
         <mat-label>Category</mat-label>
+        <mat-icon color="primary" matSuffix>category</mat-icon>
         <mat-select formControlName="category">
+
           @for (category of categories; track category) {
             <mat-option value={{category.key}}>{{category.value}}</mat-option>
           }
@@ -60,6 +66,7 @@
 
       <mat-form-field>
         <mat-label>Assigned to</mat-label>
+        <mat-icon color="primary" matSuffix>group_add</mat-icon>
         <mat-select formControlName="assignedTo" multiple>
           @for (contact of contacts; track contact) {
             <mat-option [value]="contact.id">{{contact.name}}</mat-option>
