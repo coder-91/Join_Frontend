@@ -27,6 +27,7 @@ export class ContactFormComponent {
 
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<ContactFormComponent>, @Inject(MAT_DIALOG_DATA) public contact: Contact) {
     this.contactForm = this.fb.group({
+      id: this.contact?.id,
       email: new FormControl('', [Validators.required, Validators.email]),
       name: new FormControl('', [Validators.required, Validators.minLength(2)]),
       phoneNumber: new FormControl('', [Validators.required]),

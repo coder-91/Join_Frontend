@@ -6,6 +6,7 @@ import {MatDivider} from "@angular/material/divider";
 import {MatDialog} from "@angular/material/dialog";
 import {ContactFormComponent} from "../contact-form/contact-form.component";
 import {Contact} from "../../../../models/entity/contact";
+import {filter} from "rxjs";
 
 @Component({
   selector: 'app-contact-list',
@@ -31,7 +32,7 @@ export class ContactListComponent {
   public createContactDialog() {
     this.dialog.open(ContactFormComponent, {
       //data: this.contact,
-    }).afterClosed().subscribe(contact => {
+    }).afterClosed().pipe(filter((contact) => contact)).subscribe(contact => {
       // TODO Create contact
       console.log(contact);
     });
