@@ -1,0 +1,38 @@
+@import '../../../../../styles/variables';
+@import '../../../../../styles/media-queries';
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  background: #fff;
+  padding: 20px 50px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.button-box {
+  display: flex;
+  column-gap: 10px;
+}
+
+@include medium-screen {
+  .contact-form {
+    padding: 10px 20px;
+  }
+}
+
+@include small-screen {
+  .contact-form {
+    width: 100%;
+  }
+  .button-box {
+    flex-direction: column;
+    row-gap: 10px;
+  }
+}
