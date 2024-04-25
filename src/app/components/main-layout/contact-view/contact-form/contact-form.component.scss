@@ -1,19 +1,83 @@
 @import '../../../../../styles/variables';
 @import '../../../../../styles/media-queries';
 
-.contact-form {
+.cont-lvl-1 {
+  display: flex;
+}
+
+.cont-lvl-2-1 {
   display: flex;
   flex-direction: column;
-  width: 500px;
-  background: #fff;
-  padding: 20px 50px;
-  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  background-color: $col-primary;
+  padding: 0 20px;
+  justify-content: center;
+  align-items: flex-start;
+  color: #fff;
+}
+
+img {
+  width: 30px;
+  height: auto;
 }
 
 h1 {
+  margin: 10px 0 0 0;
+}
+
+.sub-text {
+  margin-top: 5px;
+}
+
+.divider {
+  width: 50px;
+  height: 2px;
+  background-color: $col-light-blue;
+  margin-top: 5px;
+}
+
+.cont-lvl-2-2 {
+  display: flex;
+  align-items: center;
+  padding: 40px 20px;
+  column-gap: 30px;
+}
+
+.avatar {
+  min-width: 70px;
+  min-height: 70px;
+  border-radius: 50%;
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
+  align-items: center;
+  color: #fff;
+  font-size: 18px;
+  font-weight: bold;
+  border: 3px solid #fff;
+}
+
+.avatar-add {
+  background-color: $col-gray;
+}
+
+.avatar-edit {
+  background-color: #800080;
+}
+
+mat-icon {
+  font-size: 33px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-form-field {
+  max-width: 350px;
+  width: 30vw;
 }
 
 .button-box {
