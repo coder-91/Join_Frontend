@@ -1,6 +1,12 @@
 @import '../../../../styles/variables';
 @import '../../../../styles/media-queries';
 
+.task-view-box {
+  display: flex;
+  flex-direction: column;
+  row-gap: 30px;
+}
+
 .headline {
   font-size: clamp(20px, 3vw, 40px);
   font-weight: bold;
@@ -10,19 +16,20 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-
-
 }
 
 .form-field-group > * {
-  flex: 1 1 calc(50% - 20px); /* 50% width minus 20px for margin */
-  margin-right: 20px;
+  flex: 1 1 calc(50% - 30px); /* 50% width minus 30px for margin */
+  margin-right: 30px;
 }
-
 
 .priority-box {
   display: flex;
   align-items: center;
+}
+
+mat-form-field {
+  margin-bottom: 20px;
 }
 
 .button-box {

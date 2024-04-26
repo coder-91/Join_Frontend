@@ -22,7 +22,7 @@
       <mat-form-field>
         <mat-label>Choose a due date</mat-label>
         <input matInput formControlName="dueDate" [matDatepicker]="picker">
-        <mat-hint>MM/DD/YYYY</mat-hint>
+        <!-- <mat-hint>MM/DD/YYYY</mat-hint> -->
         <mat-datepicker-toggle matIconSuffix [for]="picker">
           <mat-icon color="primary" matDatepickerToggleIcon>calendar_month</mat-icon>
         </mat-datepicker-toggle>
@@ -40,18 +40,30 @@
 
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <textarea matInput formControlName="description" type="text" placeholder="Enter a Description"></textarea>
+        <textarea rows="1" matInput formControlName="description" type="text" placeholder="Enter a Description"></textarea>
         <mat-icon color="primary" matSuffix>description</mat-icon>
       </mat-form-field>
 
-      <div class="priority-box">
-        <mat-button-toggle-group formControlName="priority" aria-label="Font Style">
+      <mat-form-field>
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
           @for (priority of priorities; track priority) {
-            <mat-button-toggle value={{priority.key}}>{{ priority.value }}</mat-button-toggle>
-          }
-        </mat-button-toggle-group>
-      </div>
+            <mat-option value={{priority.key}}>{{priority.value}}
+               <mat-icon [ngStyle]="{'color': PriorityProperties[priority.value].color}" matSuffix>{{ PriorityProperties[priority.value].icon }}</mat-icon>
+            </mat-option>
 
+          }
+        </mat-select>
+        @if (createTaskForm.get('priority')?.touched) {
+          <mat-error>
+            @switch (true) {
+              @case (createTaskForm.get('priority')?.hasError('required')) {
+                Priority is required
+              }
+            }
+          </mat-error>
+        }
+      </mat-form-field>
 
       <mat-form-field>
         <mat-label>Category</mat-label>
@@ -74,7 +86,6 @@
         </mat-select>
       </mat-form-field>
     </div>
-
 
     <div class="button-box">
       <button mat-raised-button color="primary" type="submit" [disabled]="!createTaskForm.valid">

@@ -13,7 +13,7 @@
           @case (signUpForm.get('name')?.hasError('required'))
             { Name is required }
           @case (signUpForm.get('name')?.hasError('minlength'))
-            { Name needs 2 characters }
+            { Name must be at least 2 characters in length }
         }
       </mat-error>
     }

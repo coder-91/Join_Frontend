@@ -48,7 +48,7 @@
     color: #fff;
     background-color: $col-primary;
     font-size: 14px;
-    font-weight: bold;
+    letter-spacing: 2px;
 }
 
 .initials {
@@ -56,7 +56,7 @@
 }
 
 .profile:hover {
-  background-color: $col-light-blue;
+  background-color: $col-navbar-hover;
 }
 
 @include medium-screen {

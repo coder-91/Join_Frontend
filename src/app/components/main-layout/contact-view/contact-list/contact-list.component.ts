@@ -24,13 +24,14 @@ import {filter} from "rxjs";
 })
 export class ContactListComponent {
 
-  contact: Contact = {id: 1, email:'aaa@aaa.de', name:'Firstname Lastname', phoneNumber:'123456789'}
+  contact: Contact = {id: 1, email:'aaa@aaa.de', name:'Firstname Lastname', phoneNumber:'123456789', avatarColor: '#ff0000'}
   constructor(public dialog: MatDialog) {
 
   }
 
   public createContactDialog() {
     this.dialog.open(ContactFormComponent, {
+      panelClass: ["contact-form-mobile-width"],
       //data: this.contact,
     }).afterClosed().pipe(filter((contact) => contact)).subscribe(contact => {
       // TODO Create contact

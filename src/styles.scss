@@ -12,6 +12,7 @@ $Join_Frontend-theme: mat.define-light-theme((color: (primary: $custom-primary, 
 
 @include mat.all-component-themes($Join_Frontend-theme);
 @import './styles/variables';
+@import './styles/media-queries';
 
 * {
   box-sizing: border-box;
@@ -41,4 +42,12 @@ a {
 
 .padding-main-content {
   padding: 40px 20px;
+}
+
+@include medium-screen {
+  .contact-form-mobile-width {
+    width: 90vw !important;
+    height: 90vh !important;
+    max-width: unset !important;
+  }
 }

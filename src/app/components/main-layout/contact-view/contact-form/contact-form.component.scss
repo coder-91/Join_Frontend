@@ -26,6 +26,7 @@ h1 {
 
 .sub-text {
   margin-top: 5px;
+  font-size: 14px;
 }
 
 .divider {
@@ -43,15 +44,15 @@ h1 {
 }
 
 .avatar {
-  min-width: 70px;
-  min-height: 70px;
+  min-width: 80px;
+  min-height: 80px;
   border-radius: 50%;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #fff;
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 25px;
+  letter-spacing: 2px;
   border: 3px solid #fff;
 }
 
@@ -78,6 +79,7 @@ mat-icon {
 mat-form-field {
   max-width: 350px;
   width: 30vw;
+  margin-bottom: 5px;
 }
 
 .button-box {
@@ -86,17 +88,38 @@ mat-form-field {
 }
 
 @include medium-screen {
-  .contact-form {
-    padding: 10px 20px;
+  .cont-lvl-1 {
+    flex-direction: column;
   }
-}
 
-@include small-screen {
+  img {
+    display: none;
+  }
+
+  .cont-lvl-2-1 {
+    padding: 75px 20px;
+  }
+
+  .cont-lvl-2-2 {
+    position: relative;
+    padding: 60px 20px 40px 20px;
+    width: 100%;
+  }
+
+  .avatar {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+  }
+
   .contact-form {
     width: 100%;
   }
-  .button-box {
-    flex-direction: column;
-    row-gap: 10px;
+
+  mat-form-field {
+    width: 100%;
+    max-width: unset;
   }
 }

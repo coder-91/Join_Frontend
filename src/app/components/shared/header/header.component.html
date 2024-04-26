@@ -4,7 +4,11 @@
   <a class="help-icon" [routerLink]="['/help']">
     <mat-icon class="help" aria-hidden="false" aria-label="Example help icon" fontIcon="help_outline"></mat-icon>
   </a>
-  <div class="profile clickable" [matMenuTriggerFor]="menu"><span class="initials">SM</span></div>
+
+  <div [matMenuTriggerFor]="menu" class="profile clickable">
+    <mat-icon  [ngStyle]="{'color': '#fff'}">person</mat-icon>
+  </div>
+
   <mat-menu #menu="matMenu" yPosition="below">
     <a [routerLink]="['/help']" class="help-menu">
       <button mat-menu-item>Help</button>
