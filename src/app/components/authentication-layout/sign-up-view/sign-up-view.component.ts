@@ -8,7 +8,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { FormsModule }   from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {NgClass} from "@angular/common";
-import {MatIcon} from "@angular/material/icon";
+import {MatIconModule} from '@angular/material/icon';
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -22,12 +22,14 @@ export class MyErrorStateMatcher implements ErrorStateMatcher {
 @Component({
   selector: 'sign-up-view',
   standalone: true,
-    imports: [ReactiveFormsModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatButtonModule, FormsModule, NgClass, MatIcon],
+    imports: [ReactiveFormsModule, MatIconModule, MatInputModule, MatFormFieldModule, MatCheckboxModule, MatButtonModule, FormsModule, NgClass],
   templateUrl: './sign-up-view.component.html',
   styleUrl: './sign-up-view.component.scss'
 })
 
 export class SignUpViewComponent {
+  hidePassword = true;
+  hidePasswordConfirm = true;
   signUpForm: FormGroup;
   matcher = new MyErrorStateMatcher();
 

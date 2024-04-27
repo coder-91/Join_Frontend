@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {MatButton} from "@angular/material/button";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatError, MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
@@ -15,6 +15,7 @@ import {Category} from "../../../models/enums/category";
 import {Contact} from "../../../models/entity/contact";
 import {MatIcon} from "@angular/material/icon";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
+import {ChipFieldComponent} from "../../shared/form-fields/chip-field/chip-field.component";
 
 @Component({
   selector: 'app-task-view',
@@ -37,13 +38,16 @@ import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
     MatOption,
     MatIcon,
     MatRadioGroup,
-    MatRadioButton
+    MatRadioButton,
+    ChipFieldComponent
   ],
   templateUrl: './task-view.component.html',
   styleUrl: './task-view.component.scss'
 })
 export class TaskViewComponent {
-  createTaskForm: FormGroup;
+  protected readonly PriorityProperties = PriorityProperties;
+  taskForm: FormGroup;
+  keywords: string[];
   priorities = Object.keys(Priority)
     .filter(key => isNaN(Number(Priority[key as keyof typeof Priority])))
     .map(key => ({ key: key as keyof typeof Priority, value: Priority[key as keyof typeof Priority] }));
@@ -52,6 +56,7 @@ export class TaskViewComponent {
     .map(key => ({ key: key as keyof typeof Category, value: Category[key as keyof typeof Category] }));
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
+  @ViewChild(ChipFieldComponent) chipFieldComponent!: ChipFieldComponent;
   //ToDo
   contacts: Contact[] = [
     {
@@ -92,24 +97,31 @@ export class TaskViewComponent {
   ];
 
   constructor() {
-    this.createTaskForm = new FormGroup({
+    this.keywords = [];
+    this.taskForm = new FormGroup({
         title: new FormControl('', [Validators.required]),
         dueDate: new FormControl('', [Validators.required]),
         description: new FormControl(''),
         priority: new FormControl('MEDIUM', [Validators.required]),
         category: new FormControl(''),
         assignedTo: new FormControl(''),
-        subTasks: new FormControl(''),
+        subTasks: new FormControl(['']),
       }
     );
   }
 
+  public get subTasksFormControl () {
+    return this.taskForm.get("subTasks") as FormControl;
+  }
+
   public onSubmit(): void {
+    console.log(this.taskForm);
   }
 
   public resetForm() {
-    this.createTaskForm.reset();
+    this.taskForm.reset();
+    this.chipFieldComponent.keywords=[];
   }
 
-  protected readonly PriorityProperties = PriorityProperties;
+
 }

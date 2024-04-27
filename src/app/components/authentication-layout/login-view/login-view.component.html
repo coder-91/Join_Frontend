@@ -21,8 +21,10 @@
 
   <mat-form-field>
     <mat-label>Password</mat-label>
-    <input matInput formControlName="password" type="password">
-    <mat-icon color="primary" matSuffix>password</mat-icon>
+    <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
+    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+      <mat-icon color="primary">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+    </button>
     @if (loginForm.get('password')?.touched) {
       <mat-error>
         @switch (true) {

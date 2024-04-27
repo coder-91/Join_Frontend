@@ -2,16 +2,16 @@
   <div class="headline">Add Task</div>
 
 
-  <form [formGroup]="createTaskForm" (ngSubmit)="onSubmit()" class="create-task-form">
+  <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="create-task-form">
     <div class="form-field-group">
       <mat-form-field>
         <mat-label>Title</mat-label>
         <input matInput formControlName="title" type="text" placeholder="Enter a title">
         <mat-icon color="primary" matSuffix>subject</mat-icon>
-        @if (createTaskForm.get('title')?.touched) {
+        @if (taskForm.get('title')?.touched) {
           <mat-error>
             @switch (true) {
-              @case (createTaskForm.get('title')?.hasError('required')) {
+              @case (taskForm.get('title')?.hasError('required')) {
                 Title is required
               }
             }
@@ -27,10 +27,10 @@
           <mat-icon color="primary" matDatepickerToggleIcon>calendar_month</mat-icon>
         </mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
-        @if (createTaskForm.get('dueDate')?.touched) {
+        @if (taskForm.get('dueDate')?.touched) {
           <mat-error>
             @switch (true) {
-              @case (createTaskForm.get('dueDate')?.hasError('required')) {
+              @case (taskForm.get('dueDate')?.hasError('required')) {
                 Due Date is required
               }
             }
@@ -40,7 +40,8 @@
 
       <mat-form-field>
         <mat-label>Description</mat-label>
-        <textarea rows="1" matInput formControlName="description" type="text" placeholder="Enter a Description"></textarea>
+        <textarea rows="1" matInput formControlName="description" type="text"
+                  placeholder="Enter a Description"></textarea>
         <mat-icon color="primary" matSuffix>description</mat-icon>
       </mat-form-field>
 
@@ -48,16 +49,18 @@
         <mat-label>Priority</mat-label>
         <mat-select formControlName="priority">
           @for (priority of priorities; track priority) {
-            <mat-option value={{priority.key}}>{{priority.value}}
-               <mat-icon [ngStyle]="{'color': PriorityProperties[priority.value].color}" matSuffix>{{ PriorityProperties[priority.value].icon }}</mat-icon>
+            <mat-option value={{priority.key}}>{{ priority.value }}
+              <mat-icon [ngStyle]="{'color': PriorityProperties[priority.value].color}"
+                        matSuffix>{{ PriorityProperties[priority.value].icon }}
+              </mat-icon>
             </mat-option>
 
           }
         </mat-select>
-        @if (createTaskForm.get('priority')?.touched) {
+        @if (taskForm.get('priority')?.touched) {
           <mat-error>
             @switch (true) {
-              @case (createTaskForm.get('priority')?.hasError('required')) {
+              @case (taskForm.get('priority')?.hasError('required')) {
                 Priority is required
               }
             }
@@ -71,7 +74,7 @@
         <mat-select formControlName="category">
 
           @for (category of categories; track category) {
-            <mat-option value={{category.key}}>{{category.value}}</mat-option>
+            <mat-option value={{category.key}}>{{ category.value }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
@@ -81,14 +84,19 @@
         <mat-icon color="primary" matSuffix>group_add</mat-icon>
         <mat-select formControlName="assignedTo" multiple>
           @for (contact of contacts; track contact) {
-            <mat-option [value]="contact.id">{{contact.name}}</mat-option>
+            <mat-option [value]="contact.id">{{ contact.name }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
+
+
+      <app-chip-field [control]="subTasksFormControl" [controlTitle]="'subtask'"></app-chip-field>
+
+
     </div>
 
     <div class="button-box">
-      <button mat-raised-button color="primary" type="submit" [disabled]="!createTaskForm.valid">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!taskForm.valid">
         Create Task
       </button>
       <button mat-raised-button type="button" color="warn" (click)="resetForm()">
