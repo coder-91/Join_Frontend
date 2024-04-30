@@ -44,10 +44,21 @@ a {
   padding: 40px 20px;
 }
 
-@include medium-screen {
-  .contact-form-mobile-width {
-    width: 90vw !important;
-    height: 90vh !important;
-    max-width: unset !important;
-  }
+.mat-mdc-dialog-actions {
+  display: flex;
+  column-gap: 8px;
+  justify-content: flex-end !important;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

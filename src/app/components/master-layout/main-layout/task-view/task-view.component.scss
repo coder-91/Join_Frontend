@@ -1,0 +1,39 @@
+@import '../../../../../styles/media-queries';
+
+$column-gap-content: 30px;
+
+.title-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  h2 {
+    margin-right: auto;
+  }
+}
+
+.content-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: $column-gap-content;
+
+  > * {
+    flex: 1 1 calc(50% - $column-gap-content);
+  }
+}
+
+actions-container {
+  display: flex;
+  column-gap: 10px;
+}
+
+.mat-dialog-actions {
+  padding: 0 24px !important;
+}
+
+@include large-screen {
+  .content-container > * {
+    flex: 100%;
+  }
+}
