@@ -11,6 +11,8 @@ $custom-warn: mat.define-palette($custom-warn, 400);
 $Join_Frontend-theme: mat.define-light-theme((color: (primary: $custom-primary, accent: $custom-accent, warn: $custom-warn,), typography: mat.define-typography-config(), density: 0));
 
 @include mat.all-component-themes($Join_Frontend-theme);
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
 @import './styles/variables';
 @import './styles/media-queries';
 
@@ -38,10 +40,6 @@ a {
   color: inherit;
   cursor: pointer;
   outline: none;
-}
-
-.padding-main-content {
-  padding: 40px 20px;
 }
 
 .mat-mdc-dialog-actions {
