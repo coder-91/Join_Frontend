@@ -1,0 +1,14 @@
+$task-status-amount: 4;
+$task-status-col-gap: 20px;
+
+.task-status-list-container {
+  display: flex;
+  justify-content: space-between;
+  column-gap: $task-status-col-gap;
+  height: 100%;
+  //border: 1px solid red;
+}
+
+app-task-status {
+  width: calc(100% / $task-status-amount - $task-status-col-gap)
+}

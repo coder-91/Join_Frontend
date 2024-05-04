@@ -1,0 +1,16 @@
+<div class="task-status-container">
+  <div class="title-container">
+    <div class="title">{{taskStatus.value}}</div>
+    @if (taskStatus.key.toUpperCase() != TaskStatus.DONE.toString().toUpperCase()) {
+      <button color="primary" mat-mini-fab>
+        <mat-icon class="add">add</mat-icon>
+      </button>
+    }
+  </div>
+
+  <div class="task-status-container-body">
+    @for (task of filterTasksByStatus(taskStatus.value);track task) {
+      <app-task [task]="task"></app-task>
+    }
+  </div>
+</div>

@@ -1,28 +1,7 @@
 <div class="board-container">
-    <div class="task-container">
-      <div class="headline">Board</div>
-
-      <mat-form-field class="search-form-field">
-        <mat-label>Find Task</mat-label>
-        <input matInput type="text" [(ngModel)]="searchValue">
-        <mat-icon color="primary" matPrefix>search</mat-icon>
-        @if (searchValue) {
-          <button matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">
-            <mat-icon>close</mat-icon>
-          </button>
-        }
-      </mat-form-field>
-
-      <button (click)="addTaskDialog()" mat-raised-button color="primary" type="button">
-        <mat-icon class="add-icon">add</mat-icon>
-        Add task
-      </button>
-    </div>
-
-  <div style="background-color:red;" class="task-status-list-container">
-    task-status-list-container
-  </div>
-  </div>
+  <app-task-manager></app-task-manager>
+  <app-task-status-list></app-task-status-list>
+</div>
 
 
 

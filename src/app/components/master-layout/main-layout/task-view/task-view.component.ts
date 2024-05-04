@@ -58,6 +58,7 @@ export class TaskViewComponent {
   categories = Object.keys(Category)
     .filter(key => isNaN(Number(Category[key as keyof typeof Category])))
     .map(key => ({ key: key as keyof typeof Category, value: Category[key as keyof typeof Category] }));
+
   toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
   @ViewChild(ChipFieldComponent) chipFieldComponent!: ChipFieldComponent;

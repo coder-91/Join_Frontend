@@ -1,0 +1,101 @@
+@import '../../../../../../../../styles/variables';
+@import '../../../../../../../../styles/media-queries';
+
+@mixin clamp-lines($line-count) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: $line-count; /* number of lines to show */
+  -webkit-box-orient: vertical;
+  line-clamp: $line-count;
+}
+
+@mixin custom-width-icon {
+  width: 5px;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.task-container {
+  background-color: #fff;
+  font-size: 12px;
+  border-radius: 10px;
+}
+
+mat-card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.menu-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  mat-icon {
+    @include custom-width-icon();
+  }
+}
+
+.category {
+  height: fit-content;
+  padding: 3px 5px;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.title {
+  color: $col-primary;
+  font-weight: bold;
+}
+
+.description {
+  color: $col-gray;
+}
+
+.title, .description {
+  @include clamp-lines(2);
+}
+
+.progressbar-container {
+  display: flex;
+  align-items: center;
+  column-gap: 5px;
+
+  .progress {
+    flex-grow: 1;
+  }
+
+  .subtask {
+    font-size: 10px;
+    flex-grow: 0;
+  }
+
+}
+
+.avatar-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  .avatar-group {
+    display:flex;
+
+    .avatar {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 2px;
+      border: 2px solid #fff;
+    }
+
+    :not(:first-child){
+      margin-left: -8px;
+    }
+  }
+}
