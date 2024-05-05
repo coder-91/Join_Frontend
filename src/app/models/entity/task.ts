@@ -14,5 +14,5 @@ export interface Task {
   category: Category,
   subtasks: Subtask[],
   contacts: Contact[],
-  taskStatus: TaskStatus
+  status: TaskStatus
 }

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatMenuModule} from '@angular/material/menu';
-import {DialogService} from "../../../../../services/dialog.service";
+import {DialogService} from "../../../../../services/dialogService/dialog.service";
 
 @Component({
   selector: 'app-contact-details',

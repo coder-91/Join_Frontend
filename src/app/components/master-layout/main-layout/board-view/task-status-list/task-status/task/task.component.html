@@ -1,8 +1,12 @@
 <div class="task-container">
+  <div class="no-task-container">
+    <div>No task To Do</div>
+  </div>
+
   <mat-card>
     <mat-card-content>
       <div class="menu-container mb-1">
-        <div [ngStyle]="{'background-color': getCategoryColor(Category.USER_STORY)}" class="category">{{ task.category }}</div>
+        <div [ngStyle]="{'background-color': getCategoryColor(task.category)}" class="category">{{ task.category }}</div>
             <div>
               <mat-icon [matMenuTriggerFor]="menu" class="clickable">more_vert</mat-icon>
             </div>
@@ -12,11 +16,11 @@
               <mat-icon color="primary">drag_indicator</mat-icon>
               <span>Move to ...</span>
             </button>
-            <button mat-menu-item>
+            <button (click)="editTaskDialog(task)" mat-menu-item>
               <mat-icon color="primary">edit</mat-icon>
               <span>Edit</span>
             </button>
-            <button mat-menu-item>
+            <button (click)="deleteTaskDialog(task.id)" mat-menu-item>
               <mat-icon color="warn">delete</mat-icon>
               <span>Delete</span>
             </button>
@@ -25,7 +29,7 @@
         <mat-menu #taskStatus="matMenu">
           @for (taskStatus of taskStatuses; track taskStatus) {
 
-            @if (taskStatus.value.toString().toUpperCase() !== task.taskStatus.toString().toUpperCase()) {
+            @if (taskStatus.value.toString().toUpperCase() !== task.status.toString().toUpperCase()) {
               <button mat-menu-item >{{ taskStatus.value }}</button>
             }
           }
@@ -36,27 +40,27 @@
 
       <div matTooltip="{{task.description}}" class="description mb-2">{{task.description}}</div>
 
-      <div class="progressbar-container mb-3">
-        <div class="progress" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">
-          <div class="progress-bar" [ngStyle]="{'width': '25%'}"></div>
-        </div>
+      @if (task.subtasks.length) {
+        <div class="progressbar-container mb-3">
+          <div class="progress" role="progressbar" [attr.aria-valuenow]="calcProgressBarValue(task.subtasks)" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar" [ngStyle]="{'width': calcProgressBarValue(task.subtasks) + '%'}"></div>
+          </div>
 
-        <div class="subtask">
-          <span>1/</span>
-          <span>{{task.subtasks.length}}</span>
-          <span>Subtasks</span>
+          <div class="subtask">
+            <span>{{countCompletedSubtasks(task.subtasks)}}/</span>
+            <span>{{task.subtasks.length}}</span>
+            <span>Subtasks</span>
+          </div>
         </div>
-      </div>
-
+      }
 
       <div class="avatar-container">
         <div class="avatar-group">
           @for (contact of task.contacts; track contact) {
-            <div [ngStyle]="{'background-color': contact.avatarColor}" class="avatar" matTooltip="{{contact.name}}">{{'AA'}}</div>
+            <div [ngStyle]="{'background-color': contact.avatarColor}" class="avatar" matTooltip="{{contact.name}}">{{getInitials(contact.name)}}</div>
           }
         </div>
 
-        <!-- <div class="priority">Prio</div> -->
         <mat-icon [ngStyle]="{'color': PriorityProperties[task.priority].color}"
                   matSuffix>{{ PriorityProperties[task.priority].icon }}
         </mat-icon>
