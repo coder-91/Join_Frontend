@@ -51,10 +51,10 @@
   <mat-form-field>
     <mat-label>Priority</mat-label>
     <mat-select formControlName="priority">
-      @for (priority of priorities; track priority) {
+      @for (priority of Object.values(taskService.PRIORITIES); track priority.key) {
         <mat-option value={{priority.key}}>{{ priority.value }}
-          <mat-icon [ngStyle]="{'color': PriorityProperties[priority.value].color}"
-                    matSuffix>{{ PriorityProperties[priority.value].icon }}
+          <mat-icon [ngStyle]="{'color': priority.color}"
+                    matSuffix>{{ priority.icon }}
           </mat-icon>
         </mat-option>
       }
@@ -74,7 +74,7 @@
     <mat-label>Category</mat-label>
     <mat-icon color="primary" matSuffix>category</mat-icon>
     <mat-select formControlName="category">
-      @for (category of categories; track category) {
+      @for (category of Object.values(taskService.CATEGORIES); track category.key) {
         <mat-option value={{category.key}}>{{ category.value }}</mat-option>
       }
     </mat-select>
@@ -84,7 +84,7 @@
     <mat-label>Assigned to</mat-label>
     <mat-icon color="primary" matSuffix>group_add</mat-icon>
     <mat-select formControlName="assignedTo" multiple>
-      @for (contact of contacts; track contact) {
+      @for (contact of contacts; track contact.id) {
         <mat-option [value]="contact.id">{{ contact.name }}</mat-option>
       }
     </mat-select>

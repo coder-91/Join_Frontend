@@ -1,6 +1,5 @@
 <div class="task-status-list-container">
-  @for (taskStatus of taskStatuses; track taskStatus) {
+  @for (taskStatus of Object.values(taskService.TASK_STATUSES); track taskStatus.key) {
     <app-task-status [taskStatus]="taskStatus"></app-task-status>
   }
 </div>
-

@@ -8,15 +8,14 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatOption, provideNativeDateAdapter} from '@angular/material/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {Priority, PriorityProperties} from "../../../../models/enums/priority";
 import {TitleCasePipe} from "@angular/common";
 import {MatSelect} from "@angular/material/select";
 import {MatIcon} from "@angular/material/icon";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
-import {Category} from "../../../../models/enums/category";
 import {ChipFieldComponent} from "../../../shared/form-fields/chip-field/chip-field.component";
 import {Contact} from "../../../../models/entity/contact";
+import {TaskService} from "../../../../services/taskService/task.service";
 
 @Component({
   selector: 'app-task-view',
@@ -48,18 +47,10 @@ import {Contact} from "../../../../models/entity/contact";
   styleUrl: './task-view.component.scss'
 })
 export class TaskViewComponent {
-  protected readonly PriorityProperties = PriorityProperties;
+  protected readonly Object = Object;
   taskForm: FormGroup;
   keywords: string[];
   fromPopup = false;
-  priorities = Object.keys(Priority)
-    .filter(key => isNaN(Number(Priority[key as keyof typeof Priority])))
-    .map(key => ({ key: key as keyof typeof Priority, value: Priority[key as keyof typeof Priority] }));
-  categories = Object.keys(Category)
-    .filter(key => isNaN(Number(Category[key as keyof typeof Category])))
-    .map(key => ({ key: key as keyof typeof Category, value: Category[key as keyof typeof Category] }));
-
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
 
   @ViewChild(ChipFieldComponent) chipFieldComponent!: ChipFieldComponent;
   //ToDo
@@ -101,7 +92,7 @@ export class TaskViewComponent {
     }
   ];
 
-  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean }) {
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean }, public taskService: TaskService) {
     this.fromPopup = !!data?.fromPopup;
     this.keywords = [];
     this.taskForm = new FormGroup({

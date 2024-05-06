@@ -1,13 +1,13 @@
 <div class="task-status-container">
   <div class="title-container">
     <div class="title">{{taskStatus.value}}</div>
-    @if (taskStatus.key.toUpperCase() != TaskStatus.DONE.toString().toUpperCase()) {
+    @if (taskStatus.key !== taskService.TASK_STATUSES['DONE'].key) {
         <mat-icon (click)="createTaskDialog(taskStatus.key)" color="primary" class="clickable">add</mat-icon>
     }
   </div>
 
   <div class="task-status-container-body">
-    @for (task of filterTasksByStatus(taskStatus.value);track task) {
+    @for (task of filterTasksByStatus(taskStatus.key);track task.id) {
       <app-task [task]="task"></app-task>
     }
   </div>

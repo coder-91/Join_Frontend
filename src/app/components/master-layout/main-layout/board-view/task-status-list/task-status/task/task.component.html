@@ -1,12 +1,12 @@
 <div class="task-container">
-  <div class="no-task-container">
+  <!-- <div class="no-task-container">
     <div>No task To Do</div>
-  </div>
+  </div> -->
 
   <mat-card>
     <mat-card-content>
       <div class="menu-container mb-1">
-        <div [ngStyle]="{'background-color': getCategoryColor(task.category)}" class="category">{{ task.category }}</div>
+        <div [ngStyle]="{'background-color': task.category.color}" class="category">{{ task.category.value }}</div>
             <div>
               <mat-icon [matMenuTriggerFor]="menu" class="clickable">more_vert</mat-icon>
             </div>
@@ -27,9 +27,9 @@
           </mat-menu>
 
         <mat-menu #taskStatus="matMenu">
-          @for (taskStatus of taskStatuses; track taskStatus) {
+          @for (taskStatus of Object.values(taskService.TASK_STATUSES); track taskStatus.key) {
 
-            @if (taskStatus.value.toString().toUpperCase() !== task.status.toString().toUpperCase()) {
+            @if (taskStatus.key !== task.status.key) {
               <button mat-menu-item >{{ taskStatus.value }}</button>
             }
           }
@@ -56,13 +56,13 @@
 
       <div class="avatar-container">
         <div class="avatar-group">
-          @for (contact of task.contacts; track contact) {
+          @for (contact of task.contacts; track contact.id) {
             <div [ngStyle]="{'background-color': contact.avatarColor}" class="avatar" matTooltip="{{contact.name}}">{{getInitials(contact.name)}}</div>
           }
         </div>
 
-        <mat-icon [ngStyle]="{'color': PriorityProperties[task.priority].color}"
-                  matSuffix>{{ PriorityProperties[task.priority].icon }}
+        <mat-icon [ngStyle]="{'color': task.priority.color}"
+                  matSuffix>{{ task.priority.icon }}
         </mat-icon>
 
       </div>

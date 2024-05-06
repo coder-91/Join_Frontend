@@ -1,15 +1,67 @@
 import { Injectable } from '@angular/core';
 import {Task} from "../../models/entity/task";
-import {TaskStatus} from "../../models/enums/task-status";
-import {Priority} from "../../models/enums/priority";
-import {Category} from "../../models/enums/category";
 import {Subtask} from "../../models/entity/subtask";
 import {TaskHttpService} from "./task-http.service";
+import {Category} from "../../models/interfaces/category";
+import {TaskStatus} from "../../models/interfaces/task-status";
+import {Priority} from "../../models/interfaces/priority";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
+  readonly CATEGORIES: { [key: string]: Category } = {
+    TECHNICAL_TASK: {
+      key: 'TECHNICAL_TASK',
+      value: 'Technical Task',
+      color: '#1FD7C1'
+    },
+    USER_STORY: {
+      key: 'USER_STORY',
+      value: 'User Story',
+      color: '#0038FF'
+    }
+  };
+
+  readonly TASK_STATUSES: {[key: string]: TaskStatus } = {
+    TO_DO: {
+      key: 'TO_DO',
+      value: 'To Do',
+    },
+    AWAIT_FEEDBACK: {
+      key: 'AWAIT_FEEDBACK',
+      value: 'Await Feedback',
+    },
+    IN_PROGRESS: {
+      key: 'IN_PROGRESS',
+      value: 'In Progress',
+    },
+    DONE: {
+      key: 'DONE',
+      value: 'Done',
+    }
+  }
+
+  readonly PRIORITIES: {[key: string]: Priority } = {
+    URGENT: {
+      key: 'URGENT',
+      value: 'Urgent',
+      color: '#FF7A50',
+      icon: 'keyboard_double_arrow_up',
+    },
+    MEDIUM: {
+      key: 'MEDIUM',
+      value: 'Urgent',
+      color: '#FFA800',
+      icon: 'keyboard_double_arrow_right',
+    },
+    LOW: {
+      key: 'LOW',
+      value: 'Urgent',
+      color: '#7AE229',
+      icon: 'keyboard_double_arrow_down',
+    }
+  }
 
   tasks: Task[] = [
     {
@@ -19,8 +71,8 @@ export class TaskService {
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: Priority.LOW,
-      category: Category.TECHNICAL_TASK,
+      priority: this.PRIORITIES['LOW'],
+      category: this.CATEGORIES['TECHNICAL_TASK'],
       subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: true}, {id:2, taskId:2, description:'Subtask 2', isDone: false}],
       contacts: [
         {
@@ -45,7 +97,7 @@ export class TaskService {
           avatarColor: '#ffca70'
         },
       ],
-      status: TaskStatus.TO_DO,
+      status: this.TASK_STATUSES['TO_DO'],
     },
 
     {
@@ -55,8 +107,8 @@ export class TaskService {
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: Priority.MEDIUM,
-      category: Category.USER_STORY,
+      priority: this.PRIORITIES['MEDIUM'],
+      category: this.CATEGORIES['TECHNICAL_TASK'],
       subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: false}],
       contacts: [
         {
@@ -81,7 +133,7 @@ export class TaskService {
           avatarColor: '#ff00ff'
         },
       ],
-      status: TaskStatus.IN_PROGRESS,
+      status: this.TASK_STATUSES['IN_PROGRESS'],
     },
 
     {
@@ -91,8 +143,8 @@ export class TaskService {
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: Priority.URGENT,
-      category: Category.USER_STORY,
+      priority: this.PRIORITIES['URGENT'],
+      category: this.CATEGORIES['USER_STORY'],
       subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: true}],
       contacts: [
         {
@@ -117,7 +169,7 @@ export class TaskService {
           avatarColor: '#ff0000'
         },
       ],
-      status: TaskStatus.AWAIT_FEEDBACK,
+      status: this.TASK_STATUSES['AWAIT_FEEDBACK']
     },
 
     {
@@ -127,8 +179,8 @@ export class TaskService {
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: Priority.LOW,
-      category: Category.USER_STORY,
+      priority: this.PRIORITIES['LOW'],
+      category: this.CATEGORIES['USER_STORY'],
       subtasks: [],
       contacts: [
         {
@@ -153,7 +205,7 @@ export class TaskService {
           avatarColor: '#ff0000'
         },
       ],
-      status: TaskStatus.AWAIT_FEEDBACK,
+      status: this.TASK_STATUSES['AWAIT_FEEDBACK']
     },
 
     {
@@ -163,8 +215,8 @@ export class TaskService {
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: Priority.LOW,
-      category: Category.USER_STORY,
+      priority: this.PRIORITIES['LOW'],
+      category: this.CATEGORIES['USER_STORY'],
       subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: false}],
       contacts: [
         {
@@ -189,7 +241,7 @@ export class TaskService {
           avatarColor: '#ff0000'
         },
       ],
-      status: TaskStatus.AWAIT_FEEDBACK,
+      status: this.TASK_STATUSES['AWAIT_FEEDBACK']
     },
 
     {
@@ -199,8 +251,8 @@ export class TaskService {
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: Priority.LOW,
-      category: Category.USER_STORY,
+      priority: this.PRIORITIES['LOW'],
+      category: this.CATEGORIES['USER_STORY'],
       subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: false}],
       contacts: [
         {
@@ -225,12 +277,13 @@ export class TaskService {
           avatarColor: '#ff0000'
         },
       ],
-      status: TaskStatus.AWAIT_FEEDBACK,
+      status: this.TASK_STATUSES['AWAIT_FEEDBACK']
     }
   ];
+
   constructor(private taskHttpService: TaskHttpService) { }
 
-  public createTask(task: Task, status: TaskStatus) {
+  public createTask(task: Task, status: string) {
     this.taskHttpService.createTask(task, status);
     console.log("Task created");
   }
@@ -245,8 +298,8 @@ export class TaskService {
     console.log("Task deleted");
   }
 
-  public filterTasksByStatus(status: TaskStatus): Task[] {
-    return this.tasks.filter(task => task.status === status);
+  public filterTasksByStatus(status: string): Task[] {
+    return this.tasks.filter(task => task.status.key === status);
   }
 
   countCompletedSubtasks(subtasks: Subtask[]): number {

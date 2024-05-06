@@ -5,7 +5,6 @@ import {Task} from "../../models/entity/task";
 import {TaskViewComponent} from "../../components/master-layout/main-layout/task-view/task-view.component";
 import {filter} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
-import {TaskStatus} from "../../models/enums/task-status";
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +13,7 @@ export class TaskDialogService {
 
   constructor(private taskService: TaskService, private dialog:MatDialog, private dialogService:DialogService) {}
 
-  public createTaskDialog(taskStatus: TaskStatus) {
+  public createTaskDialog(taskStatus: string) {
     this.dialog.open(TaskViewComponent, {
       data: { fromPopup: true, taskStatus },
     }).afterClosed().pipe(filter((task) => task)).subscribe(task => {

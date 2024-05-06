@@ -1,8 +1,8 @@
 import { Contact } from './contact';
-import {Priority} from "../enums/priority";
-import {Category} from "../enums/category";
+import {Priority} from "../interfaces/priority";
+import {Category} from "../interfaces/category";
 import {Subtask} from "./subtask";
-import {TaskStatus} from "../enums/task-status";
+import {TaskStatus} from "../interfaces/task-status";
 export interface Task {
   id: number,
   title: string,
