@@ -10,9 +10,9 @@
 
   <div class="cont-lvl-2-2">
 
-    <div class="avatar" [ngClass]="contact? 'avatar-edit': 'avatar-add'">
+    <div class="avatar" [ngStyle]="{'background-color': contact ? contact.avatarColor:'#aaa'}">
       @if (contact) {
-          <div>AM</div>
+          <div>{{ getInitials(contact.name) }}</div>
       }
       @else {
         <mat-icon>person_outline</mat-icon>

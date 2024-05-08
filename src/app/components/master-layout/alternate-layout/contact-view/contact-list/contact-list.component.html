@@ -1,5 +1,5 @@
 <div class="button-box">
-  <button (click)="createContactDialog()" mat-flat-button color="primary">
+  <button (click)="onCreateContact()" mat-flat-button color="primary">
     Add a new contact
     <mat-icon>person_add</mat-icon>
   </button>
@@ -7,102 +7,17 @@
 
 <div class="contact-list-box">
   <div class="mobile-add-contact">
-    <button mat-icon-button>
+    <button (click)="onCreateContact()" mat-icon-button>
       <mat-icon>person_add</mat-icon>
     </button>
   </div>
   <mat-list role="list">
-    <mat-list-item role="listitem">A</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item class="clickable" role="listitem">
-      <div class="contact-box">
-        <div class="avatar">AM</div>
-        <div class="contact-info-box">
-          <div class="name">Anton Mayer</div>
-          <div class="email">anton&#64;gmail.com</div>
-        </div>
-      </div>
-    </mat-list-item>
-
-    <mat-list-item class="clickable" role="listitem">
-      <div class="contact-box">
-        <div class="avatar">AM</div>
-        <div class="contact-info-box">
-          <div class="name">Anton Mayer</div>
-          <div class="email">anton&#64;gmail.com</div>
-        </div>
-      </div>
-    </mat-list-item>
-
-    <mat-list-item role="listitem">B</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item class="clickable" role="listitem">
-      <div class="contact-box">
-        <div class="avatar">AM</div>
-        <div class="contact-info-box">
-          <div class="name">Anton Mayer</div>
-          <div class="email">anton&#64;gmail.com</div>
-        </div>
-      </div>
-    </mat-list-item>
-
-    <mat-list-item class="clickable" role="listitem">
-      <div class="contact-box">
-        <div class="avatar">AM</div>
-        <div class="contact-info-box">
-          <div class="name">Anton Mayer</div>
-          <div class="email">anton&#64;gmail.com</div>
-        </div>
-      </div>
-    </mat-list-item>
-
-    <mat-list-item class="clickable" role="listitem">
-      <div class="contact-box">
-        <div class="avatar">AM</div>
-        <div class="contact-info-box">
-          <div class="name">Anton Mayer</div>
-          <div class="email">anton&#64;gmail.com</div>
-        </div>
-      </div>
-    </mat-list-item>
-
-    <mat-list-item role="listitem">C</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item class="clickable" role="listitem">
-      <div class="contact-box">
-        <div class="avatar">AM</div>
-        <div class="contact-info-box">
-          <div class="name">Anton Mayer</div>
-          <div class="email">anton&#64;gmail.com</div>
-        </div>
-      </div>
-    </mat-list-item>
-    <mat-list-item class="clickable" role="listitem">
-      <div class="contact-box">
-        <div class="avatar">AM</div>
-        <div class="contact-info-box">
-          <div class="name">Anton Mayer</div>
-          <div class="email">anton&#64;gmail.com</div>
-        </div>
-      </div>
-    </mat-list-item>
-    <mat-list-item class="clickable" role="listitem">
-      <div class="contact-box">
-        <div class="avatar">AM</div>
-        <div class="contact-info-box">
-          <div class="name">Anton Mayer</div>
-          <div class="email">anton&#64;gmail.com</div>
-        </div>
-      </div>
-    </mat-list-item>
-    <mat-list-item class="clickable" role="listitem">
-      <div class="contact-box">
-        <div class="avatar">AM</div>
-        <div class="contact-info-box">
-          <div class="name">Anton Mayer</div>
-          <div class="email">anton&#64;gmail.com</div>
-        </div>
-      </div>
-    </mat-list-item>
+    @for (letter of Object.keys(groupedAndSortedContacts); track letter) {
+      <mat-list-item role="listitem">{{ letter }}</mat-list-item>
+      <mat-divider></mat-divider>
+      @for (contact of groupedAndSortedContacts[letter]; track contact.id) {
+        <app-contact [contact]="contact"></app-contact>
+      }
+    }
   </mat-list>
 </div>

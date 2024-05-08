@@ -1,0 +1,9 @@
+<mat-list-item [ngClass]="{'active': selectedContact == contact}" (click)="onSelectContact(contact)" class="clickable" role="listitem">
+  <div class="contact-box">
+    <div [ngStyle]="{'background-color': contact.avatarColor}" class="avatar">{{getInitials(contact.name)}}</div>
+    <div class="contact-info-box">
+      <div class="name">{{ contact.name }}</div>
+      <div class="email">{{ contact.email }}</div>
+    </div>
+  </div>
+</mat-list-item>

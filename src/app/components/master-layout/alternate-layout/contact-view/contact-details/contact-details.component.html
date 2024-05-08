@@ -5,10 +5,10 @@
       <mat-icon>more_vert</mat-icon>
     </button>
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>
+      <button (click)="onEditContact()" mat-menu-item>
         <mat-icon>edit</mat-icon>Edit
       </button>
-      <button mat-menu-item>
+      <button (click)="onDeleteContact()" mat-menu-item>
         <mat-icon color="warn">delete</mat-icon>Delete
       </button>
     </mat-menu>
@@ -17,7 +17,7 @@
   <div class="headline-box">
     <div class="top-line">
       <h1>Contacts</h1>
-      <button mat-icon-button>
+      <button (click)="backToPreviousComponent()" mat-icon-button>
         <mat-icon color="accent">arrow_back</mat-icon>
       </button>
     </div>
@@ -28,40 +28,40 @@
 
   </div>
 
+  @if(selectedContact) {
+    <div class="contact-details">
+      <div class="avatar" [ngStyle]="{'background-color': selectedContact.avatarColor}">{{ getInitials(selectedContact.name)  }}</div>
 
-  <div class="contact-details">
-    <div class="avatar">AM</div>
-
-    <div class="contact-info">
-      <div class="name">Anton Mayer</div>
-      <div class="icons-box">
-        <button (click)="editContact()" mat-button color="primary">
-          Edit
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button (click)="deleteContact()" mat-button color="primary">
-          Delete
-          <mat-icon color="warn">delete</mat-icon>
-        </button>
+      <div class="contact-info">
+        <div class="name">{{ selectedContact.name }}</div>
+        <div class="icons-box">
+          <button (click)="onEditContact()" mat-button color="primary">
+            Edit
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button (click)="onDeleteContact()" mat-button color="primary">
+            Delete
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
 
-  <h2>Contact Information</h2>
-  <div class="email-box">
-    <div class="email-label">Email</div>
-    <div class="email">
-      <a href="mailto:anton@gmail.org">anton&#64;gmail.com</a>
+    <h2>Contact Information</h2>
+    <div class="email-box">
+      <div class="email-label">Email</div>
+      <div class="email">
+        <a href="mailto: {{ selectedContact.email }}">{{ selectedContact.email }}</a>
+      </div>
     </div>
-  </div>
 
-  <div class="tel-box">
-    <div class="tel-label">Phone</div>
-    <address>
-        <a class="tel" href="tel:+49123456789">+49123456789</a>
-    </address>
-  </div>
-
+    <div class="tel-box">
+      <div class="tel-label">Phone</div>
+      <address>
+        <a class="tel" href="tel: {{ selectedContact.phoneNumber }}">{{ selectedContact.phoneNumber }}</a>
+      </address>
+    </div>
+  }
 </div>
 
 

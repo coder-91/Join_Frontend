@@ -16,6 +16,7 @@ import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
 import {ChipFieldComponent} from "../../../shared/form-fields/chip-field/chip-field.component";
 import {Contact} from "../../../../models/entity/contact";
 import {TaskService} from "../../../../services/taskService/task.service";
+import {ContactService} from "../../../../services/contactService/contact.service";
 
 @Component({
   selector: 'app-task-view',
@@ -51,48 +52,11 @@ export class TaskViewComponent {
   taskForm: FormGroup;
   keywords: string[];
   fromPopup = false;
-
   @ViewChild(ChipFieldComponent) chipFieldComponent!: ChipFieldComponent;
-  //ToDo
-  contacts: Contact[] = [
-    {
-      id: 1,
-      email: 'john.doe@example.com',
-      name: 'John Doe',
-      phoneNumber: '+1234567890',
-      avatarColor: '#ff0000'
-    },
-    {
-      id: 2,
-      email: 'jane.doe@example.com',
-      name: 'Jane Doe',
-      phoneNumber: '+0987654321',
-      avatarColor: '#ff0000'
-    },
-    {
-      id: 3,
-      email: 'alice.smith@example.com',
-      name: 'Alice Smith',
-      phoneNumber: '+1122334455',
-      avatarColor: '#ff0000'
-    },
-    {
-      id: 4,
-      email: 'bob.smith@example.com',
-      name: 'Bob Smith',
-      phoneNumber: '+6677889900',
-      avatarColor: '#ff0000'
-    },
-    {
-      id: 5,
-      email: 'emma.jones@example.com',
-      name: 'Emma Jones',
-      phoneNumber: '+1123456789',
-      avatarColor: '#ff0000'
-    }
-  ];
+  contacts: Contact[];
 
-  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean }, public taskService: TaskService) {
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean }, public taskService: TaskService, private contactService:ContactService) {
+    this.contacts = contactService.contacts;
     this.fromPopup = !!data?.fromPopup;
     this.keywords = [];
     this.taskForm = new FormGroup({
@@ -115,7 +79,7 @@ export class TaskViewComponent {
     console.log(this.taskForm);
   }
 
-  public resetForm() {
+  public onReset() {
     this.taskForm.reset();
     this.chipFieldComponent.keywords=[];
   }

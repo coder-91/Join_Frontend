@@ -85,7 +85,6 @@ h1 {
     width: 70px;
     height: 70px;
     border-radius: 50%;
-    background-color: #800080;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -117,7 +116,7 @@ h1 {
   font-style: normal;
 }
 
-@include medium-screen {
+@include large-screen {
   .headline-box {
     flex-direction: column;
     column-gap: 20px;
@@ -128,6 +127,7 @@ h1 {
   .top-line {
     display: flex;
     justify-content: space-between;
+    align-items: center;
   }
 
   .top-line button {

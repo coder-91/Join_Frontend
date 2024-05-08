@@ -1,8 +1,14 @@
-import { Component } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIcon} from "@angular/material/icon";
 import {MatMenuModule} from '@angular/material/menu';
-import {DialogService} from "../../../../../services/dialogService/dialog.service";
+import {Contact} from "../../../../../models/entity/contact";
+import {ContactService} from "../../../../../services/contactService/contact.service";
+import {getInitials} from "../../../../../utils/helpers";
+import {Subscription} from "rxjs";
+import {NgStyle} from "@angular/common";
+import {ContactDialogService} from "../../../../../services/contactService/contact-dialog.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-contact-details',
@@ -11,32 +17,37 @@ import {DialogService} from "../../../../../services/dialogService/dialog.servic
     MatButton,
     MatIcon,
     MatIconButton,
-    MatMenuModule
+    MatMenuModule,
+    NgStyle
   ],
   templateUrl: './contact-details.component.html',
   styleUrl: './contact-details.component.scss'
 })
-export class ContactDetailsComponent {
+export class ContactDetailsComponent implements OnInit, OnDestroy  {
+  protected readonly getInitials = getInitials;
+  selectedContact!: Contact;
+  private selectedContactSubscription!: Subscription;
+  constructor(private router: Router, private contactService: ContactService, private contactDialogService: ContactDialogService) {}
 
-  constructor(private dialogService: DialogService) {
+  ngOnInit(): void {
+    this.selectedContactSubscription = this.contactService.selectedContact$.subscribe(contact => {
+      this.selectedContact = contact;
+    });
   }
 
-  public editContact() {
+  ngOnDestroy(): void {
+    this.selectedContactSubscription.unsubscribe();
   }
 
-  public deleteContact() {
-    this.dialogService
-      .confirmDialog({
-        title: 'Delete contact?',
-        message: 'Are you sure you want to delete this contact?',
-        confirmCaption: 'Yes',
-        cancelCaption: 'No',
-      })
-      .subscribe((yes) => {
-        if (yes) {
-          console.log('The user said YES');
-        }
-      });
+  public onEditContact() {
+    this.contactDialogService.editContactDialog(this.selectedContact);
   }
 
+  public onDeleteContact() {
+    this.contactDialogService.deleteContactDialog(this.selectedContact.id)
+  }
+
+  public backToPreviousComponent() {
+    this.router.navigate(['contacts']).then(r =>{})
+  }
 }

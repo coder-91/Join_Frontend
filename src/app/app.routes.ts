@@ -13,6 +13,7 @@ import {ContactViewComponent} from "./components/master-layout/alternate-layout/
 import {MasterLayoutComponent} from "./components/master-layout/master-layout.component";
 import {MainLayoutComponent} from "./components/master-layout/main-layout/main-layout.component";
 import {AlternateLayoutComponent} from "./components/master-layout/alternate-layout/alternate-layout.component";
+import {ContactDetailsComponent} from "./components/master-layout/alternate-layout/contact-view/contact-details/contact-details.component";
 
 export const routes: Routes = [
   {
@@ -51,7 +52,7 @@ export const routes: Routes = [
         component: AlternateLayoutComponent,
         children:[
           {path: 'contacts', component: ContactViewComponent},
-
+          {path: 'contacts-details', component: ContactDetailsComponent},
         ]
       }
     ]

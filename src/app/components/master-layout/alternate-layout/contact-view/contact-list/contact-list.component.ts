@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIconModule} from '@angular/material/icon';
 import {MatList, MatListItem} from "@angular/material/list";
 import {MatDivider} from "@angular/material/divider";
 import {MatDialog} from "@angular/material/dialog";
-import {ContactFormComponent} from "../contact-form/contact-form.component";
-import {filter} from "rxjs";
+import {ContactDialogService} from "../../../../../services/contactService/contact-dialog.service";
 import {Contact} from "../../../../../models/entity/contact";
+import {ContactService} from "../../../../../services/contactService/contact.service";
+import {ContactComponent} from "./contact/contact.component";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-contact-list',
@@ -17,23 +19,22 @@ import {Contact} from "../../../../../models/entity/contact";
     MatList,
     MatListItem,
     MatDivider,
-    MatIconButton
+    MatIconButton,
+    ContactComponent,
+    NgClass
   ],
   templateUrl: './contact-list.component.html',
   styleUrl: './contact-list.component.scss'
 })
-export class ContactListComponent {
+export class ContactListComponent{
+  protected readonly Object = Object;
+  groupedAndSortedContacts: { [key: string]: Contact[] };
 
-  contact: Contact = {id: 1, email:'aaa@aaa.de', name:'Firstname Lastname', phoneNumber:'123456789', avatarColor: '#ff0000'}
-  constructor(public dialog: MatDialog) {}
+  constructor(private contactService:ContactService ,private contactDialogService: ContactDialogService ,public dialog: MatDialog) {
+    this.groupedAndSortedContacts = this.contactService.groupAndSortContacts(this.contactService.contacts);
+  }
 
-  public createContactDialog() {
-    this.dialog.open(ContactFormComponent, {
-      panelClass: [""],
-      //data: this.contact,
-    }).afterClosed().pipe(filter((contact) => contact)).subscribe(contact => {
-      // TODO Create contact
-      console.log(contact);
-    });
+  public onCreateContact() {
+    this.contactDialogService.createContactDialog();
   }
 }

@@ -9,6 +9,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import {Contact} from "../../../../../models/entity/contact";
+import {getInitials} from "../../../../../utils/helpers";
 
 @Component({
   selector: 'app-contact-form',
@@ -28,6 +29,7 @@ import {Contact} from "../../../../../models/entity/contact";
   styleUrl: './contact-form.component.scss'
 })
 export class ContactFormComponent {
+  protected readonly getInitials = getInitials;
   contactForm: FormGroup;
 
   constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<ContactFormComponent>, @Inject(MAT_DIALOG_DATA) public contact: Contact) {

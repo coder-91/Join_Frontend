@@ -4,6 +4,8 @@ export function getRandomHexCode(hexCodes: string[]): string {
 }
 
 export function getInitials(name: string): string {
+  if (!name) return '';
+
   const nameParts = name.split(' ');
   let firstNameInitial = '';
   let lastNameInitial = '';
