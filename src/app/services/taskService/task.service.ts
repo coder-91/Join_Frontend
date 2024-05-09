@@ -5,6 +5,8 @@ import {TaskHttpService} from "./task-http.service";
 import {Category} from "../../models/interfaces/category";
 import {TaskStatus} from "../../models/interfaces/task-status";
 import {Priority} from "../../models/interfaces/priority";
+import {BehaviorSubject, Observable} from "rxjs";
+import {TaskSummary} from "../../models/interfaces/task-summary";
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +24,6 @@ export class TaskService {
       color: '#0038FF'
     }
   };
-
   readonly TASK_STATUSES: {[key: string]: TaskStatus } = {
     TO_DO: {
       key: 'TO_DO',
@@ -41,7 +42,6 @@ export class TaskService {
       value: 'Done',
     }
   }
-
   readonly PRIORITIES: {[key: string]: Priority } = {
     URGENT: {
       key: 'URGENT',
@@ -51,27 +51,29 @@ export class TaskService {
     },
     MEDIUM: {
       key: 'MEDIUM',
-      value: 'Urgent',
+      value: 'Medium',
       color: '#FFA800',
       icon: 'keyboard_double_arrow_right',
     },
     LOW: {
       key: 'LOW',
-      value: 'Urgent',
+      value: 'Low',
       color: '#7AE229',
       icon: 'keyboard_double_arrow_down',
     }
   }
 
-  tasks: Task[] = [
+  private _tasks$: BehaviorSubject<Task[] | undefined> = new BehaviorSubject<Task[] | undefined>(undefined);
+
+  tasksTmp: Task[] = [
     {
       id: 1,
       title: 'Überprüfen der Projektanforderungen 1',
       description: 'Überprüfen Sie die Anforderungen des Projekts, um sicherzustellen, dass sie vollständig sind.',
-      dueTo: new Date('2024-05-10'),
+      dueTo: new Date('2024-05-12'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: this.PRIORITIES['LOW'],
+      priority: this.PRIORITIES['URGENT'],
       category: this.CATEGORIES['TECHNICAL_TASK'],
       subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: true}, {id:2, taskId:2, description:'Subtask 2', isDone: false}],
       contacts: [
@@ -104,10 +106,10 @@ export class TaskService {
       id: 2,
       title: 'Überprüfen der Projektanforderungen 2',
       description: 'Überprüfen Sie die Anforderungen des Projekts, um sicherzustellen, dass sie vollständig sind.',
-      dueTo: new Date('2024-05-10'),
+      dueTo: new Date('2024-05-11'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: this.PRIORITIES['MEDIUM'],
+      priority: this.PRIORITIES['URGENT'],
       category: this.CATEGORIES['TECHNICAL_TASK'],
       subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: false}],
       contacts: [
@@ -281,7 +283,27 @@ export class TaskService {
     }
   ];
 
-  constructor(private taskHttpService: TaskHttpService) { }
+  constructor(private taskHttpService: TaskHttpService) {
+    this.fetchTasks()
+  }
+
+  // TODO Code korrigieren
+  public fetchTasks() {
+    this.tasks = this.tasksTmp;
+  }
+
+  public get tasks$(): Observable<Task[]> {
+    return this._tasks$.asObservable() as Observable<Task[]>;
+  }
+
+  public get tasks(): Task[] {
+    return this._tasks$.getValue() as Task[];
+  }
+
+  // TODO Code korrigieren
+  public set tasks(tasks: Task[]) {
+    this._tasks$.next(this.tasksTmp);
+  }
 
   public createTask(task: Task, status: string) {
     this.taskHttpService.createTask(task, status);
@@ -302,7 +324,44 @@ export class TaskService {
     return this.tasks.filter(task => task.status.key === status);
   }
 
-  countCompletedSubtasks(subtasks: Subtask[]): number {
+  public getTaskSummary(): TaskSummary {
+    let closestUrgentDeadline: Date | null = null;
+    const taskSummary: TaskSummary = {
+      toDoTasks: 0,
+      inProgressTasks: 0,
+      awaitingFeedbackTasks: 0,
+      doneTasks: 0,
+      urgentTasks: 0,
+      closestUrgentDeadline: null,
+      totalTasks: 0
+    };
+    this.tasks.forEach(task => {
+      if(task.status.key === this.TASK_STATUSES['TO_DO'].key) {
+        taskSummary.toDoTasks++;
+      }
+      if(task.status.key === this.TASK_STATUSES['IN_PROGRESS'].key) {
+        taskSummary.inProgressTasks++;
+      }
+      if(task.status.key === this.TASK_STATUSES['AWAIT_FEEDBACK'].key) {
+        taskSummary.awaitingFeedbackTasks++;
+      }
+      if(task.status.key === this.TASK_STATUSES['DONE'].key) {
+        taskSummary.doneTasks++;
+      }
+      if(task.priority.key === this.PRIORITIES['URGENT'].key) {
+        taskSummary.urgentTasks++;
+        if(!closestUrgentDeadline || closestUrgentDeadline > task.dueTo) {
+          closestUrgentDeadline = task.dueTo;
+        }
+
+      }
+    })
+    taskSummary.closestUrgentDeadline = closestUrgentDeadline;
+    taskSummary.totalTasks = this.tasks.length;
+    return taskSummary;
+  }
+
+  public countCompletedSubtasks(subtasks: Subtask[]): number {
     let completedSubtasks : number = 0;
     subtasks.forEach(subtask => {
       if(subtask.isDone) {
@@ -312,7 +371,7 @@ export class TaskService {
     return completedSubtasks;
   }
 
-  calcProgressBarValue(subtasks: Subtask[]) {
+  public calcProgressBarValue(subtasks: Subtask[]) {
     return this.countCompletedSubtasks(subtasks) / subtasks.length * 100;
   }
 }

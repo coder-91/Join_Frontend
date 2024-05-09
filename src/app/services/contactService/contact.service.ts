@@ -7,8 +7,9 @@ import {BehaviorSubject, Observable} from "rxjs";
   providedIn: 'root'
 })
 export class ContactService {
+  private _contacts$: BehaviorSubject<Contact[] | undefined> = new BehaviorSubject<Contact[] | undefined>(undefined);
   private _selectedContact$: BehaviorSubject<Contact | undefined> = new BehaviorSubject<Contact | undefined>(undefined);
-  contacts: Contact[] = [
+  contactsTmp: Contact[] = [
     {
       id: 1,
       email: 'john.doe@example.com',
@@ -46,14 +47,34 @@ export class ContactService {
     }
   ];
 
-  constructor(private contactHttpService: ContactHttpService) {}
+  constructor(private contactHttpService: ContactHttpService) {
+    this.fetchContacts()
+  }
 
-  public get selectedContact(): Contact {
-    return this._selectedContact$.getValue() as Contact;
+  // TODO Code korrigieren
+  public fetchContacts() {
+    this.contacts = this.contactsTmp;
+  }
+
+  public get contacts$(): Observable<Contact[]> {
+    return this._contacts$.asObservable() as Observable<Contact[]>;
+  }
+
+  public get contacts(): Contact[] {
+    return this._contacts$.getValue() as Contact[];
+  }
+
+  // TODO Code korrigieren
+  public set contacts(contacts: Contact[]) {
+    this._contacts$.next(this.contactsTmp);
   }
 
   public get selectedContact$(): Observable<Contact> {
     return this._selectedContact$.asObservable() as Observable<Contact>;
+  }
+
+  public get selectedContact(): Contact {
+    return this._selectedContact$.getValue() as Contact;
   }
 
   public set selectedContact(contact: Contact) {

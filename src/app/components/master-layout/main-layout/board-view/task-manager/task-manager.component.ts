@@ -4,9 +4,7 @@ import {MatFormField, MatLabel, MatPrefix, MatSuffix} from "@angular/material/fo
 import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {MatDialog} from "@angular/material/dialog";
-import {TaskViewComponent} from "../../task-view/task-view.component";
-import {filter} from "rxjs";
+import {TaskDialogService} from "../../../../../services/taskService/task-dialog.service";
 
 @Component({
   selector: 'app-task-manager',
@@ -29,15 +27,9 @@ import {filter} from "rxjs";
 export class TaskManagerComponent {
   searchValue:string="";
 
-  constructor(public dialog: MatDialog) {}
-  public addTaskDialog() {
-    this.dialog.open(TaskViewComponent, {
-      panelClass: ["mat-mdc-dialog-actions"],
-      data: { fromPopup: true },
-      //data: this.contact,
-    }).afterClosed().pipe(filter((task) => task)).subscribe(task => {
-      // TODO Create task
-      console.log(task);
-    });
+  constructor(public taskDialogService: TaskDialogService) {}
+
+  public onCreateTask() {
+    this.taskDialogService.createTaskDialog('');
   }
 }

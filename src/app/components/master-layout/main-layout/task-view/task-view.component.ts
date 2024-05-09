@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {Component, Inject, Optional, ViewChild} from '@angular/core';
+import {Component, Inject, OnDestroy, Optional, ViewChild} from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatError, MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
@@ -17,6 +17,7 @@ import {ChipFieldComponent} from "../../../shared/form-fields/chip-field/chip-fi
 import {Contact} from "../../../../models/entity/contact";
 import {TaskService} from "../../../../services/taskService/task.service";
 import {ContactService} from "../../../../services/contactService/contact.service";
+import {Subscription} from "rxjs";
 
 @Component({
   selector: 'app-task-view',
@@ -47,16 +48,20 @@ import {ContactService} from "../../../../services/contactService/contact.servic
   templateUrl: './task-view.component.html',
   styleUrl: './task-view.component.scss'
 })
-export class TaskViewComponent {
+export class TaskViewComponent implements OnDestroy {
   protected readonly Object = Object;
   taskForm: FormGroup;
   keywords: string[];
   fromPopup = false;
   @ViewChild(ChipFieldComponent) chipFieldComponent!: ChipFieldComponent;
-  contacts: Contact[];
+  contacts!: Contact[];
+  contactsSubscription!: Subscription;
 
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean }, public taskService: TaskService, private contactService:ContactService) {
-    this.contacts = contactService.contacts;
+    this.contactService.contacts$.subscribe(contacts => {
+      this.contacts = contacts;
+    })
+
     this.fromPopup = !!data?.fromPopup;
     this.keywords = [];
     this.taskForm = new FormGroup({
@@ -69,6 +74,10 @@ export class TaskViewComponent {
         subTasks: new FormControl(['']),
       }
     );
+  }
+
+  ngOnDestroy() {
+    this.contactsSubscription.unsubscribe();
   }
 
   public get subTasksFormControl () {

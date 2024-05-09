@@ -7,7 +7,7 @@
   </div>
 
   <div class="task-status-container-body">
-    @for (task of filterTasksByStatus(taskStatus.key);track task.id) {
+    @for (task of assignTasksByStatus(taskStatus.key);track task.id) {
       <app-task [task]="task"></app-task>
     }
   </div>

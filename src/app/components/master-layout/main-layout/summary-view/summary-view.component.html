@@ -10,7 +10,7 @@
     <div class="to-do-box box-item">
       <span><mat-icon aria-hidden="false" aria-label="edit icon" fontIcon="edit"></mat-icon></span>
       <div class="text-box">
-        <span class="box-item-number">1</span>
+        <span class="box-item-number">{{ taskSummary.toDoTasks }}</span>
         <span class="box-item-text">To-do</span>
       </div>
     </div>
@@ -18,7 +18,7 @@
     <div class="done-box box-item">
       <span><mat-icon aria-hidden="false" aria-label="done icon" fontIcon="done"></mat-icon></span>
       <div class="text-box">
-        <span class="box-item-number">1</span>
+        <span class="box-item-number">{{ taskSummary.doneTasks }}</span>
         <span class="box-item-text">Done</span>
       </div>
     </div>
@@ -28,7 +28,7 @@
         <span><mat-icon class="warn" aria-hidden="false" aria-label="urgent icon"
                         fontIcon="keyboard_double_arrow_up"></mat-icon></span>
         <div class="text-box">
-          <span class="box-item-number">1</span>
+          <span class="box-item-number">{{ taskSummary.urgentTasks }}</span>
           <span class="box-item-text">Urgent</span>
         </div>
       </div>
@@ -36,8 +36,13 @@
       <div class="vert-divider"></div>
 
       <div class="due-to-box">
-        <div class="date">October 16, 2022</div>
-        <div class="deadline">Upcoming Deadline</div>
+        @if (taskSummary.closestUrgentDeadline) {
+          <div class="date">{{ taskSummary.closestUrgentDeadline | date:'MMMM d, y' }}</div>
+          <div class="deadline">Upcoming Deadline</div>
+        }
+        @else {
+          <div>No urgent Tasks</div>
+        }
       </div>
     </div>
 
@@ -48,7 +53,7 @@
 
     <div class="task-box box-item">
       <div class="text-box">
-        <div class="box-item-number">5</div>
+        <div class="box-item-number">{{taskSummary.totalTasks}}</div>
         <div class="box-item-text">
           <div>Tasks in</div>
           <div>Board</div>
@@ -58,7 +63,7 @@
 
     <div class="progress-box box-item">
       <div class="text-box">
-        <div class="box-item-number">2</div>
+        <div class="box-item-number">{{ taskSummary.inProgressTasks }}</div>
         <div class="box-item-text">
           <div>Tasks in</div>
           <div>progress</div>
@@ -68,7 +73,7 @@
 
     <div class="feedback-box box-item">
       <div class="text-box">
-        <div class="box-item-number">2</div>
+        <div class="box-item-number">{{ taskSummary.awaitingFeedbackTasks }}</div>
         <div class="box-item-text">
           <div>Awaiting</div>
           <div>feedback</div>
