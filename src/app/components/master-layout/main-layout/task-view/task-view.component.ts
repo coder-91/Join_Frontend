@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import {Component, Inject, OnDestroy, Optional, ViewChild} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, Optional, ViewChild} from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatError, MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
@@ -48,21 +48,19 @@ import {Subscription} from "rxjs";
   templateUrl: './task-view.component.html',
   styleUrl: './task-view.component.scss'
 })
-export class TaskViewComponent implements OnDestroy {
+export class TaskViewComponent implements OnInit, OnDestroy {
   protected readonly Object = Object;
-  taskForm: FormGroup;
-  keywords: string[];
+  taskForm!: FormGroup;
+  keywords!: string[];
   fromPopup = false;
   @ViewChild(ChipFieldComponent) chipFieldComponent!: ChipFieldComponent;
   contacts!: Contact[];
   contactsSubscription!: Subscription;
 
-  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean }, public taskService: TaskService, private contactService:ContactService) {
-    this.contactService.contacts$.subscribe(contacts => {
-      this.contacts = contacts;
-    })
+  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean }, public taskService: TaskService, private contactService:ContactService) {}
 
-    this.fromPopup = !!data?.fromPopup;
+  ngOnInit() {
+    this.fromPopup = !!this.data?.fromPopup;
     this.keywords = [];
     this.taskForm = new FormGroup({
         title: new FormControl('', [Validators.required]),
@@ -74,6 +72,9 @@ export class TaskViewComponent implements OnDestroy {
         subTasks: new FormControl(['']),
       }
     );
+    this.contactsSubscription = this.contactService.contacts$.subscribe(contacts => {
+      this.contacts = contacts;
+    })
   }
 
   ngOnDestroy() {
