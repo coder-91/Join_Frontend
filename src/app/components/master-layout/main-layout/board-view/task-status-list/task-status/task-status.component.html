@@ -1,7 +1,7 @@
 <div class="task-status-container">
   <div class="title-container">
     <div class="title">{{taskStatus.value}}</div>
-    @if (taskStatus.key !== taskService.TASK_STATUSES['DONE'].key) {
+    @if (taskStatus.key !== TASK_STATUSES['DONE'].key) {
         <mat-icon (click)="createTaskDialog(taskStatus.key)" color="primary" class="clickable">add</mat-icon>
     }
   </div>

@@ -18,6 +18,7 @@ import {Contact} from "../../../../models/entity/contact";
 import {TaskService} from "../../../../services/taskService/task.service";
 import {ContactService} from "../../../../services/contactService/contact.service";
 import {Subscription} from "rxjs";
+import {CATEGORIES, PRIORITIES} from "../../../../services/taskService/task-constants";
 
 @Component({
   selector: 'app-task-view',
@@ -49,8 +50,11 @@ import {Subscription} from "rxjs";
   styleUrl: './task-view.component.scss'
 })
 export class TaskViewComponent implements OnInit, OnDestroy {
+  protected readonly PRIORITIES = PRIORITIES;
+  protected readonly CATEGORIES = CATEGORIES;
   protected readonly Object = Object;
   taskForm!: FormGroup;
+  minDate!: Date;
   keywords!: string[];
   fromPopup = false;
   @ViewChild(ChipFieldComponent) chipFieldComponent!: ChipFieldComponent;
@@ -60,6 +64,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean }, public taskService: TaskService, private contactService:ContactService) {}
 
   ngOnInit() {
+    this.minDate = new Date();
     this.fromPopup = !!this.data?.fromPopup;
     this.keywords = [];
     this.taskForm = new FormGroup({

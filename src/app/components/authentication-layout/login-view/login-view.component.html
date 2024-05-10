@@ -1,7 +1,7 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
   <img src="../../../../assets/images/logo_dark.svg" alt="">
   <h1>Login</h1>
-  <hr>
+  <div class="hr"></div>
 
   <mat-form-field>
     <mat-label>Email</mat-label>
@@ -37,7 +37,7 @@
     }
   </mat-form-field>
 
-  <mat-checkbox formControlName="rememberMe"><span class="remember-me">Remember me</span></mat-checkbox>
+  <mat-checkbox class="custom-checkbox mb-3" formControlName="rememberMe"><span class="remember-me">Remember me</span></mat-checkbox>
 
   <div class="button-box">
     <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">

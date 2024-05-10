@@ -25,7 +25,7 @@
 
   <mat-form-field>
     <mat-label>Choose a due date</mat-label>
-    <input matInput formControlName="dueDate" [matDatepicker]="picker">
+    <input matInput formControlName="dueDate" [min]="minDate" [matDatepicker]="picker">
     <mat-datepicker-toggle matIconSuffix [for]="picker">
       <mat-icon color="primary" matDatepickerToggleIcon>calendar_month</mat-icon>
     </mat-datepicker-toggle>
@@ -51,7 +51,7 @@
   <mat-form-field>
     <mat-label>Priority</mat-label>
     <mat-select formControlName="priority">
-      @for (priority of Object.values(taskService.PRIORITIES); track priority.key) {
+      @for (priority of Object.values(PRIORITIES); track priority.key) {
         <mat-option value={{priority.key}}>{{ priority.value }}
           <mat-icon [ngStyle]="{'color': priority.color}"
                     matSuffix>{{ priority.icon }}
@@ -74,7 +74,7 @@
     <mat-label>Category</mat-label>
     <mat-icon color="primary" matSuffix>category</mat-icon>
     <mat-select formControlName="category">
-      @for (category of Object.values(taskService.CATEGORIES); track category.key) {
+      @for (category of Object.values(CATEGORIES); track category.key) {
         <mat-option value={{category.key}}>{{ category.value }}</mat-option>
       }
     </mat-select>

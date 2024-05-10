@@ -1,44 +1,49 @@
 @import '../../../../styles/variables';
 @import '../../../../styles/media-queries';
+@import '../../../../styles/mixins';
+
+@include custom-checkbox-styles(".custom-checkbox");
+
 .sign-up-form {
-    display: flex;
-    flex-direction: column;
-    width: 500px;
-    background: #fff;
-    padding: 20px 50px;
-    border-radius: 20px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  width: 500px;
+  background: #fff;
+  padding: 20px 50px;
+  border-radius: 20px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
 }
 
 img {
-    width: 50px;
-    height: auto;
+  width: 50px;
+  height: auto;
 }
 
 h1 {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 0;
 }
 
-hr {
-    border: 2px solid $col-light-blue;
-    width: 100px;
-    border-radius: 2px;
-    margin-bottom: 30px;
+div.hr {
+  background-color: $col-light-blue;
+  width: 100px;
+  height: 2px;
+  border-radius: 2px;
+  margin: 5px auto 30px auto;
 }
 
 .button-box {
-    display: flex;
-    column-gap: 10px;
+  display: flex;
+  column-gap: 10px;
 }
 
 .login {
-    font-size: 13px;
+  font-size: 13px;
 }
 
 .login button:hover {
-    font-size: 15px;
+  font-size: 15px;
 }
 
 .privacy-policy-box {
@@ -54,21 +59,21 @@ hr {
 }
 
 @include medium-screen {
-    .sign-up-form {
-        display: flex;
-        flex-direction: column;
-        background: #fff;
-        border-radius: 20px;
-        padding: 10px 20px;
-    }
+  .sign-up-form {
+    display: flex;
+    flex-direction: column;
+    background: #fff;
+    border-radius: 20px;
+    padding: 10px 20px;
+  }
 }
 
 @include small-screen {
-    .sign-up-form {
-        width: 100%;
-    }
-    .button-box {
-        flex-direction: column;
-        row-gap: 10px;
-    }
+  .sign-up-form {
+    width: 100%;
+  }
+  .button-box {
+    flex-direction: column;
+    row-gap: 10px;
+  }
 }

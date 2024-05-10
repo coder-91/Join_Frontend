@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import {MatOption} from "@angular/material/autocomplete";
 import {TaskStatusComponent} from "./task-status/task-status.component";
 import {TaskComponent} from "./task-status/task/task.component";
-import {TaskService} from "../../../../../services/taskService/task.service";
+import {TASK_STATUSES} from "../../../../../services/taskService/task-constants";
 
 @Component({
   selector: 'app-task-status-list',
@@ -16,6 +16,6 @@ import {TaskService} from "../../../../../services/taskService/task.service";
   styleUrl: './task-status-list.component.scss'
 })
 export class TaskStatusListComponent {
+  protected readonly TASK_STATUSES = TASK_STATUSES;
   protected readonly Object = Object;
-  constructor(public taskService: TaskService) {}
 }

@@ -1,7 +1,7 @@
 <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="sign-up-form">
   <img src="../../../../assets/images/logo_dark.svg" alt="">
   <h1>Sign up</h1>
-  <hr>
+  <div class="hr"></div>
 
   <mat-form-field>
     <mat-label>Name</mat-label>
@@ -70,7 +70,7 @@
     }
   </mat-form-field>
 
-  <mat-checkbox formControlName="privacyPolicy">
+  <mat-checkbox class="custom-checkbox mb-3" formControlName="privacyPolicy">
       <span class="privacy-policy-box">
         I accept the <a class="privacy-policy" href="privacy-policy">Privacy Policy</a>
       </span>

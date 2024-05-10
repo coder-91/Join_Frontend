@@ -4,3 +4,32 @@
   justify-content: center;
   overflow: hidden;
 }
+
+@mixin custom-checkbox-styles($class: ".custom-checkbox") {
+  ::ng-deep #{$class} > div > div.mdc-checkbox {
+    padding: 0 !important;
+  }
+
+  ::ng-deep
+  #{$class}
+  > div
+  > div.mdc-checkbox
+  > .mat-mdc-checkbox-touch-target,
+  ::ng-deep
+  #{$class}
+  > div
+  > div.mdc-checkbox
+  > .mdc-checkbox__native-control {
+    height: 18px !important;
+    width: 18px !important;
+  }
+
+  ::ng-deep
+  #{$class}
+  > div
+  > div.mdc-checkbox
+  > .mdc-checkbox__background {
+    top: 0 !important;
+    left: 0 !important;
+  }
+}

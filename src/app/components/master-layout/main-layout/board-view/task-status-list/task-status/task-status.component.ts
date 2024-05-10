@@ -8,6 +8,7 @@ import {MatSuffix} from "@angular/material/form-field";
 import {TaskService} from "../../../../../../services/taskService/task.service";
 import {TaskDialogService} from "../../../../../../services/taskService/task-dialog.service";
 import {Subscription} from "rxjs";
+import {TASK_STATUSES} from "../../../../../../services/taskService/task-constants";
 
 @Component({
   selector: 'app-task-status',
@@ -17,6 +18,7 @@ import {Subscription} from "rxjs";
   styleUrl: './task-status.component.scss'
 })
 export class TaskStatusComponent implements OnInit, OnDestroy {
+  protected readonly TASK_STATUSES = TASK_STATUSES;
   @Input() taskStatus!:TaskStatus;
   tasks!: Task[];
   tasksSubscription!: Subscription;

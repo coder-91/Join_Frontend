@@ -27,7 +27,7 @@
           </mat-menu>
 
         <mat-menu #taskStatus="matMenu">
-          @for (taskStatus of Object.values(taskService.TASK_STATUSES); track taskStatus.key) {
+          @for (taskStatus of Object.values(TASK_STATUSES); track taskStatus.key) {
 
             @if (taskStatus.key !== task.status.key) {
               <button mat-menu-item >{{ taskStatus.value }}</button>

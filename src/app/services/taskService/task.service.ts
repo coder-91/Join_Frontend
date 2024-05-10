@@ -2,67 +2,14 @@ import { Injectable } from '@angular/core';
 import {Task} from "../../models/entity/task";
 import {Subtask} from "../../models/entity/subtask";
 import {TaskHttpService} from "./task-http.service";
-import {Category} from "../../models/interfaces/category";
-import {TaskStatus} from "../../models/interfaces/task-status";
-import {Priority} from "../../models/interfaces/priority";
 import {BehaviorSubject, Observable} from "rxjs";
 import {TaskSummary} from "../../models/interfaces/task-summary";
+import {CATEGORIES, PRIORITIES, TASK_STATUSES} from "./task-constants";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
-  readonly CATEGORIES: { [key: string]: Category } = {
-    TECHNICAL_TASK: {
-      key: 'TECHNICAL_TASK',
-      value: 'Technical Task',
-      color: '#1FD7C1'
-    },
-    USER_STORY: {
-      key: 'USER_STORY',
-      value: 'User Story',
-      color: '#0038FF'
-    }
-  };
-  readonly TASK_STATUSES: {[key: string]: TaskStatus } = {
-    TO_DO: {
-      key: 'TO_DO',
-      value: 'To Do',
-    },
-    AWAIT_FEEDBACK: {
-      key: 'AWAIT_FEEDBACK',
-      value: 'Await Feedback',
-    },
-    IN_PROGRESS: {
-      key: 'IN_PROGRESS',
-      value: 'In Progress',
-    },
-    DONE: {
-      key: 'DONE',
-      value: 'Done',
-    }
-  }
-  readonly PRIORITIES: {[key: string]: Priority } = {
-    URGENT: {
-      key: 'URGENT',
-      value: 'Urgent',
-      color: '#FF7A50',
-      icon: 'keyboard_double_arrow_up',
-    },
-    MEDIUM: {
-      key: 'MEDIUM',
-      value: 'Medium',
-      color: '#FFA800',
-      icon: 'keyboard_double_arrow_right',
-    },
-    LOW: {
-      key: 'LOW',
-      value: 'Low',
-      color: '#7AE229',
-      icon: 'keyboard_double_arrow_down',
-    }
-  }
-
   private _tasks$: BehaviorSubject<Task[] | undefined> = new BehaviorSubject<Task[] | undefined>(undefined);
 
   tasksTmp: Task[] = [
@@ -73,8 +20,8 @@ export class TaskService {
       dueTo: new Date('2024-05-12'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: this.PRIORITIES['URGENT'],
-      category: this.CATEGORIES['TECHNICAL_TASK'],
+      priority: PRIORITIES['URGENT'],
+      category: CATEGORIES['TECHNICAL_TASK'],
       subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: true}, {id:2, taskId:2, description:'Subtask 2', isDone: false}],
       contacts: [
         {
@@ -99,7 +46,7 @@ export class TaskService {
           avatarColor: '#ffca70'
         },
       ],
-      status: this.TASK_STATUSES['TO_DO'],
+      status: TASK_STATUSES['TO_DO'],
     },
 
     {
@@ -109,8 +56,8 @@ export class TaskService {
       dueTo: new Date('2024-05-11'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: this.PRIORITIES['URGENT'],
-      category: this.CATEGORIES['TECHNICAL_TASK'],
+      priority: PRIORITIES['URGENT'],
+      category: CATEGORIES['TECHNICAL_TASK'],
       subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: false}],
       contacts: [
         {
@@ -135,7 +82,7 @@ export class TaskService {
           avatarColor: '#ff00ff'
         },
       ],
-      status: this.TASK_STATUSES['IN_PROGRESS'],
+      status: TASK_STATUSES['IN_PROGRESS'],
     },
 
     {
@@ -145,8 +92,8 @@ export class TaskService {
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: this.PRIORITIES['URGENT'],
-      category: this.CATEGORIES['USER_STORY'],
+      priority: PRIORITIES['URGENT'],
+      category: CATEGORIES['USER_STORY'],
       subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: true}],
       contacts: [
         {
@@ -171,7 +118,7 @@ export class TaskService {
           avatarColor: '#ff0000'
         },
       ],
-      status: this.TASK_STATUSES['AWAIT_FEEDBACK']
+      status: TASK_STATUSES['AWAIT_FEEDBACK']
     },
 
     {
@@ -181,8 +128,8 @@ export class TaskService {
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: this.PRIORITIES['LOW'],
-      category: this.CATEGORIES['USER_STORY'],
+      priority: PRIORITIES['LOW'],
+      category: CATEGORIES['USER_STORY'],
       subtasks: [],
       contacts: [
         {
@@ -207,7 +154,7 @@ export class TaskService {
           avatarColor: '#ff0000'
         },
       ],
-      status: this.TASK_STATUSES['AWAIT_FEEDBACK']
+      status: TASK_STATUSES['AWAIT_FEEDBACK']
     },
 
     {
@@ -217,8 +164,8 @@ export class TaskService {
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: this.PRIORITIES['LOW'],
-      category: this.CATEGORIES['USER_STORY'],
+      priority: PRIORITIES['LOW'],
+      category: CATEGORIES['USER_STORY'],
       subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: false}],
       contacts: [
         {
@@ -243,7 +190,7 @@ export class TaskService {
           avatarColor: '#ff0000'
         },
       ],
-      status: this.TASK_STATUSES['AWAIT_FEEDBACK']
+      status: TASK_STATUSES['AWAIT_FEEDBACK']
     },
 
     {
@@ -253,8 +200,8 @@ export class TaskService {
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
-      priority: this.PRIORITIES['LOW'],
-      category: this.CATEGORIES['USER_STORY'],
+      priority: PRIORITIES['LOW'],
+      category: CATEGORIES['USER_STORY'],
       subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: false}],
       contacts: [
         {
@@ -279,7 +226,7 @@ export class TaskService {
           avatarColor: '#ff0000'
         },
       ],
-      status: this.TASK_STATUSES['AWAIT_FEEDBACK']
+      status: TASK_STATUSES['AWAIT_FEEDBACK']
     }
   ];
 
@@ -336,19 +283,19 @@ export class TaskService {
       totalTasks: 0
     };
     this.tasks.forEach(task => {
-      if(task.status.key === this.TASK_STATUSES['TO_DO'].key) {
+      if(task.status.key === TASK_STATUSES['TO_DO'].key) {
         taskSummary.toDoTasks++;
       }
-      if(task.status.key === this.TASK_STATUSES['IN_PROGRESS'].key) {
+      if(task.status.key === TASK_STATUSES['IN_PROGRESS'].key) {
         taskSummary.inProgressTasks++;
       }
-      if(task.status.key === this.TASK_STATUSES['AWAIT_FEEDBACK'].key) {
+      if(task.status.key === TASK_STATUSES['AWAIT_FEEDBACK'].key) {
         taskSummary.awaitingFeedbackTasks++;
       }
-      if(task.status.key === this.TASK_STATUSES['DONE'].key) {
+      if(task.status.key === TASK_STATUSES['DONE'].key) {
         taskSummary.doneTasks++;
       }
-      if(task.priority.key === this.PRIORITIES['URGENT'].key) {
+      if(task.priority.key === PRIORITIES['URGENT'].key) {
         taskSummary.urgentTasks++;
         if(!closestUrgentDeadline || closestUrgentDeadline > task.dueTo) {
           closestUrgentDeadline = task.dueTo;

@@ -9,10 +9,10 @@ import {MatSuffix} from "@angular/material/form-field";
 import {MatTooltipModule} from '@angular/material/tooltip';
 import {Task} from '../../../../../../../models/entity/task';
 import {Subtask} from "../../../../../../../models/entity/subtask";
-import {MatDialog} from "@angular/material/dialog";
 import {TaskService} from "../../../../../../../services/taskService/task.service";
 import {TaskDialogService} from "../../../../../../../services/taskService/task-dialog.service";
 import {getInitials} from "../../../../../../../utils/helpers";
+import {TASK_STATUSES} from "../../../../../../../services/taskService/task-constants";
 
 @Component({
   selector: 'app-task',
@@ -22,6 +22,7 @@ import {getInitials} from "../../../../../../../utils/helpers";
   styleUrl: './task.component.scss'
 })
 export class TaskComponent {
+  protected readonly TASK_STATUSES = TASK_STATUSES;
   @Input() task!: Task;
   protected readonly Object = Object;
   protected readonly getInitials = getInitials;
