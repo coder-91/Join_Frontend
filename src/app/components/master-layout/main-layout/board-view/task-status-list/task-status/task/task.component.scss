@@ -1,4 +1,5 @@
 @import '../../../../../../../../styles/variables';
+@import '../../../../../../../../styles/mixins';
 @import '../../../../../../../../styles/media-queries';
 
 @mixin clamp-lines($line-count) {
@@ -7,13 +8,6 @@
   -webkit-line-clamp: $line-count; /* number of lines to show */
   -webkit-box-orient: vertical;
   line-clamp: $line-count;
-}
-
-@mixin custom-width-icon {
-  width: 5px;
-  display: flex;
-  justify-content: center;
-  overflow: hidden;
 }
 
 .task-container {

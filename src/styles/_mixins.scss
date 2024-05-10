@@ -1,0 +1,6 @@
+@mixin custom-width-icon($width: 5px) {
+  width: $width;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}

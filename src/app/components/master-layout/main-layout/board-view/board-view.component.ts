@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {TaskStatusListComponent} from "./task-status-list/task-status-list.component";
 import {TaskManagerComponent} from "./task-manager/task-manager.component";
 @Component({
