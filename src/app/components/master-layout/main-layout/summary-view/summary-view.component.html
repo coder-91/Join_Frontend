@@ -36,13 +36,8 @@
       <div class="vert-divider"></div>
 
       <div class="due-to-box">
-        @if (taskSummary.closestUrgentDeadline) {
-          <div class="date">{{ taskSummary.closestUrgentDeadline | date:'MMMM d, y' }}</div>
-          <div class="deadline">Upcoming Deadline</div>
-        }
-        @else {
-          <div>No urgent Tasks</div>
-        }
+        <div class="date">{{ taskSummary.closestUrgentDeadline ? (taskSummary.closestUrgentDeadline | date:'MMMM d, y') : '----------' }}</div>
+        <div class="deadline">Upcoming Deadline</div>
       </div>
     </div>
 
@@ -53,7 +48,7 @@
 
     <div class="task-box box-item">
       <div class="text-box">
-        <div class="box-item-number">{{taskSummary.totalTasks}}</div>
+        <div class="box-item-number">{{ taskSummary.totalTasks }}</div>
         <div class="box-item-text">
           <div>Tasks in</div>
           <div>Board</div>
