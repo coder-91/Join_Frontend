@@ -47,18 +47,18 @@ export class ContactFormComponent {
 
   public onSubmit() {
     if (this.contact) {
-      this.updateContact();
+      this.onUpdateContact();
     } else {
-      this.createContact();
+      this.onCreateContact();
     }
     this.contactForm.reset();
   }
 
-  public createContact() {
+  public onCreateContact() {
     this.dialogRef.close(this.contactForm.getRawValue());
   }
 
-  public updateContact() {
+  public onUpdateContact() {
     this.dialogRef.close(this.contactForm.getRawValue());
   }
 

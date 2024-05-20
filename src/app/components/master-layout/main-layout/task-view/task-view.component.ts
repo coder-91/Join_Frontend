@@ -3,7 +3,7 @@ import {Component, Inject, OnDestroy, OnInit, Optional, ViewChild} from '@angula
 import {MatButtonModule} from "@angular/material/button";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatError, MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
-import {FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatOption, provideNativeDateAdapter} from '@angular/material/core';
@@ -12,13 +12,14 @@ import {TitleCasePipe} from "@angular/common";
 import {MatSelect} from "@angular/material/select";
 import {MatIcon} from "@angular/material/icon";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
-import {MAT_DIALOG_DATA, MatDialogModule} from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {ChipFieldComponent} from "../../../shared/form-fields/chip-field/chip-field.component";
 import {Contact} from "../../../../models/entity/contact";
-import {TaskService} from "../../../../services/taskService/task.service";
 import {ContactService} from "../../../../services/contactService/contact.service";
 import {Subscription} from "rxjs";
-import {CATEGORIES, PRIORITIES} from "../../../../services/taskService/task-constants";
+import {CATEGORIES, PRIORITIES, TASK_STATUSES} from "../../../../services/taskService/task-constants";
+import { Task } from '../../../../models/entity/task';
+import {TaskService} from "../../../../services/taskService/task.service";
 
 @Component({
   selector: 'app-task-view',
@@ -44,7 +45,6 @@ import {CATEGORIES, PRIORITIES} from "../../../../services/taskService/task-cons
     MatRadioButton,
     ChipFieldComponent,
     MatDialogModule,
-
   ],
   templateUrl: './task-view.component.html',
   styleUrl: './task-view.component.scss'
@@ -61,25 +61,46 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   contacts!: Contact[];
   contactsSubscription!: Subscription;
 
-  constructor(@Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean }, public taskService: TaskService, private contactService:ContactService) {}
+  constructor(private fb: FormBuilder, @Optional() private dialogRef: MatDialogRef<TaskViewComponent>, private taskService: TaskService, private contactService:ContactService, @Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean, task: Task }) {}
 
   ngOnInit() {
     this.minDate = new Date();
     this.fromPopup = !!this.data?.fromPopup;
     this.keywords = [];
-    this.taskForm = new FormGroup({
+
+    this.taskForm = this.fb.group({
+        id: this.data?.task?.id,
         title: new FormControl('', [Validators.required]),
-        dueDate: new FormControl('', [Validators.required]),
+        dueTo: new FormControl('', [Validators.required]),
         description: new FormControl(''),
+        created: this.data?.task?.created,
+        updated: this.data?.task?.updated,
         priority: new FormControl('MEDIUM', [Validators.required]),
         category: new FormControl(''),
         assignedTo: new FormControl(''),
-        subTasks: new FormControl(['']),
+        subTasks: new FormControl(''),
+        status: this.data?.task?.status
       }
     );
     this.contactsSubscription = this.contactService.contacts$.subscribe(contacts => {
       this.contacts = contacts;
     })
+
+    if (this.data?.task) {
+      this.taskForm.patchValue({
+        id: this.data.task?.id,
+        title: this.data.task.title,
+        dueTo: this.data.task.dueTo,
+        description: this.data.task.description,
+        created: this.data?.task.created,
+        updated: this.data?.task.updated,
+        priority: this.data.task.priority.key,
+        category: this.data.task.category.key,
+        assignedTo: this.data.task.contacts.map((x) => x.id),
+        subTasks: this.data.task.subtasks.map((x) => x.id),
+        status: this.data?.task.status
+      });
+    }
   }
 
   ngOnDestroy() {
@@ -90,8 +111,29 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     return this.taskForm.get("subTasks") as FormControl;
   }
 
-  public onSubmit(): void {
-    console.log(this.taskForm);
+  public onSubmit() {
+    if (this.data?.task) {
+      this.onUpdateTask();
+    } else {
+      this.onCreateTask();
+    }
+    this.taskForm.reset();
+  }
+
+  public onCreateTask() {
+    if(this.fromPopup) {
+      this.dialogRef.close(this.taskForm.getRawValue());
+    } else {
+      this.taskService.createTask(this.taskForm.getRawValue(), TASK_STATUSES['TO_DO'])
+    }
+  }
+
+  public onUpdateTask() {
+    if(this.fromPopup) {
+      this.dialogRef.close(this.taskForm.getRawValue());
+    } else {
+      this.taskService.editTask(this.data?.task)
+    }
   }
 
   public onReset() {

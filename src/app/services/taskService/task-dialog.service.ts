@@ -15,15 +15,16 @@ export class TaskDialogService {
 
   public createTaskDialog(taskStatus: string) {
     this.dialog.open(TaskViewComponent, {
-      data: { fromPopup: true, taskStatus },
+      data: { fromPopup: true },
     }).afterClosed().pipe(filter((task) => task)).subscribe(task => {
-      this.taskService.createTask(task, taskStatus);
+      task.status = taskStatus;
+      this.taskService.createTask(task);
     });
   }
 
   public editTaskDialog(task: Task) {
     this.dialog.open(TaskViewComponent, {
-      data: { fromPopup: true, task },
+      data: { fromPopup: true, task: task},
     }).afterClosed().pipe(filter((task) => task)).subscribe(task => {
       this.taskService.editTask(task);
     });

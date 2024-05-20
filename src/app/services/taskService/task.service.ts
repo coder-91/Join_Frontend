@@ -5,6 +5,7 @@ import {TaskHttpService} from "./task-http.service";
 import {BehaviorSubject, Observable} from "rxjs";
 import {TaskSummary} from "../../models/interfaces/task-summary";
 import {CATEGORIES, PRIORITIES, TASK_STATUSES} from "./task-constants";
+import {TaskStatus} from "../../models/interfaces/task-status";
 
 @Injectable({
   providedIn: 'root'
@@ -252,14 +253,17 @@ export class TaskService {
     this._tasks$.next(this.tasksTmp);
   }
 
-  public createTask(task: Task, status: string) {
+  public createTask(task: Task, status?:TaskStatus) {
+    if (status) {
+      task.status = status;
+    }
     this.taskHttpService.createTask(task, status);
-    console.log("Task created");
+    console.log("Task", task);
   }
 
-  public editTask(task: Task) {
-    this.taskHttpService.editTask(task);
-    console.log("Task edited");
+  public editTask(task: Task, status?:string) {
+    this.taskHttpService.editTask(task, status);
+    console.log("Task", task);
   }
 
   public deleteTask(taskId: number) {
@@ -318,7 +322,7 @@ export class TaskService {
     return completedSubtasks;
   }
 
-  public calcProgressBarValue(subtasks: Subtask[]) {
+  public subtasksProgressInPercent(subtasks: Subtask[]) {
     return this.countCompletedSubtasks(subtasks) / subtasks.length * 100;
   }
 }

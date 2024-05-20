@@ -2,14 +2,24 @@
 
 $column-gap-content: 30px;
 
-.title-container {
+.title-container-from-popup, .title-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
 
-  h2 {
-    margin-right: auto;
-  }
+.title-container-from-popup {
+  padding-top: 20px;
+}
+
+.title-container {
+  margin-bottom: 30px;
+}
+
+.title {
+  font-size: clamp(20px, 3vw, 40px);
+  font-weight: bold;
+  margin-right: auto;
 }
 
 .content-container {
@@ -23,13 +33,18 @@ $column-gap-content: 30px;
   }
 }
 
-actions-container {
+.from-popup, .not-from-popup {
+  padding-bottom: 20px;
   display: flex;
   column-gap: 10px;
+
+  button {
+    margin: 0;
+  }
 }
 
-.mat-dialog-actions {
-  padding: 0 24px !important;
+.from-popup {
+  padding-left: 24px;
 }
 
 @include large-screen {

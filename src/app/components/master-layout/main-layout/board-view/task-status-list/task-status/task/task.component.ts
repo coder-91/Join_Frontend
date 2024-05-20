@@ -13,6 +13,7 @@ import {TaskService} from "../../../../../../../services/taskService/task.servic
 import {TaskDialogService} from "../../../../../../../services/taskService/task-dialog.service";
 import {getInitials} from "../../../../../../../utils/helpers";
 import {TASK_STATUSES} from "../../../../../../../services/taskService/task-constants";
+import {TaskStatus} from "../../../../../../../models/interfaces/task-status";
 
 @Component({
   selector: 'app-task',
@@ -24,6 +25,7 @@ import {TASK_STATUSES} from "../../../../../../../services/taskService/task-cons
 export class TaskComponent {
   protected readonly TASK_STATUSES = TASK_STATUSES;
   @Input() task!: Task;
+  @Input() taskStatus!:TaskStatus;
   protected readonly Object = Object;
   protected readonly getInitials = getInitials;
 
@@ -33,8 +35,8 @@ export class TaskComponent {
     return this.taskService.countCompletedSubtasks(subtasks);
   }
 
-  public calcProgressBarValue(subtasks: Subtask[]) {
-    return this.taskService.calcProgressBarValue(subtasks);
+  public subtasksProgressInPercent(subtasks: Subtask[]) {
+    return this.taskService.subtasksProgressInPercent(subtasks);
   }
 
   public editTaskDialog(task: Task) {

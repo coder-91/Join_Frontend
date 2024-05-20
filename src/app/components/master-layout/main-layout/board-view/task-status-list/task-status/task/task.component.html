@@ -42,8 +42,8 @@
 
       @if (task.subtasks.length) {
         <div class="progressbar-container mb-3">
-          <div class="progress" role="progressbar" [attr.aria-valuenow]="calcProgressBarValue(task.subtasks)" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar" [ngStyle]="{'width': calcProgressBarValue(task.subtasks) + '%'}"></div>
+          <div class="progress" role="progressbar" [attr.aria-valuenow]="subtasksProgressInPercent(task.subtasks)" aria-valuemin="0" aria-valuemax="100">
+            <div class="progress-bar" [ngStyle]="{'width': subtasksProgressInPercent(task.subtasks) + '%'}"></div>
           </div>
 
           <div class="subtask">
