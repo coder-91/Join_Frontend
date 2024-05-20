@@ -1,7 +1,7 @@
 <div class="cont-lvl-1">
   <div class="cont-lvl-2-1">
     <img src="/assets/images/logo_light.svg" alt="Join Logo">
-    <h1>{{contact? 'Edit contact': 'Add contact'}}</h1>
+    <h1>{{contact? 'Edit Contact': 'Add Contact'}}</h1>
     @if (!contact) {
       <div class="sub-text">Tasks are better with a team!</div>
     }
@@ -69,7 +69,7 @@
 
       <div class="button-box">
         <button mat-raised-button color="primary" type="submit" [disabled]="!contactForm.valid">
-          <span>{{contact? 'Save': 'Create'}}</span>
+          <span>{{contact? 'Update': 'Create'}}</span>
         </button>
 
         <button mat-raised-button type="button" (click)="onCancel()">

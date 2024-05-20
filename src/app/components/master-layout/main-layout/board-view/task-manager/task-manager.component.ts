@@ -5,6 +5,7 @@ import {MatIcon} from "@angular/material/icon";
 import {MatInput} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TaskDialogService} from "../../../../../services/taskService/task-dialog.service";
+import {TASK_STATUSES} from "../../../../../services/taskService/task-constants";
 
 @Component({
   selector: 'app-task-manager',
@@ -30,6 +31,6 @@ export class TaskManagerComponent {
   constructor(public taskDialogService: TaskDialogService) {}
 
   public onCreateTask() {
-    this.taskDialogService.createTaskDialog('');
+    this.taskDialogService.createTaskDialog(TASK_STATUSES['TO_DO'].key);
   }
 }
