@@ -1,4 +1,4 @@
-import {Component, inject, Input} from '@angular/core';
+import {Component, inject, Input, OnInit} from '@angular/core';
 import {MatChipInputEvent, MatChipsModule} from '@angular/material/chips';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatIconModule} from '@angular/material/icon';
@@ -15,7 +15,7 @@ import {TitleCasePipe} from "@angular/common";
   templateUrl: './chip-field.component.html',
   styleUrl: './chip-field.component.scss'
 })
-export class ChipFieldComponent {
+export class ChipFieldComponent implements OnInit {
   @Input() control!: FormControl;
   @Input() controlTitle!: string;
   keywords: string[] = [];
@@ -35,5 +35,9 @@ export class ChipFieldComponent {
       this.keywords.push(value);
     }
     event.chipInput!.clear();
+  }
+
+  ngOnInit() {
+    this.keywords = this.control.value;
   }
 }

@@ -97,7 +97,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         priority: this.data.task.priority.key,
         category: this.data.task.category.key,
         assignedTo: this.data.task.contacts.map((x) => x.id),
-        subTasks: this.data.task.subtasks.map((x) => x.id),
+        subTasks: this.data.task.subtasks.map((subtask) => subtask.description),
         status: this.data?.task.status
       });
     }
