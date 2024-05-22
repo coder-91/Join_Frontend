@@ -6,9 +6,9 @@
     }
   </div>
 
-  <div class="task-status-container-body">
+  <div cdkDropList [id]="taskStatus.key" [cdkDropListData]="assignTasksByStatus(taskStatus.key)" (cdkDropListDropped)="drop($event)" class="task-status-drop-list">
     @for (task of assignTasksByStatus(taskStatus.key);track task.id) {
-      <app-task [task]="task"></app-task>
+      <app-task cdkDrag [cdkDragData]="task" [task]="task"></app-task>
     }
   </div>
 </div>
