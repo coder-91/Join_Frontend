@@ -79,7 +79,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         category: new FormControl(''),
         assignedTo: new FormControl(''),
         subTasks: new FormControl(''),
-        status: this.data?.task?.status
+        status: Object.values(TASK_STATUSES)[0],
       }
     );
     this.contactsSubscription = this.contactService.contacts$.subscribe(contacts => {
