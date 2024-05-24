@@ -84,14 +84,14 @@
       <mat-form-field>
         <mat-label>Assigned to</mat-label>
         <mat-icon color="primary" matSuffix>group_add</mat-icon>
-        <mat-select formControlName="assignedTo" multiple>
+        <mat-select formControlName="assignedTo" multiple [compareWith]="contactCompareWithFn">
           @for (contact of contacts; track contact.id) {
-            <mat-option [value]="contact.id">{{ contact.name }}</mat-option>
+            <mat-option [value]="contact">{{ contact.name }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
 
-      <app-chip-field [control]="subTasksFormControl" [controlTitle]="'subtask'"></app-chip-field>
+      <app-chip-field [taskId]="data?.task?.id" [control]="subTasksFormControl" [controlTitle]="'subtask'"></app-chip-field>
 
 
     </form>

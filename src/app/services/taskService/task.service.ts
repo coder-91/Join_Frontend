@@ -26,7 +26,7 @@ export class TaskService {
       category: CATEGORIES['TECHNICAL_TASK'],
       subtasks: [{id: 1, taskId: 1, description: 'Subtask 1', isDone: true}, {
         id: 2,
-        taskId: 2,
+        taskId: 1,
         description: 'Subtask 2',
         isDone: false
       }],
@@ -65,7 +65,7 @@ export class TaskService {
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['URGENT'],
       category: CATEGORIES['TECHNICAL_TASK'],
-      subtasks: [{id: 1, taskId: 1, description: 'Subtask 1', isDone: false}],
+      subtasks: [{id: 1, taskId: 2, description: 'Subtask 1', isDone: false}],
       contacts: [
         {
           id: 1,
@@ -101,7 +101,7 @@ export class TaskService {
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['URGENT'],
       category: CATEGORIES['USER_STORY'],
-      subtasks: [{id: 1, taskId: 1, description: 'Subtask 1', isDone: true}],
+      subtasks: [{id: 1, taskId: 3, description: 'Subtask 1', isDone: true}],
       contacts: [
         {
           id: 1,
@@ -165,7 +165,7 @@ export class TaskService {
     },
 
     {
-      id: 4,
+      id: 5,
       title: 'Überprüfen der Projektanforderungen 3',
       description: 'Überprüfen Sie die Anforderungen des Projekts, um sicherzustellen, dass sie vollständig sind.',
       dueTo: new Date('2024-05-10'),
@@ -173,7 +173,7 @@ export class TaskService {
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['LOW'],
       category: CATEGORIES['USER_STORY'],
-      subtasks: [{id: 1, taskId: 1, description: 'Subtask 1', isDone: false}],
+      subtasks: [{id: 1, taskId: 5, description: 'Subtask 1', isDone: false}],
       contacts: [
         {
           id: 1,
@@ -201,7 +201,7 @@ export class TaskService {
     },
 
     {
-      id: 5,
+      id: 6,
       title: 'Überprüfen der Projektanforderungen 3',
       description: 'Überprüfen Sie die Anforderungen des Projekts, um sicherzustellen, dass sie vollständig sind.',
       dueTo: new Date('2024-05-10'),
@@ -209,7 +209,7 @@ export class TaskService {
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['LOW'],
       category: CATEGORIES['USER_STORY'],
-      subtasks: [{id: 1, taskId: 1, description: 'Subtask 1', isDone: false}],
+      subtasks: [{id: 1, taskId: 6, description: 'Subtask 1', isDone: false}],
       contacts: [
         {
           id: 1,

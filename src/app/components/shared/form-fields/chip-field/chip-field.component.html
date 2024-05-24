@@ -2,9 +2,9 @@
   <mat-label>{{ controlTitle | titlecase }}<span>s</span></mat-label>
   <mat-chip-grid #chipGrid [attr.aria-label]="'Enter ' + controlTitle + 's'" [formControl]="control" >
     @for (keyword of keywords; track keyword) {
-      <mat-chip-row (removed)="removeKeyword(keyword)">
-        {{keyword}}
-        <button matChipRemove aria-label="'remove ' + keyword">
+      <mat-chip-row (removed)="removeKeyword(keyword)" [value]="keyword">
+        {{keyword.description}}
+        <button matChipRemove aria-label="'remove ' + keyword.description">
           <mat-icon>cancel</mat-icon>
         </button>
       </mat-chip-row>

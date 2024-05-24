@@ -48,7 +48,7 @@ export class TaskStatusComponent implements OnInit, OnDestroy {
   }
 
   public assignTasksByStatus(status: string): Task[] {
-    return this.taskService.tasksByStatus[status];
+    return this.tasksByStatus[status];
   }
 
   public createTaskDialog(taskStatus: string) {
@@ -56,6 +56,6 @@ export class TaskStatusComponent implements OnInit, OnDestroy {
   }
 
   public getTaskCount(status: string): number {
-    return this.taskService.tasksByStatus[status]?.length || 0;
+    return this.tasksByStatus[status]?.length || 0;
   }
 }

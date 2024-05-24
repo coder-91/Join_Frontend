@@ -1,5 +1,5 @@
 export interface Subtask {
-  id: number,
+  id: number | undefined,
   taskId: number,
   description: string,
   isDone: boolean,

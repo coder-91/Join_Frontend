@@ -60,7 +60,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   @ViewChild(ChipFieldComponent) chipFieldComponent!: ChipFieldComponent;
   contacts!: Contact[];
   contactsSubscription!: Subscription;
-
+  contactCompareWithFn = (contact: Contact, value: Contact) => contact?.id == value?.id
   constructor(private fb: FormBuilder, @Optional() private dialogRef: MatDialogRef<TaskViewComponent>, private taskService: TaskService, private contactService:ContactService, @Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean, task: Task }) {}
 
   ngOnInit() {
@@ -77,8 +77,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         updated: this.data?.task?.updated,
         priority: new FormControl('MEDIUM', [Validators.required]),
         category: new FormControl(''),
-        assignedTo: new FormControl(''),
-        subTasks: new FormControl(''),
+        assignedTo: new FormControl([]),
+        subTasks: new FormControl([]),
         status: Object.values(TASK_STATUSES)[0],
       }
     );
@@ -96,8 +96,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         updated: this.data?.task.updated,
         priority: this.data.task.priority.key,
         category: this.data.task.category.key,
-        assignedTo: this.data.task.contacts.map((x) => x.id),
-        subTasks: this.data.task.subtasks.map((subtask) => subtask.description),
+        assignedTo: this.data.task.contacts,
+        subTasks: this.data.task.subtasks,
         status: this.data?.task.status
       });
     }
