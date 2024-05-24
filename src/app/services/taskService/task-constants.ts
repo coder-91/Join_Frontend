@@ -34,11 +34,11 @@ export const TASK_STATUSES: {[key: string]: TaskStatus } = {
   }
 }
 export const PRIORITIES: {[key: string]: Priority } = {
-  URGENT: {
-    key: 'URGENT',
-    value: 'Urgent',
-    color: '#FF7A50',
-    icon: 'keyboard_double_arrow_up',
+  LOW: {
+    key: 'LOW',
+    value: 'Low',
+    color: '#7AE229',
+    icon: 'keyboard_double_arrow_down',
   },
   MEDIUM: {
     key: 'MEDIUM',
@@ -46,10 +46,10 @@ export const PRIORITIES: {[key: string]: Priority } = {
     color: '#FFA800',
     icon: 'keyboard_double_arrow_right',
   },
-  LOW: {
-    key: 'LOW',
-    value: 'Low',
-    color: '#7AE229',
-    icon: 'keyboard_double_arrow_down',
-  }
+  URGENT: {
+    key: 'URGENT',
+    value: 'Urgent',
+    color: '#FF7A50',
+    icon: 'keyboard_double_arrow_up',
+  },
 }

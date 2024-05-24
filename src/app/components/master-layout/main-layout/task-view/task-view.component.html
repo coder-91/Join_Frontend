@@ -53,7 +53,7 @@
         <mat-label>Priority</mat-label>
         <mat-select formControlName="priority">
           @for (priority of Object.values(PRIORITIES); track priority.key) {
-            <mat-option value={{priority.key}}>{{ priority.value }}
+            <mat-option [value]=priority>{{ priority.value }}
               <mat-icon [ngStyle]="{'color': priority.color}"
                         matSuffix>{{ priority.icon }}
               </mat-icon>
