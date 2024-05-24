@@ -46,4 +46,8 @@ export class TaskComponent {
   public deleteTaskDialog(taskId: number) {
     this.taskDialogService.deleteTaskDialog(taskId);
   }
+
+  public updateTask(task: Task, newStatus: TaskStatus) {
+    this.taskService.updateTask(task, newStatus.key);
+  }
 }

@@ -1,8 +1,4 @@
 <div class="task-container">
-  <!-- <div class="no-task-container">
-    <div>No task To Do</div>
-  </div> -->
-
   <mat-card>
     <mat-card-content>
       <div class="menu-container mb-1">
@@ -30,7 +26,7 @@
           @for (taskStatus of Object.values(TASK_STATUSES); track taskStatus.key) {
 
             @if (taskStatus.key !== task.status.key) {
-              <button mat-menu-item >{{ taskStatus.value }}</button>
+              <button (click)="updateTask(task, taskStatus)" mat-menu-item >{{ taskStatus.value }}</button>
             }
           }
         </mat-menu>

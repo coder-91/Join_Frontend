@@ -9,7 +9,7 @@ import {TaskService} from "../../../../../../services/taskService/task.service";
 import {TaskDialogService} from "../../../../../../services/taskService/task-dialog.service";
 import {Subscription} from "rxjs";
 import {TASK_STATUSES} from "../../../../../../services/taskService/task-constants";
-import {CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
 
 @Component({
   selector: 'app-task-status',
@@ -22,8 +22,9 @@ export class TaskStatusComponent implements OnInit, OnDestroy {
   protected readonly TASK_STATUSES = TASK_STATUSES;
   @Input() taskStatus!:TaskStatus;
   tasks!: Task[];
-  tasksByStatus!: { [key: string]: Task[] };
   tasksSubscription!: Subscription;
+  tasksByStatus!: { [key: string]: Task[] };
+  tasksByStatusSubscription!: Subscription;
 
   constructor(public taskService: TaskService, private taskDialogService:TaskDialogService) {}
 
@@ -32,44 +33,29 @@ export class TaskStatusComponent implements OnInit, OnDestroy {
       this.tasks = tasks;
     });
 
-    this.tasksByStatus = Object.keys(TASK_STATUSES).reduce((acc, cur) => {
-      acc[cur] = this.tasks.filter((x) => x.status.key === cur);
-
-      return acc;
-    }, {} as { [key: string]: Task[] });
+    this.tasksByStatusSubscription = this.taskService.tasksByStatus$.subscribe(tasksByStatus => {
+      this.tasksByStatus = tasksByStatus;
+    });
   }
-
-
 
   ngOnDestroy(): void {
     this.tasksSubscription.unsubscribe();
+    this.tasksByStatusSubscription.unsubscribe();
   }
 
-  drop(event: CdkDragDrop<Task[]>) {
-    /*let fromContainer = event.previousContainer.id;
-    let toContainer = event.container.id;
-    let dragDropData: Task = event.item.data;
-    console.log("fromContainer:", fromContainer)
-    console.log("toContainer:", toContainer)
-    console.log("dragDropData:", dragDropData)*/
-
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
-    }
+  public onDropTask(event: CdkDragDrop<Task[]>) {
+    this.taskService.onDropTask(event);
   }
 
   public assignTasksByStatus(status: string): Task[] {
-    return this.tasksByStatus[status];
+    return this.taskService.tasksByStatus[status];
   }
 
   public createTaskDialog(taskStatus: string) {
     this.taskDialogService.createTaskDialog(taskStatus);
+  }
+
+  public getTaskCount(status: string): number {
+    return this.taskService.tasksByStatus[status]?.length || 0;
   }
 }

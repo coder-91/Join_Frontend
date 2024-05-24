@@ -6,7 +6,12 @@
     }
   </div>
 
-  <div cdkDropList [id]="taskStatus.key" [cdkDropListData]="assignTasksByStatus(taskStatus.key)" (cdkDropListDropped)="drop($event)" class="task-status-drop-list">
+  <div cdkDropList [id]="taskStatus.key" [cdkDropListData]="assignTasksByStatus(taskStatus.key)" (cdkDropListDropped)="onDropTask($event)" class="task-status-drop-list">
+    @if(getTaskCount(taskStatus.key) === 0) {
+      <div class="no-task-container">
+        <div>No Tasks</div>
+      </div>
+    }
     @for (task of assignTasksByStatus(taskStatus.key);track task.id) {
       <app-task cdkDrag [cdkDragData]="task" [task]="task"></app-task>
     }

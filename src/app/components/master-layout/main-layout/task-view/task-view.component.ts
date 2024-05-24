@@ -132,7 +132,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     if(this.fromPopup) {
       this.dialogRef.close(this.taskForm.getRawValue());
     } else {
-      this.taskService.editTask(this.data?.task)
+      this.taskService.updateTask(this.data?.task)
     }
   }
 

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Task} from "../../models/entity/task";
 import {Subtask} from "../../models/entity/subtask";
 import {TaskHttpService} from "./task-http.service";
@@ -6,13 +6,14 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {TaskSummary} from "../../models/interfaces/task-summary";
 import {CATEGORIES, PRIORITIES, TASK_STATUSES} from "./task-constants";
 import {TaskStatus} from "../../models/interfaces/task-status";
+import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
   private _tasks$: BehaviorSubject<Task[] | undefined> = new BehaviorSubject<Task[] | undefined>(undefined);
-
+  private _tasksByStatus$: BehaviorSubject<{ [key: string]: Task[] } | undefined> = new BehaviorSubject<{ [key: string]: Task[] } | undefined>(undefined);
   tasksTmp: Task[] = [
     {
       id: 1,
@@ -23,7 +24,12 @@ export class TaskService {
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['URGENT'],
       category: CATEGORIES['TECHNICAL_TASK'],
-      subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: true}, {id:2, taskId:2, description:'Subtask 2', isDone: false}],
+      subtasks: [{id: 1, taskId: 1, description: 'Subtask 1', isDone: true}, {
+        id: 2,
+        taskId: 2,
+        description: 'Subtask 2',
+        isDone: false
+      }],
       contacts: [
         {
           id: 1,
@@ -59,7 +65,7 @@ export class TaskService {
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['URGENT'],
       category: CATEGORIES['TECHNICAL_TASK'],
-      subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: false}],
+      subtasks: [{id: 1, taskId: 1, description: 'Subtask 1', isDone: false}],
       contacts: [
         {
           id: 1,
@@ -95,7 +101,7 @@ export class TaskService {
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['URGENT'],
       category: CATEGORIES['USER_STORY'],
-      subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: true}],
+      subtasks: [{id: 1, taskId: 1, description: 'Subtask 1', isDone: true}],
       contacts: [
         {
           id: 1,
@@ -167,7 +173,7 @@ export class TaskService {
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['LOW'],
       category: CATEGORIES['USER_STORY'],
-      subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: false}],
+      subtasks: [{id: 1, taskId: 1, description: 'Subtask 1', isDone: false}],
       contacts: [
         {
           id: 1,
@@ -203,7 +209,7 @@ export class TaskService {
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['LOW'],
       category: CATEGORIES['USER_STORY'],
-      subtasks: [{id:1, taskId:1, description:'Subtask 1', isDone: false}],
+      subtasks: [{id: 1, taskId: 1, description: 'Subtask 1', isDone: false}],
       contacts: [
         {
           id: 1,
@@ -238,6 +244,7 @@ export class TaskService {
   // TODO Code korrigieren
   public fetchTasks() {
     this.tasks = this.tasksTmp;
+    this.tasksByStatus = this.groupTasksByStatus();
   }
 
   public get tasks$(): Observable<Task[]> {
@@ -248,12 +255,23 @@ export class TaskService {
     return this._tasks$.getValue() as Task[];
   }
 
-  // TODO Code korrigieren
   public set tasks(tasks: Task[]) {
-    this._tasks$.next(this.tasksTmp);
+    this._tasks$.next(tasks);
   }
 
-  public createTask(task: Task, status?:TaskStatus) {
+  public get tasksByStatus$(): Observable<{[key: string]: Task[]}> {
+    return this._tasksByStatus$.asObservable() as Observable<{[key: string]: Task[]}>;
+  }
+
+  public get tasksByStatus(): {[key: string]: Task[]} {
+    return this._tasksByStatus$.getValue() as {[key: string]: Task[]};
+  }
+
+  public set tasksByStatus(tasksByStatus: {[key: string]: Task[]}) {
+    this._tasksByStatus$.next(tasksByStatus);
+  }
+
+  public createTask(task: Task, status?: TaskStatus) {
     if (status) {
       task.status = status;
     }
@@ -261,8 +279,12 @@ export class TaskService {
     console.log("Task", task);
   }
 
-  public editTask(task: Task, status?:string) {
-    this.taskHttpService.editTask(task, status);
+  public updateTask(task: Task, status?: string) {
+    if (status) {
+      // TODO
+      //task.status = status;
+    }
+    this.taskHttpService.editTask(task);
     console.log("Task", task);
   }
 
@@ -271,8 +293,11 @@ export class TaskService {
     console.log("Task deleted");
   }
 
-  public filterTasksByStatus(status: string): Task[] {
-    return this.tasks.filter(task => task.status.key === status);
+  public groupTasksByStatus(): { [key: string]: Task[] } {
+    return Object.keys(TASK_STATUSES).reduce((acc, cur) => {
+      acc[cur] = this.tasks.filter((x) => x.status.key === cur);
+      return acc;
+    }, {} as { [key: string]: Task[] });
   }
 
   public getTaskSummary(): TaskSummary {
@@ -286,25 +311,25 @@ export class TaskService {
       closestUrgentDeadline: null,
       totalTasks: 0
     };
+
     this.tasks.forEach(task => {
-      if(task.status.key === TASK_STATUSES['TO_DO'].key) {
+      if (task.status.key === TASK_STATUSES['TO_DO'].key) {
         taskSummary.toDoTasks++;
       }
-      if(task.status.key === TASK_STATUSES['IN_PROGRESS'].key) {
+      if (task.status.key === TASK_STATUSES['IN_PROGRESS'].key) {
         taskSummary.inProgressTasks++;
       }
-      if(task.status.key === TASK_STATUSES['AWAIT_FEEDBACK'].key) {
+      if (task.status.key === TASK_STATUSES['AWAIT_FEEDBACK'].key) {
         taskSummary.awaitingFeedbackTasks++;
       }
-      if(task.status.key === TASK_STATUSES['DONE'].key) {
+      if (task.status.key === TASK_STATUSES['DONE'].key) {
         taskSummary.doneTasks++;
       }
-      if(task.priority.key === PRIORITIES['URGENT'].key) {
+      if (task.priority.key === PRIORITIES['URGENT'].key) {
         taskSummary.urgentTasks++;
-        if(!closestUrgentDeadline || closestUrgentDeadline > task.dueTo) {
+        if (!closestUrgentDeadline || closestUrgentDeadline > task.dueTo) {
           closestUrgentDeadline = task.dueTo;
         }
-
       }
     })
     taskSummary.closestUrgentDeadline = closestUrgentDeadline;
@@ -313,9 +338,9 @@ export class TaskService {
   }
 
   public countCompletedSubtasks(subtasks: Subtask[]): number {
-    let completedSubtasks : number = 0;
+    let completedSubtasks: number = 0;
     subtasks.forEach(subtask => {
-      if(subtask.isDone) {
+      if (subtask.isDone) {
         completedSubtasks++;
       }
     })
@@ -324,5 +349,25 @@ export class TaskService {
 
   public subtasksProgressInPercent(subtasks: Subtask[]) {
     return this.countCompletedSubtasks(subtasks) / subtasks.length * 100;
+  }
+
+  public onDropTask(event: CdkDragDrop<Task[]>) {
+    /*let fromContainer = event.previousContainer.id;
+        let toContainer = event.container.id;
+        let dragDropData: Task = event.item.data;
+        console.log("fromContainer:", fromContainer)
+        console.log("toContainer:", toContainer)
+        console.log("dragDropData:", dragDropData)*/
+
+    if (event.previousContainer === event.container) {
+      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+    } else {
+      transferArrayItem(
+        event.previousContainer.data,
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex,
+      );
+    }
   }
 }
