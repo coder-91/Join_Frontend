@@ -76,7 +76,7 @@
         <mat-icon color="primary" matSuffix>category</mat-icon>
         <mat-select formControlName="category">
           @for (category of Object.values(CATEGORIES); track category.key) {
-            <mat-option value={{category.key}}>{{ category.value }}</mat-option>
+            <mat-option [value]=category>{{ category.value }}</mat-option>
           }
         </mat-select>
       </mat-form-field>
