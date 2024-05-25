@@ -47,15 +47,15 @@ export class TaskStatusComponent implements OnInit, OnDestroy {
     this.taskService.onDropTask(event);
   }
 
-  public assignTasksByStatus(status: string): Task[] {
-    return this.tasksByStatus[status];
+  public assignTasksByStatus(status: TaskStatus): Task[] {
+    return this.tasksByStatus[status.key];
   }
 
-  public createTaskDialog(taskStatus: string) {
+  public createTaskDialog(taskStatus: TaskStatus) {
     this.taskDialogService.createTaskDialog(taskStatus);
   }
 
-  public getTaskCount(status: string): number {
-    return this.tasksByStatus[status]?.length || 0;
+  public getTaskCount(status: TaskStatus): number {
+    return this.tasksByStatus[status.key]?.length || 0;
   }
 }

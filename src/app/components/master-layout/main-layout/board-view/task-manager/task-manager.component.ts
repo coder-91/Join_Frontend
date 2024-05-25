@@ -31,6 +31,6 @@ export class TaskManagerComponent {
   constructor(public taskDialogService: TaskDialogService) {}
 
   public onCreateTask() {
-    this.taskDialogService.createTaskDialog(TASK_STATUSES['TO_DO'].key);
+    this.taskDialogService.createTaskDialog(Object.values(TASK_STATUSES)[0]);
   }
 }

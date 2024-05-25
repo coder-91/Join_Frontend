@@ -2,17 +2,17 @@
   <div class="title-container">
     <div class="title">{{taskStatus.value}}</div>
     @if (taskStatus.key !== TASK_STATUSES['DONE'].key) {
-        <mat-icon (click)="createTaskDialog(taskStatus.key)" color="primary" class="clickable">add</mat-icon>
+        <mat-icon (click)="createTaskDialog(taskStatus)" color="primary" class="clickable">add</mat-icon>
     }
   </div>
 
-  <div cdkDropList [id]="taskStatus.key" [cdkDropListData]="assignTasksByStatus(taskStatus.key)" (cdkDropListDropped)="onDropTask($event)" class="task-status-drop-list">
-    @if(getTaskCount(taskStatus.key) === 0) {
+  <div cdkDropList [id]="taskStatus.key" [cdkDropListData]="assignTasksByStatus(taskStatus)" (cdkDropListDropped)="onDropTask($event)" class="task-status-drop-list">
+    @if(getTaskCount(taskStatus) === 0) {
       <div class="no-task-container">
         <div>No Tasks</div>
       </div>
     }
-    @for (task of assignTasksByStatus(taskStatus.key);track task.id) {
+    @for (task of assignTasksByStatus(taskStatus);track task.id) {
       <app-task cdkDrag [cdkDragData]="task" [task]="task"></app-task>
     }
   </div>

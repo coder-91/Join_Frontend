@@ -117,14 +117,14 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     } else {
       this.onCreateTask();
     }
-    this.taskForm.reset();
+    this.onReset();
   }
 
   public onCreateTask() {
     if(this.fromPopup) {
       this.dialogRef.close(this.taskForm.getRawValue());
     } else {
-      this.taskService.createTask(this.taskForm.getRawValue(), TASK_STATUSES['TO_DO'])
+      this.taskService.createTask(this.taskForm.getRawValue())
     }
   }
 
@@ -139,5 +139,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   public onReset() {
     this.taskForm.reset();
     this.chipFieldComponent.keywords=[];
+    this.subTasksFormControl.reset();
+    this.subTasksFormControl.markAsPristine();
+    this.subTasksFormControl.markAsUntouched()
   }
 }
