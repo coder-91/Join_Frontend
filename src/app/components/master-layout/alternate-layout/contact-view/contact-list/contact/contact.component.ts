@@ -24,6 +24,7 @@ export class ContactComponent implements OnInit, OnDestroy {
   protected readonly getInitials = getInitials;
   selectedContact: Contact | undefined;
   selectedContactSubscription!: Subscription;
+  private breakpointSubscription!: Subscription;
 
   constructor(private contactService: ContactService, private router: Router, private breakpointObserver: BreakpointObserver,) {
   }
@@ -36,12 +37,15 @@ export class ContactComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.selectedContactSubscription.unsubscribe();
+    if(this.breakpointSubscription) {
+      this.breakpointSubscription.unsubscribe();
+    }
   }
 
   public onSelectContact(contact: Contact) {
     this.contactService.selectedContact = contact;
 
-    this.breakpointObserver.observe([
+    this.breakpointSubscription = this.breakpointObserver.observe([
       "(max-width: 992px)"
     ]).subscribe((result: BreakpointState) => {
       if (result.matches) {
