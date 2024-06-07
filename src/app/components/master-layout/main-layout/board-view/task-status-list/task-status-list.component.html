@@ -1,5 +1,5 @@
 <div cdkDropListGroup class="task-status-list-container">
   @for (taskStatus of Object.values(TASK_STATUSES); track taskStatus.key) {
-    <app-task-status [taskStatus]="taskStatus"></app-task-status>
+    <app-task-status [taskStatus]="taskStatus" [taskStatusKeys]="taskStatusKeys"></app-task-status>
   }
 </div>

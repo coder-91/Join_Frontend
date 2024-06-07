@@ -13,23 +13,20 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag
 })
 export class TaskService {
   private _tasks$: BehaviorSubject<Task[] | undefined> = new BehaviorSubject<Task[] | undefined>(undefined);
-  private _tasksByStatus$: BehaviorSubject<{ [key: string]: Task[] } | undefined> = new BehaviorSubject<{ [key: string]: Task[] } | undefined>(undefined);
   tasksTmp: Task[] = [
     {
       id: 1,
-      title: 'Überprüfen der Projektanforderungen 1',
-      description: 'Überprüfen Sie die Anforderungen des Projekts, um sicherzustellen, dass sie vollständig sind.',
+      title: 'Überprüfung der Spezifikationen',
+      description: 'Analysieren Sie die Projektspezifikationen, um sicherzustellen, dass alle Details korrekt sind.',
       dueTo: new Date('2024-05-12'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['URGENT'],
       category: CATEGORIES['TECHNICAL_TASK'],
-      subtasks: [{id: 1, taskId: 1, description: 'Subtask 1', isDone: true}, {
-        id: 2,
-        taskId: 1,
-        description: 'Subtask 2',
-        isDone: false
-      }],
+      subtasks: [
+        { id: 1, taskId: 1, description: 'Subtask 1', isDone: true },
+        { id: 2, taskId: 1, description: 'Subtask 2', isDone: false }
+      ],
       contacts: [
         {
           id: 1,
@@ -51,21 +48,22 @@ export class TaskService {
           name: 'Alice Smith',
           phoneNumber: '+1122334455',
           avatarColor: '#ffca70'
-        },
+        }
       ],
-      status: TASK_STATUSES['TO_DO'],
+      status: TASK_STATUSES['TO_DO']
     },
-
     {
       id: 2,
-      title: 'Überprüfen der Projektanforderungen 2',
-      description: 'Überprüfen Sie die Anforderungen des Projekts, um sicherzustellen, dass sie vollständig sind.',
+      title: 'Dokumentation überprüfen',
+      description: 'Stellen Sie sicher, dass die Projektdokumentation vollständig und aktuell ist.',
       dueTo: new Date('2024-05-11'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['URGENT'],
       category: CATEGORIES['TECHNICAL_TASK'],
-      subtasks: [{id: 1, taskId: 2, description: 'Subtask 1', isDone: false}],
+      subtasks: [
+        { id: 1, taskId: 2, description: 'Subtask 1', isDone: false }
+      ],
       contacts: [
         {
           id: 1,
@@ -87,21 +85,22 @@ export class TaskService {
           name: 'Alice Smith',
           phoneNumber: '+1122334455',
           avatarColor: '#ff00ff'
-        },
+        }
       ],
-      status: TASK_STATUSES['IN_PROGRESS'],
+      status: TASK_STATUSES['IN_PROGRESS']
     },
-
     {
       id: 3,
-      title: 'Überprüfen der Projektanforderungen 3',
-      description: 'Überprüfen Sie die Anforderungen des Projekts, um sicherzustellen, dass sie vollständig sind.',
+      title: 'Kundenspezifikationen validieren',
+      description: 'Überprüfen Sie die Anforderungen des Kunden auf Vollständigkeit und Klarheit.',
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['URGENT'],
       category: CATEGORIES['USER_STORY'],
-      subtasks: [{id: 1, taskId: 3, description: 'Subtask 1', isDone: true}],
+      subtasks: [
+        { id: 1, taskId: 3, description: 'Subtask 1', isDone: true }
+      ],
       contacts: [
         {
           id: 1,
@@ -123,15 +122,14 @@ export class TaskService {
           name: 'Alice Smith',
           phoneNumber: '+1122334455',
           avatarColor: '#ff0000'
-        },
+        }
       ],
       status: TASK_STATUSES['AWAIT_FEEDBACK']
     },
-
     {
       id: 4,
-      title: 'Überprüfen der Projektanforderungen 3',
-      description: 'Überprüfen Sie die Anforderungen des Projekts, um sicherzustellen, dass sie vollständig sind.',
+      title: 'Testplan erstellen',
+      description: 'Erstellen Sie einen detaillierten Testplan für das Projekt.',
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
@@ -159,21 +157,22 @@ export class TaskService {
           name: 'Alice Smith',
           phoneNumber: '+1122334455',
           avatarColor: '#ff0000'
-        },
+        }
       ],
       status: TASK_STATUSES['AWAIT_FEEDBACK']
     },
-
     {
       id: 5,
-      title: 'Überprüfen der Projektanforderungen 3',
-      description: 'Überprüfen Sie die Anforderungen des Projekts, um sicherzustellen, dass sie vollständig sind.',
+      title: 'Risikoanalyse durchführen',
+      description: 'Führen Sie eine Risikoanalyse durch, um potenzielle Probleme zu identifizieren.',
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['LOW'],
       category: CATEGORIES['USER_STORY'],
-      subtasks: [{id: 1, taskId: 5, description: 'Subtask 1', isDone: false}],
+      subtasks: [
+        { id: 1, taskId: 5, description: 'Subtask 1', isDone: false }
+      ],
       contacts: [
         {
           id: 1,
@@ -195,21 +194,22 @@ export class TaskService {
           name: 'Alice Smith',
           phoneNumber: '+1122334455',
           avatarColor: '#ff0000'
-        },
+        }
       ],
       status: TASK_STATUSES['AWAIT_FEEDBACK']
     },
-
     {
       id: 6,
-      title: 'Überprüfen der Projektanforderungen 3',
-      description: 'Überprüfen Sie die Anforderungen des Projekts, um sicherzustellen, dass sie vollständig sind.',
+      title: 'Sicherheitsanforderungen prüfen',
+      description: 'Überprüfen Sie die Sicherheitsanforderungen des Projekts.',
       dueTo: new Date('2024-05-10'),
       created: new Date('2024-04-20'),
       updated: new Date('2024-04-25'),
       priority: PRIORITIES['LOW'],
       category: CATEGORIES['USER_STORY'],
-      subtasks: [{id: 1, taskId: 6, description: 'Subtask 1', isDone: false}],
+      subtasks: [
+        { id: 1, taskId: 6, description: 'Subtask 1', isDone: false }
+      ],
       contacts: [
         {
           id: 1,
@@ -231,11 +231,12 @@ export class TaskService {
           name: 'Alice Smith',
           phoneNumber: '+1122334455',
           avatarColor: '#ff0000'
-        },
+        }
       ],
       status: TASK_STATUSES['AWAIT_FEEDBACK']
     }
   ];
+
 
   constructor(private taskHttpService: TaskHttpService) {
     this.fetchTasks()
@@ -244,7 +245,6 @@ export class TaskService {
   // TODO Code korrigieren
   public fetchTasks() {
     this.tasks = this.tasksTmp;
-    this.tasksByStatus = this.groupTasksByStatus();
   }
 
   public get tasks$(): Observable<Task[]> {
@@ -257,18 +257,6 @@ export class TaskService {
 
   public set tasks(tasks: Task[]) {
     this._tasks$.next(tasks);
-  }
-
-  public get tasksByStatus$(): Observable<{[key: string]: Task[]}> {
-    return this._tasksByStatus$.asObservable() as Observable<{[key: string]: Task[]}>;
-  }
-
-  public get tasksByStatus(): {[key: string]: Task[]} {
-    return this._tasksByStatus$.getValue() as {[key: string]: Task[]};
-  }
-
-  public set tasksByStatus(tasksByStatus: {[key: string]: Task[]}) {
-    this._tasksByStatus$.next(tasksByStatus);
   }
 
   public createTask(task: Task, status?: TaskStatus) {
@@ -291,13 +279,6 @@ export class TaskService {
   public deleteTask(taskId: number) {
     this.taskHttpService.deleteTask(taskId);
     console.log("Task deleted");
-  }
-
-  public groupTasksByStatus(): { [key: string]: Task[] } {
-    return Object.keys(TASK_STATUSES).reduce((acc, cur) => {
-      acc[cur] = this.tasks.filter((x) => x.status.key === cur);
-      return acc;
-    }, {} as { [key: string]: Task[] });
   }
 
   public getTaskSummary(): TaskSummary {
@@ -369,5 +350,7 @@ export class TaskService {
         event.currentIndex,
       );
     }
+    event.previousContainer.data = [...event.previousContainer.data];
+    event.container.data = [...event.container.data];
   }
 }

@@ -16,6 +16,10 @@
   border-radius: 10px;
 }
 
+:host:last-child .task-container {
+  margin-bottom:10px;
+}
+
 mat-card-content {
   display: flex;
   flex-direction: column;
@@ -48,7 +52,7 @@ mat-card-content {
 }
 
 .title, .description {
-  @include clamp-lines(2);
+  @include clamp-lines(1);
 }
 
 .progressbar-container {
@@ -64,7 +68,6 @@ mat-card-content {
     font-size: 10px;
     flex-grow: 0;
   }
-
 }
 
 .avatar-container {

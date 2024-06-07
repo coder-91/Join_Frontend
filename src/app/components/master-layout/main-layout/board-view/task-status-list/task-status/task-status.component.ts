@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import {TaskComponent} from "./task/task.component";
@@ -10,37 +10,52 @@ import {TaskDialogService} from "../../../../../../services/taskService/task-dia
 import {Subscription} from "rxjs";
 import {TASK_STATUSES} from "../../../../../../services/taskService/task-constants";
 import {CdkDrag, CdkDragDrop, CdkDropList} from "@angular/cdk/drag-drop";
+import { CarouselModule } from 'primeng/carousel';
+import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
 
 @Component({
   selector: 'app-task-status',
   standalone: true,
-  imports: [MatButtonModule, MatIconModule, TaskComponent, MatSuffix, CdkDropList, CdkDrag],
+  imports: [MatButtonModule, MatIconModule, TaskComponent, MatSuffix, CdkDropList, CdkDrag, CarouselModule],
   templateUrl: './task-status.component.html',
   styleUrl: './task-status.component.scss'
 })
 export class TaskStatusComponent implements OnInit, OnDestroy {
+  @ViewChild(CdkDropList) list!: CdkDropList;
   protected readonly TASK_STATUSES = TASK_STATUSES;
   @Input() taskStatus!:TaskStatus;
+  @Input() taskStatusKeys!: Array<string>;
   tasks!: Task[];
   tasksSubscription!: Subscription;
   tasksByStatus!: { [key: string]: Task[] };
-  tasksByStatusSubscription!: Subscription;
+  private breakpointSubscription!: Subscription;
+  isScreenLarge: boolean = false;
 
-  constructor(public taskService: TaskService, private taskDialogService:TaskDialogService) {}
+  constructor(public taskService: TaskService, private taskDialogService:TaskDialogService, private breakpointObserver: BreakpointObserver) {}
 
   ngOnInit() {
+    this.breakpointSubscription = this.breakpointObserver.observe([
+      "(max-width: 1200px)"
+    ]).subscribe((result: BreakpointState) => {
+      this.isScreenLarge = result.matches;
+    });
+
     this.tasksSubscription = this.taskService.tasks$.subscribe(tasks => {
       this.tasks = tasks;
     });
 
-    this.tasksByStatusSubscription = this.taskService.tasksByStatus$.subscribe(tasksByStatus => {
-      this.tasksByStatus = tasksByStatus;
-    });
+    this.tasksByStatus = Object.keys(TASK_STATUSES).reduce((acc, cur) => {
+      acc[cur] = this.tasks.filter((x) => x.status.key === cur);
+
+      return acc;
+    }, {} as { [key: string]: Task[] });
   }
 
   ngOnDestroy(): void {
     this.tasksSubscription.unsubscribe();
-    this.tasksByStatusSubscription.unsubscribe();
+    if(this.breakpointSubscription) {
+      this.breakpointSubscription.unsubscribe();
+    }
   }
 
   public onDropTask(event: CdkDragDrop<Task[]>) {
@@ -53,9 +68,5 @@ export class TaskStatusComponent implements OnInit, OnDestroy {
 
   public createTaskDialog(taskStatus: TaskStatus) {
     this.taskDialogService.createTaskDialog(taskStatus);
-  }
-
-  public getTaskCount(status: TaskStatus): number {
-    return this.tasksByStatus[status.key]?.length || 0;
   }
 }
