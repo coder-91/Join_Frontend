@@ -50,6 +50,16 @@ div.hr {
   font-size: 15px;
 }
 
+.animated-button {
+  animation: pulsate 2s infinite;
+}
+
+@keyframes pulsate {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+  100% { transform: scale(1); }
+}
+
 @include medium-screen {
   .login-form {
     display: flex;
