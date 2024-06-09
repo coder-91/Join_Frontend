@@ -50,4 +50,12 @@ export class TaskComponent {
   public updateTask(task: Task, newStatus: TaskStatus) {
     this.taskService.updateTask(task, newStatus.key);
   }
+
+  public showTaskDetailsDialog(task: Task) {
+    this.taskDialogService.showTaskDetailsDialog(task);
+  }
+
+  public stopPropagation(event: MouseEvent) {
+    event.stopPropagation();
+  }
 }

@@ -6,6 +6,9 @@ import {TaskViewComponent} from "../../components/master-layout/main-layout/task
 import {filter} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
 import {TaskStatus} from "../../models/interfaces/task-status";
+import {
+  TaskDetailsComponent
+} from "../../components/master-layout/main-layout/board-view/task-status-list/task-status/task/task-details/task-details.component";
 
 @Injectable({
   providedIn: 'root'
@@ -41,8 +44,17 @@ export class TaskDialogService {
       })
       .subscribe((yes) => {
         if (yes) {
+          this.dialog.closeAll();
           this.taskService.deleteTask(taskId)
         }
       });
+  }
+
+  public showTaskDetailsDialog(task: Task) {
+    this.dialog.open(TaskDetailsComponent, {
+      data: { fromPopup: true, task: task },
+    }).afterClosed().pipe(filter((task) => task)).subscribe(task => {
+
+    });
   }
 }

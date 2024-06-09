@@ -1,0 +1,87 @@
+@import '../../../../../../../../../styles/variables';
+
+.title-container {
+  display: flex;
+  justify-content: flex-end;
+  color: inherit;
+}
+
+.category {
+  height: fit-content;
+  width: fit-content;
+  padding: 3px 5px;
+  border-radius: 10px;
+  color: #fff;
+}
+
+.title,
+.description,
+.contact-name {
+  color: #000;
+}
+
+.title {
+  font-size: clamp(16px, 2vw, 22px);
+  font-weight: bold;
+  line-height: 20px;
+}
+
+.description {
+  font-size: clamp(12px, 2vw, 16px);
+  line-height: 17px;
+}
+
+.label, .value {
+  font-size: 14px;
+}
+
+.label {
+  color: $col-dark-gray;
+  display: inline-block;
+  min-width: 100px;
+}
+
+.value {
+  color: #000;
+}
+
+.priority-container,
+.priority-inner-container {
+  display: flex;
+}
+
+.assigned-to-container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 5px;
+
+  .contact-container {
+    display: flex;
+    align-items: center;
+
+    column-gap: 10px;
+    padding-left: 10px;
+  }
+
+  .avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    font-size: 12px;
+    letter-spacing: 2px;
+    border: 3px solid #fff;
+  }
+}
+
+.subtask-container {
+  display: flex;
+  flex-direction: column;
+}
+
+mat-dialog-actions {
+  padding-left: 24px;
+}

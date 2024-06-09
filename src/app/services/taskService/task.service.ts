@@ -16,7 +16,7 @@ export class TaskService {
   tasksTmp: Task[] = [
     {
       id: 1,
-      title: 'Überprüfung der Spezifikationen',
+      title: 'Überprüfung der Spezifikationen Überprüfung der Spezifikationen Überprüfung der Spezifikationen',
       description: 'Analysieren Sie die Projektspezifikationen, um sicherzustellen, dass alle Details korrekt sind.',
       dueTo: new Date('2024-05-12'),
       created: new Date('2024-04-20'),
