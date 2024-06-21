@@ -1,1 +1,9 @@
+@if (loading$ | async) {
+  <ng-container>
+    <div class="overlay"></div>
+    <app-spinner></app-spinner>
+  </ng-container>
+}
 <router-outlet></router-outlet>
+
+
