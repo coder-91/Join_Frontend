@@ -5,7 +5,8 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {networkInterceptorFn} from "./interceptors/network/network.interceptor";
 import {provideHttpClient, withInterceptors} from "@angular/common/http";
+import {authInterceptor} from "./interceptors/auth/auth.interceptor";
 
 export const appConfig: ApplicationConfig = {
-  providers: [provideRouter(routes), provideAnimations(), provideAnimationsAsync(), provideHttpClient(withInterceptors([networkInterceptorFn])),]
+  providers: [provideRouter(routes), provideAnimations(), provideAnimationsAsync(), provideHttpClient(withInterceptors([networkInterceptorFn, authInterceptor])),]
 };
