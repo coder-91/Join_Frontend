@@ -8,6 +8,7 @@ import {FormsModule} from '@angular/forms';
 import {Router} from '@angular/router';
 import {NgClass} from "@angular/common";
 import {MatIconModule} from '@angular/material/icon';
+import {UserService} from "../../../services/userService/user.service";
 
 @Component({
   selector: 'app-login-view',
@@ -19,7 +20,7 @@ import {MatIconModule} from '@angular/material/icon';
 export class LoginViewComponent {
   loginForm: FormGroup;
   hidePassword = true;
-  constructor(private router: Router) {
+  constructor(private router: Router, private userService: UserService) {
     this.loginForm = new FormGroup({
         email: new FormControl('', [Validators.required, Validators.email]),
         password: new FormControl('', [Validators.required]),
@@ -29,13 +30,13 @@ export class LoginViewComponent {
   }
 
   public navigateToSignUp() {
-    this.router.navigateByUrl('/sign-up');
+    this.router.navigateByUrl('/sign-up').then(r => {});
   }
 
   public onSubmit(): void {
+    this.userService.login(this.loginForm.getRawValue())
   }
 
   public loginAsGuest() {
-    console.log("Guest Login!");
   }
 }

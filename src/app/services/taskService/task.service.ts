@@ -7,6 +7,7 @@ import {TaskSummary} from "../../models/interfaces/task-summary";
 import {CATEGORIES, PRIORITIES, TASK_STATUSES} from "./task-constants";
 import {TaskStatus} from "../../models/interfaces/task-status";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -236,7 +237,6 @@ export class TaskService {
       status: TASK_STATUSES['AWAIT_FEEDBACK']
     }
   ];
-
 
   constructor(private taskHttpService: TaskHttpService) {
     this.fetchTasks()
