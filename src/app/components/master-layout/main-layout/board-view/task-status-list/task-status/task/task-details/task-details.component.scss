@@ -16,14 +16,15 @@
 
 .title,
 .description,
-.contact-name {
+.user-name {
   color: #000;
 }
 
 .title {
   font-size: clamp(16px, 2vw, 22px);
   font-weight: bold;
-  line-height: 20px;
+  letter-spacing: 1px;
+  line-height: 30px;
 }
 
 .description {
@@ -55,7 +56,7 @@
   flex-direction: column;
   row-gap: 5px;
 
-  .contact-container {
+  .user-container {
     display: flex;
     align-items: center;
 

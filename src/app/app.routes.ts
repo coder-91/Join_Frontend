@@ -9,11 +9,11 @@ import {PrivacyPolicyViewComponent} from "./components/master-layout/main-layout
 import {LegalNoticeViewComponent} from "./components/master-layout/main-layout/legal-notice-view/legal-notice-view.component";
 import {ImprintViewComponent} from "./components/master-layout/main-layout/imprint-view/imprint-view.component";
 import {HelpViewComponent} from "./components/master-layout/main-layout/help-view/help-view.component";
-import {ContactViewComponent} from "./components/master-layout/alternate-layout/contact-view/contact-view.component";
+import {UserViewComponent} from "./components/master-layout/alternate-layout/user-view/user-view.component";
 import {MasterLayoutComponent} from "./components/master-layout/master-layout.component";
 import {MainLayoutComponent} from "./components/master-layout/main-layout/main-layout.component";
 import {AlternateLayoutComponent} from "./components/master-layout/alternate-layout/alternate-layout.component";
-import {ContactDetailsComponent} from "./components/master-layout/alternate-layout/contact-view/contact-details/contact-details.component";
+import {UserDetailsComponent} from "./components/master-layout/alternate-layout/user-view/user-details/user-details.component";
 
 export const routes: Routes = [
   {
@@ -51,8 +51,8 @@ export const routes: Routes = [
         path: '',
         component: AlternateLayoutComponent,
         children:[
-          {path: 'contacts', component: ContactViewComponent},
-          {path: 'contacts-details', component: ContactDetailsComponent},
+          {path: 'users', component: UserViewComponent},
+          {path: 'users-details', component: UserDetailsComponent},
         ]
       }
     ]

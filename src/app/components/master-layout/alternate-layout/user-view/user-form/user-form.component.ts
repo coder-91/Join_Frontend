@@ -8,11 +8,11 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
-import {Contact} from "../../../../../models/entity/contact";
+import {User} from "../../../../../models/entity/user";
 import {getInitials} from "../../../../../utils/helpers";
 
 @Component({
-  selector: 'app-contact-form',
+  selector: 'app-user-form',
   standalone: true,
   imports: [
     CommonModule,
@@ -25,41 +25,41 @@ import {getInitials} from "../../../../../utils/helpers";
     ReactiveFormsModule,
     MatIconModule
   ],
-  templateUrl: './contact-form.component.html',
-  styleUrl: './contact-form.component.scss'
+  templateUrl: './user-form.component.html',
+  styleUrl: './user-form.component.scss'
 })
-export class ContactFormComponent {
+export class UserFormComponent {
   protected readonly getInitials = getInitials;
-  contactForm: FormGroup;
+  userForm: FormGroup;
 
-  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<ContactFormComponent>, @Inject(MAT_DIALOG_DATA) public contact: Contact) {
-    this.contactForm = this.fb.group({
-      id: this.contact?.id,
+  constructor(private fb: FormBuilder, private dialogRef: MatDialogRef<UserFormComponent>, @Inject(MAT_DIALOG_DATA) public user: User) {
+    this.userForm = this.fb.group({
+      id: this.user?.id,
       name: new FormControl('', [Validators.required, Validators.minLength(2)]),
       email: new FormControl('', [Validators.required, Validators.email]),
       phoneNumber: new FormControl('', [Validators.required]),
     });
 
-    if (this.contact) {
-      this.contactForm.patchValue(this.contact);
+    if (this.user) {
+      this.userForm.patchValue(this.user);
     }
   }
 
   public onSubmit() {
-    if (this.contact) {
-      this.onUpdateContact();
+    if (this.user) {
+      this.onUpdateUser();
     } else {
-      this.onCreateContact();
+      this.onCreateUser();
     }
-    this.contactForm.reset();
+    this.userForm.reset();
   }
 
-  public onCreateContact() {
-    this.dialogRef.close(this.contactForm.getRawValue());
+  public onCreateUser() {
+    this.dialogRef.close(this.userForm.getRawValue());
   }
 
-  public onUpdateContact() {
-    this.dialogRef.close(this.contactForm.getRawValue());
+  public onUpdateUser() {
+    this.dialogRef.close(this.userForm.getRawValue());
   }
 
   public onCancel() {

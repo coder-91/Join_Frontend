@@ -1,0 +1,67 @@
+<div class="cont-lvl-1">
+    <div class="cont-lvl-2-1">
+        <img src="/assets/images/logo_light.svg" alt="Join Logo">
+        <h1>{{user? 'Update User': 'Add User'}}</h1>
+        @if (!user) {
+        <div class="sub-text">Tasks are better with a team!</div>
+        }
+        <div class="divider"></div>
+    </div>
+
+    <div class="cont-lvl-2-2">
+
+        <div class="avatar" [ngStyle]="{'background-color': user ? user.avatarColor:'#aaa'}">
+            @if (user) {
+            <div>{{ getInitials(user.name) }}</div>
+            } @else {
+            <mat-icon>person_outline</mat-icon>
+            }
+
+        </div>
+
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
+            <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput formControlName="name" type="text">
+                <mat-icon color="primary" matSuffix>person</mat-icon>
+                @if (userForm.get('name')?.touched) {
+                <mat-error>
+                    @switch (true) { @case (userForm.get('name')?.hasError('required')) { Name is required } @case (userForm.get('name')?.hasError('minlength')) { Name must be at least 2 characters in length } }
+                </mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email" placeholder="Ex. pat@example.com">
+                <mat-icon color="primary" matSuffix>email</mat-icon>
+                @if (userForm.get('email')?.touched) {
+                <mat-error>
+                    @switch (true) { @case (userForm.get('email')?.hasError('required')) { Email is required } @case (userForm.get('email')?.hasError('email')) { Please enter a valid email } }
+                </mat-error>
+                }
+            </mat-form-field>
+
+            <mat-form-field>
+                <mat-label>Phone</mat-label>
+                <input matInput formControlName="phoneNumber" type="tel">
+                <mat-icon color="primary" matSuffix>phone</mat-icon>
+                @if (userForm.get('phoneNumber')?.touched) {
+                <mat-error>
+                    @switch (true) { @case (userForm.get('phoneNumber')?.hasError('required')) { Phone number is required } }
+                </mat-error>
+                }
+            </mat-form-field>
+
+            <div class="button-box">
+                <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">
+          <span>{{user? 'Update': 'Create'}}</span>
+        </button>
+
+                <button mat-raised-button type="button" (click)="onCancel()">
+          Cancel
+        </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -14,8 +14,8 @@ import {MatIcon} from "@angular/material/icon";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {ChipFieldComponent} from "../../../shared/form-fields/chip-field/chip-field.component";
-import {Contact} from "../../../../models/entity/contact";
-import {ContactService} from "../../../../services/contactService/contact.service";
+import {User} from "../../../../models/entity/user";
+import {UserService} from "../../../../services/userService/user.service";
 import {Subscription} from "rxjs";
 import {CATEGORIES, PRIORITIES, TASK_STATUSES} from "../../../../services/taskService/task-constants";
 import { Task } from '../../../../models/entity/task';
@@ -58,10 +58,10 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   keywords!: string[];
   fromPopup = false;
   @ViewChild(ChipFieldComponent) chipFieldComponent!: ChipFieldComponent;
-  contacts!: Contact[];
-  contactsSubscription!: Subscription;
-  contactCompareWithFn = (contact: Contact, value: Contact) => contact?.id == value?.id
-  constructor(private fb: FormBuilder, @Optional() private dialogRef: MatDialogRef<TaskViewComponent>, private taskService: TaskService, private contactService:ContactService, @Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean, task: Task }) {}
+  users!: User[];
+  usersSubscription!: Subscription;
+  userCompareWithFn = (user: User, value: User) => user?.id == value?.id
+  constructor(private fb: FormBuilder, @Optional() private dialogRef: MatDialogRef<TaskViewComponent>, private taskService: TaskService, private userService:UserService, @Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean, task: Task }) {}
 
   ngOnInit() {
     this.minDate = new Date();
@@ -82,8 +82,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         status: Object.values(TASK_STATUSES)[0],
       }
     );
-    this.contactsSubscription = this.contactService.contacts$.subscribe(contacts => {
-      this.contacts = contacts;
+    this.usersSubscription = this.userService.users$.subscribe(users => {
+      this.users = users;
     })
 
     if (this.data?.task) {
@@ -96,7 +96,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         updated: this.data?.task.updated,
         priority: this.data.task.priority,
         category: this.data.task.category,
-        assignedTo: this.data.task.contacts,
+        assignedTo: this.data.task.users,
         subTasks: this.data.task.subtasks,
         status: this.data?.task.status
       });
@@ -104,7 +104,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.contactsSubscription.unsubscribe();
+    this.usersSubscription.unsubscribe();
   }
 
   public get subTasksFormControl () {

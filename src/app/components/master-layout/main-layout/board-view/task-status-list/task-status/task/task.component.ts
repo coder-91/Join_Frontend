@@ -39,8 +39,8 @@ export class TaskComponent {
     return this.taskService.subtasksProgressInPercent(subtasks);
   }
 
-  public editTaskDialog(task: Task) {
-    this.taskDialogService.editTaskDialog(task);
+  public updateTaskDialog(task: Task) {
+    this.taskDialogService.updateTaskDialog(task);
   }
 
   public deleteTaskDialog(taskId: number) {

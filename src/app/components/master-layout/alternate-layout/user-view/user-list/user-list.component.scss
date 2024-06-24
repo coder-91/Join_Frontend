@@ -1,0 +1,44 @@
+@import '../../../../../../styles/variables';
+@import '../../../../../../styles/media-queries';
+$user-button-padding: 10px;
+$user-button-height: 50px;
+.button-box {
+    padding: $user-button-padding 20px;
+}
+
+button {
+    width: 100%;
+    height: $user-button-height;
+}
+
+.user-list-box {
+    padding: 0 10px;
+    height: calc(100% - $user-button-height - $user-button-padding - $user-button-padding);
+    overflow-y: auto;
+    position: relative;
+}
+
+.mobile-add-user {
+    position: absolute;
+    z-index: 2;
+    right: 60px;
+    bottom: 60px;
+    button {
+        position: fixed;
+        background-color: $col-primary;
+        color: #fff;
+        display: none;
+    }
+}
+
+@include large-screen {
+    .button-box {
+        display: none;
+    }
+    .mobile-add-user button {
+        display: block;
+    }
+    .user-list-box {
+        height: 100%;
+    }
+}

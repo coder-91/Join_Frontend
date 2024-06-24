@@ -20,7 +20,7 @@ export class DtoMapperService {
       priority: task.priority.key,
       category: task.category.key,
       subtasks: task.subtasks,
-      contacts: task.contacts,
+      users: task.users,
       status: task.status.key
     }
   }
@@ -36,7 +36,7 @@ export class DtoMapperService {
       priority: PRIORITIES[taskDto.priority],
       category: CATEGORIES[taskDto.category],
       subtasks: taskDto.subtasks,
-      contacts: taskDto.contacts,
+      users: taskDto.users,
       status: TASK_STATUSES[taskDto.status]
     }
   }

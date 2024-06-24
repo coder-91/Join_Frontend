@@ -26,7 +26,7 @@ export class TaskDialogService {
     });
   }
 
-  public editTaskDialog(task: Task) {
+  public updateTaskDialog(task: Task) {
     this.dialog.open(TaskViewComponent, {
       data: { fromPopup: true, task: task},
     }).afterClosed().pipe(filter((task) => task)).subscribe(task => {

@@ -28,7 +28,7 @@ export class TaskService {
         { id: 1, taskId: 1, description: 'Subtask 1', isDone: true },
         { id: 2, taskId: 1, description: 'Subtask 2', isDone: false }
       ],
-      contacts: [
+      users: [
         {
           id: 1,
           email: 'john.doe@example.com',
@@ -65,7 +65,7 @@ export class TaskService {
       subtasks: [
         { id: 1, taskId: 2, description: 'Subtask 1', isDone: false }
       ],
-      contacts: [
+      users: [
         {
           id: 1,
           email: 'john.doe@example.com',
@@ -102,7 +102,7 @@ export class TaskService {
       subtasks: [
         { id: 1, taskId: 3, description: 'Subtask 1', isDone: true }
       ],
-      contacts: [
+      users: [
         {
           id: 1,
           email: 'john.doe@example.com',
@@ -137,7 +137,7 @@ export class TaskService {
       priority: PRIORITIES['LOW'],
       category: CATEGORIES['USER_STORY'],
       subtasks: [],
-      contacts: [
+      users: [
         {
           id: 1,
           email: 'john.doe@example.com',
@@ -174,7 +174,7 @@ export class TaskService {
       subtasks: [
         { id: 1, taskId: 5, description: 'Subtask 1', isDone: false }
       ],
-      contacts: [
+      users: [
         {
           id: 1,
           email: 'john.doe@example.com',
@@ -211,7 +211,7 @@ export class TaskService {
       subtasks: [
         { id: 1, taskId: 6, description: 'Subtask 1', isDone: false }
       ],
-      contacts: [
+      users: [
         {
           id: 1,
           email: 'john.doe@example.com',
@@ -272,7 +272,7 @@ export class TaskService {
       // TODO
       //task.status = status;
     }
-    this.taskHttpService.editTask(task);
+    this.taskHttpService.updateTask(task);
     console.log("Task", task);
   }
 

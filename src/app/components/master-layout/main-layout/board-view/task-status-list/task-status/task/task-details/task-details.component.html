@@ -1,53 +1,51 @@
 <div class="task-details-container">
-  <div mat-dialog-title class="title-container">
-    <button mat-icon-button mat-dialog-close color="primary" aria-label="close dialog">
+    <div mat-dialog-title class="title-container">
+        <button mat-icon-button mat-dialog-close color="primary" aria-label="close dialog">
       <mat-icon>close</mat-icon>
     </button>
-  </div>
-
-  <mat-dialog-content>
-    <div [ngStyle]="{'background-color': data.task.category.color}" class="category mb-2">{{ data.task.category.value }}</div>
-
-    <div class="title mb-3">{{data.task.title}}</div>
-
-    <div class="description mb-2">{{data.task.description}}</div>
-
-    <div class="mb-2">
-      <span class="label">Due Date:</span>
-      <span class="value">{{data.task.dueTo | date:'MM/dd/yyyy'}}</span>
     </div>
 
-    <div class="priority-container mb-2">
-      <span class="label">Priority:</span>
-      <span class="priority-inner-container">
+    <mat-dialog-content>
+        <div [ngStyle]="{'background-color': data.task.category.color}" class="category mb-2">{{ data.task.category.value }}</div>
+
+        <div class="title mb-3">{{data.task.title}}</div>
+
+        <div class="description mb-2">{{data.task.description}}</div>
+
+        <div class="mb-2">
+            <span class="label">Due Date:</span>
+            <span class="value">{{data.task.dueTo | date:'MM/dd/yyyy'}}</span>
+        </div>
+
+        <div class="priority-container mb-2">
+            <span class="label">Priority:</span>
+            <span class="priority-inner-container">
         <div class="value">{{data.task.priority.value}}</div>
         <div><mat-icon [ngStyle]="{'color': data.task.priority.color}" matSuffix>{{ data.task.priority.icon }}</mat-icon></div>
       </span>
-    </div>
-
-    <div class="assigned-to-container mb-2">
-      <div class="label">Assigned To:</div>
-      @for (contact of data.task.contacts; track contact.id) {
-        <div class="contact-container">
-          <div class="avatar" [ngStyle]="{'background-color': contact.avatarColor}">{{getInitials(contact.name)}}</div>
-          <div class="contact-name">{{ contact.name }}</div>
         </div>
 
-      }
-    </div>
+        <div class="assigned-to-container mb-2">
+            <div class="label">Assigned To:</div>
+            @for (user of data.task.users; track user.id) {
+            <div class="user-container">
+                <div class="avatar" [ngStyle]="{'background-color': user.avatarColor}">{{getInitials(user.name)}}</div>
+                <div class="user-name">{{ user.name }}</div>
+            </div>
 
-    <div class="subtask-container">
-      <div class="label">Subtasks:</div>
-      @for (subtask of data.task.subtasks; track subtask.id) {
-        <mat-checkbox (change)="onUpdateSubtask($event, subtask)" [checked]="subtask.isDone">{{ subtask.description }}</mat-checkbox>
-      }
-    </div>
-  </mat-dialog-content>
+            }
+        </div>
 
-  <mat-dialog-actions>
-    <button mat-raised-button type="button" color="warn" (click)="onDelete(data.task.id)">Delete</button>
-    <button mat-raised-button color="primary" (click)="onUpdate(data.task)">Edit</button>
-  </mat-dialog-actions>
+        <div class="subtask-container">
+            <div class="label">Subtasks:</div>
+            @for (subtask of data.task.subtasks; track subtask.id) {
+            <mat-checkbox (change)="onUpdateSubtask($event, subtask)" [checked]="subtask.isDone">{{ subtask.description }}</mat-checkbox>
+            }
+        </div>
+    </mat-dialog-content>
+
+    <mat-dialog-actions>
+        <button mat-raised-button type="button" color="warn" (click)="onDelete(data.task.id)">Delete</button>
+        <button mat-raised-button color="primary" (click)="onUpdate(data.task)">Update</button>
+    </mat-dialog-actions>
 </div>
-
-

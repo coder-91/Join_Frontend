@@ -1,67 +1,62 @@
 <div (click)="showTaskDetailsDialog(task)" class="task-container">
-  <mat-card>
-    <mat-card-content>
-      <div class="menu-container mb-1">
-        <div [ngStyle]="{'background-color': task.category.color}" class="category">{{ task.category.value }}</div>
-            <div>
-              <mat-icon (click)="stopPropagation($event)" [matMenuTriggerFor]="menu" class="clickable">more_vert</mat-icon>
-            </div>
+    <mat-card>
+        <mat-card-content>
+            <div class="menu-container mb-1">
+                <div [ngStyle]="{'background-color': task.category.color}" class="category">{{ task.category.value }}</div>
+                <div>
+                    <mat-icon (click)="stopPropagation($event)" [matMenuTriggerFor]="menu" class="clickable">more_vert</mat-icon>
+                </div>
 
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item [matMenuTriggerFor]="taskStatus">
+                <mat-menu #menu="matMenu">
+                    <button mat-menu-item [matMenuTriggerFor]="taskStatus">
               <mat-icon color="primary">drag_indicator</mat-icon>
               <span>Move to ...</span>
             </button>
-            <button (click)="editTaskDialog(task)" mat-menu-item>
+                    <button (click)="updateTaskDialog(task)" mat-menu-item>
               <mat-icon color="primary">edit</mat-icon>
-              <span>Edit</span>
+              <span>Update</span>
             </button>
-            <button (click)="deleteTaskDialog(task.id)" mat-menu-item>
+                    <button (click)="deleteTaskDialog(task.id)" mat-menu-item>
               <mat-icon color="warn">delete</mat-icon>
               <span>Delete</span>
             </button>
-          </mat-menu>
+                </mat-menu>
 
-        <mat-menu #taskStatus="matMenu">
-          @for (taskStatus of Object.values(TASK_STATUSES); track taskStatus.key) {
+                <mat-menu #taskStatus="matMenu">
+                    @for (taskStatus of Object.values(TASK_STATUSES); track taskStatus.key) { @if (taskStatus.key !== task.status.key) {
+                    <button (click)="updateTask(task, taskStatus)" mat-menu-item>{{ taskStatus.value }}</button> } }
+                </mat-menu>
+            </div>
 
-            @if (taskStatus.key !== task.status.key) {
-              <button (click)="updateTask(task, taskStatus)" mat-menu-item >{{ taskStatus.value }}</button>
+            <div matTooltip="{{task.title}}" class="title mb-1">{{task.title}}</div>
+
+            <div matTooltip="{{task.description}}" class="description mb-2">{{task.description}}</div>
+
+            @if (task.subtasks.length) {
+            <div class="progressbar-container mb-3">
+                <div class="progress" role="progressbar" [attr.aria-valuenow]="subtasksProgressInPercent(task.subtasks)" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar" [ngStyle]="{'width': subtasksProgressInPercent(task.subtasks) + '%'}"></div>
+                </div>
+
+                <div class="subtask">
+                    <span>{{countCompletedSubtasks(task.subtasks)}}/</span>
+                    <span>{{task.subtasks.length}}</span>
+                    <span>Subtasks</span>
+                </div>
+            </div>
             }
-          }
-        </mat-menu>
-      </div>
 
-      <div matTooltip="{{task.title}}" class="title mb-1">{{task.title}}</div>
+            <div class="avatar-container">
+                <div class="avatar-group">
+                    @for (user of task.users; track user.id) {
+                    <div [ngStyle]="{'background-color': user.avatarColor}" class="avatar" matTooltip="{{user.name}}">{{getInitials(user.name)}}</div>
+                    }
+                </div>
 
-      <div matTooltip="{{task.description}}" class="description mb-2">{{task.description}}</div>
+                <mat-icon [ngStyle]="{'color': task.priority.color}" matSuffix>{{ task.priority.icon }}
+                </mat-icon>
 
-      @if (task.subtasks.length) {
-        <div class="progressbar-container mb-3">
-          <div class="progress" role="progressbar" [attr.aria-valuenow]="subtasksProgressInPercent(task.subtasks)" aria-valuemin="0" aria-valuemax="100">
-            <div class="progress-bar" [ngStyle]="{'width': subtasksProgressInPercent(task.subtasks) + '%'}"></div>
-          </div>
-
-          <div class="subtask">
-            <span>{{countCompletedSubtasks(task.subtasks)}}/</span>
-            <span>{{task.subtasks.length}}</span>
-            <span>Subtasks</span>
-          </div>
-        </div>
-      }
-
-      <div class="avatar-container">
-        <div class="avatar-group">
-          @for (contact of task.contacts; track contact.id) {
-            <div [ngStyle]="{'background-color': contact.avatarColor}" class="avatar" matTooltip="{{contact.name}}">{{getInitials(contact.name)}}</div>
-          }
-        </div>
-
-        <mat-icon [ngStyle]="{'color': task.priority.color}"
-                  matSuffix>{{ task.priority.icon }}
-        </mat-icon>
-
-      </div>
-    </mat-card-content>
-  </mat-card>
+            </div>
+        </mat-card-content>
+    </mat-card>
 </div>

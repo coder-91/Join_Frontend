@@ -2,6 +2,7 @@ import {Injectable} from "@angular/core";
 import {UserFormComponent} from "../../components/master-layout/alternate-layout/user-view/user-form/user-form.component";
 import {filter} from "rxjs";
 import {MatDialog} from "@angular/material/dialog";
+import {UserService} from "./user.service";
 import {DialogService} from "../dialogService/dialog.service";
 import {User} from "../../models/entity/user";
 
@@ -9,8 +10,6 @@ import {User} from "../../models/entity/user";
   providedIn: 'root'
 })
 export class UserDialogService {
-
-  /*
   constructor(private dialog: MatDialog, private userService: UserService, private dialogService: DialogService) {}
 
   public createUserDialog() {
@@ -20,26 +19,26 @@ export class UserDialogService {
     });
   }
 
-  public editContactDialog(contact: Contact) {
+  public updateUserDialog(user: User) {
     this.dialog.open(UserFormComponent, {
-      data: contact,
-    }).afterClosed().pipe(filter((contact) => contact)).subscribe(contact => {
-      this.contactService.editContact(contact);
+      data: user,
+    }).afterClosed().pipe(filter((user) => user)).subscribe(user => {
+      this.userService.updateUser(user);
     });
   }
 
-  public deleteContactDialog(contactId: number) {
+  public deleteUserDialog(userId: number) {
     this.dialogService
       .confirmDialog({
-        title: 'Delete contact?',
-        message: 'Are you sure you want to delete this contact?',
+        title: 'Delete user?',
+        message: 'Are you sure you want to delete this user?',
         confirmCaption: 'Yes',
         cancelCaption: 'No',
       })
       .subscribe((yes) => {
         if (yes) {
-          this.contactService.deleteContact(contactId)
+          this.userService.deleteUser(userId)
         }
       });
-  }*/
+  }
 }

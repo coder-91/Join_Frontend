@@ -1,4 +1,4 @@
-import { Contact } from './contact';
+import { User } from './user';
 import {Priority} from "../interfaces/priority";
 import {Category} from "../interfaces/category";
 import {Subtask} from "./subtask";
@@ -13,6 +13,6 @@ export interface Task {
   priority: Priority,
   category: Category,
   subtasks: Subtask[],
-  contacts: Contact[],
+  users: User[],
   status: TaskStatus
 }

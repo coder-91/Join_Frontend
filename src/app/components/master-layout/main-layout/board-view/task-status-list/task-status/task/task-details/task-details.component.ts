@@ -72,7 +72,7 @@ export class TaskDetailsComponent {
   }
 
   public onUpdate(task: Task) {
-    this.taskDialogService.editTaskDialog(task);
+    this.taskDialogService.updateTaskDialog(task);
   }
 
   public onUpdateSubtask(event: MatCheckboxChange, subtask: Subtask) {

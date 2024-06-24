@@ -1,0 +1,22 @@
+<div class="button-box">
+    <button (click)="onCreateUser()" mat-flat-button color="primary">
+    Add a new User
+    <mat-icon>person_add</mat-icon>
+  </button>
+</div>
+
+<div class="user-list-box">
+    <div class="mobile-add-user">
+        <button (click)="onCreateUser()" mat-icon-button>
+      <mat-icon>person_add</mat-icon>
+    </button>
+    </div>
+    <mat-list role="list">
+        @for (letter of Object.keys(groupedAndSortedUsers); track letter) {
+        <mat-list-item role="listitem">{{ letter }}</mat-list-item>
+        <mat-divider></mat-divider>
+        @for (user of groupedAndSortedUsers[letter]; track user.id) {
+        <app-user [user]="user"></app-user>
+        } }
+    </mat-list>
+</div>

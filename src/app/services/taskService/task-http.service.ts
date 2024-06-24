@@ -10,7 +10,7 @@ export class TaskHttpService {
 
   }
 
-  public editTask(task: Task) {
+  public updateTask(task: Task) {
 
   }
 

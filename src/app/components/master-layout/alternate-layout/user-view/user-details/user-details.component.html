@@ -1,0 +1,65 @@
+<div class="user-details-box">
+
+    <div class="mobile-user-actions">
+        <button mat-icon-button [matMenuTriggerFor]="menu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+        <mat-menu #menu="matMenu">
+            <button (click)="onUpdateUser()" mat-menu-item>
+        <mat-icon>edit</mat-icon>Update
+      </button>
+            <button (click)="onDeleteUser()" mat-menu-item>
+        <mat-icon color="warn">delete</mat-icon>Delete
+      </button>
+        </mat-menu>
+    </div>
+
+    <div class="headline-box">
+        <div class="top-line">
+            <h1>Users</h1>
+            <button (click)="backToPreviousComponent()" mat-icon-button>
+        <mat-icon color="accent">arrow_back</mat-icon>
+      </button>
+        </div>
+        <div class="bottom-line">
+            <div class="divider"></div>
+            <div class="sub-text">Better with a team</div>
+        </div>
+
+    </div>
+
+    @if(selectedUser) {
+    <div class="user-details">
+        <div class="avatar" [ngStyle]="{'background-color': selectedUser.avatarColor}">{{ getInitials(selectedUser.name) }}</div>
+
+        <div class="user-info">
+            <div class="name">{{ selectedUser.name }}</div>
+            <div class="icons-box">
+                <button (click)="onUpdateUser()" mat-button color="primary">
+            Update
+            <mat-icon>edit</mat-icon>
+          </button>
+                <button (click)="onDeleteUser()" mat-button color="primary">
+            Delete
+            <mat-icon color="warn">delete</mat-icon>
+          </button>
+            </div>
+        </div>
+    </div>
+
+    <h2>User Information</h2>
+    <div class="email-box">
+        <div class="email-label">Email</div>
+        <div class="email">
+            <a href="mailto: {{ selectedUser.email }}">{{ selectedUser.email }}</a>
+        </div>
+    </div>
+
+    <div class="tel-box">
+        <div class="tel-label">Phone</div>
+        <address>
+        <a class="tel" href="tel: {{ selectedUser.phoneNumber }}">{{ selectedUser.phoneNumber }}</a>
+      </address>
+    </div>
+    }
+</div>
