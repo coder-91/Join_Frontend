@@ -7,6 +7,7 @@ import {UserService} from "../../../../services/userService/user.service";
 import {getGreetingByTime$} from "../../../../utils/date-utils";
 import {Subscription} from "rxjs";
 import {User} from "../../../../models/entity/user";
+import { Task } from '../../../../models/entity/task';
 
 @Component({
   selector: 'app-summary-view',
@@ -24,17 +25,26 @@ export class SummaryViewComponent implements OnInit, OnDestroy {
   greetingByTimeSubscription!: Subscription;
   loggedUser!: User;
   loggedUserSubscription!: Subscription;
+
+  tasks!: Task[];
+  tasksSubscription!: Subscription;
   constructor(public taskService: TaskService, public userService: UserService) {}
-
-
 
   ngOnInit() {
     this.loggedUserSubscription = this.userService.loggedUser$.subscribe(loggedUser => {
       this.loggedUser = loggedUser;
     })
 
-    //TODO als Observable?
-    this.taskSummary = this.taskService.getTaskSummary()
+    this.tasksSubscription = this.taskService.tasks$.subscribe(tasks => {
+      this.tasks = tasks;
+
+      if(this.tasks) {
+        this.taskSummary = this.taskService.getTaskSummary(this.tasks)
+      }
+
+    });
+
+
     this.greetingByTimeSubscription = getGreetingByTime$().subscribe(greetingByTime => {
       this.greetingByTime = greetingByTime;
     })
@@ -43,5 +53,6 @@ export class SummaryViewComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.greetingByTimeSubscription.unsubscribe();
     this.loggedUserSubscription.unsubscribe();
+    this.tasksSubscription.unsubscribe();
   }
 }

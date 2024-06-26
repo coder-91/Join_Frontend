@@ -5,7 +5,7 @@ export interface TaskDto {
   id: number,
   title: string,
   description: string,
-  dueTo: Date,
+  due_to: Date,
   created: Date,
   updated: Date,
   priority: string,

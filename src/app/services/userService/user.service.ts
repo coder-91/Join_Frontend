@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable, switchMap} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 import {User} from "../../models/entity/user";
 import {UserHttpService} from "./user-http.service";
 import {Router} from "@angular/router";
@@ -16,7 +16,7 @@ export class UserService {
   private _selectedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
   private _loggedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
 
-  constructor(private userHttpService: UserHttpService, private router: Router, private dtoMapperService: DtoMapperService, private matSnackBar: MatSnackBar,) {
+  constructor(private userHttpService: UserHttpService, private router: Router, private dtoMapperService: DtoMapperService, private matSnackBar: MatSnackBar) {
     this.fetchUsers();
     this.fetchLoggedUser();
   }

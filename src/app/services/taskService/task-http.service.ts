@@ -1,13 +1,24 @@
 import {Injectable} from "@angular/core";
 import {Task} from "../../models/entity/task";
-import {TaskStatus} from "../../models/interfaces/task-status";
+import {Observable} from "rxjs";
+import {TaskDto} from "../../models/dtos/task-dto";
+import {environment} from "../../../environments/environment";
+import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskHttpService {
-  public createTask(task: Task, status?:  TaskStatus) {
 
+  constructor(private httpClient: HttpClient,) { }
+
+  public fetchTasks():Observable<TaskDto[]> {
+    const url = environment.baseUrl + `/api/tasks/`;
+    return this.httpClient.get<TaskDto[]>(url);
+  }
+  public createTask(taskDto: TaskDto):Observable<TaskDto> {
+    const url = environment.baseUrl + `/api/tasks/`;
+    return this.httpClient.post<TaskDto>(url, taskDto);
   }
 
   public updateTask(task: Task) {

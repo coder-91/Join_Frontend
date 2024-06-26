@@ -78,7 +78,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         priority: new FormControl(Object.values(PRIORITIES)[0], [Validators.required]),
         category: new FormControl([]),
         assignedTo: new FormControl([]),
-        subTasks: new FormControl([]),
+        subtasks: new FormControl([]),
         status: Object.values(TASK_STATUSES)[0],
       }
     );
@@ -97,7 +97,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         priority: this.data.task.priority,
         category: this.data.task.category,
         assignedTo: this.data.task.users,
-        subTasks: this.data.task.subtasks,
+        subtasks: this.data.task.subtasks,
         status: this.data?.task.status
       });
     }
@@ -107,8 +107,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.usersSubscription.unsubscribe();
   }
 
-  public get subTasksFormControl () {
-    return this.taskForm.get("subTasks") as FormControl;
+  public get subtasksFormControl () {
+    return this.taskForm.get("subtasks") as FormControl;
   }
 
   public onSubmit() {
@@ -124,7 +124,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     if(this.fromPopup) {
       this.dialogRef.close(this.taskForm.getRawValue());
     } else {
-      this.taskService.createTask(this.taskForm.getRawValue())
+      this.taskService.createTask(this.taskForm.getRawValue(), Object.values(TASK_STATUSES)[0])
     }
   }
 
@@ -139,8 +139,8 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   public onReset() {
     this.taskForm.reset();
     this.chipFieldComponent.keywords=[];
-    this.subTasksFormControl.reset();
-    this.subTasksFormControl.markAsPristine();
-    this.subTasksFormControl.markAsUntouched()
+    this.subtasksFormControl.reset();
+    this.subtasksFormControl.markAsPristine();
+    this.subtasksFormControl.markAsUntouched()
   }
 }

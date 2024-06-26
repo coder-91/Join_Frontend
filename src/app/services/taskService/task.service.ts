@@ -4,264 +4,31 @@ import {Subtask} from "../../models/entity/subtask";
 import {TaskHttpService} from "./task-http.service";
 import {BehaviorSubject, Observable} from "rxjs";
 import {TaskSummary} from "../../models/interfaces/task-summary";
-import {CATEGORIES, PRIORITIES, TASK_STATUSES} from "./task-constants";
+import {PRIORITIES, TASK_STATUSES} from "./task-constants";
 import {TaskStatus} from "../../models/interfaces/task-status";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
+import {TaskDto} from "../../models/dtos/task-dto";
+import {DtoMapperService} from "../dtoMapperService/dto-mapper.service";
+import {MatSnackBar} from "@angular/material/snack-bar";
+import {SNACKBAR_DURATION} from "../../utils/constants";
 
 @Injectable({
   providedIn: 'root'
 })
 export class TaskService {
   private _tasks$: BehaviorSubject<Task[] | undefined> = new BehaviorSubject<Task[] | undefined>(undefined);
-  tasksTmp: Task[] = [
-    {
-      id: 1,
-      title: 'Überprüfung der Spezifikationen Überprüfung der Spezifikationen Überprüfung der Spezifikationen',
-      description: 'Analysieren Sie die Projektspezifikationen, um sicherzustellen, dass alle Details korrekt sind.',
-      dueTo: new Date('2024-05-12'),
-      created: new Date('2024-04-20'),
-      updated: new Date('2024-04-25'),
-      priority: PRIORITIES['URGENT'],
-      category: CATEGORIES['TECHNICAL_TASK'],
-      subtasks: [
-        { id: 1, taskId: 1, description: 'Subtask 1', isDone: true },
-        { id: 2, taskId: 1, description: 'Subtask 2', isDone: false }
-      ],
-      users: [
-        {
-          id: 1,
-          email: 'john.doe@example.com',
-          name: 'John Doe',
-          phoneNumber: '+1234567890',
-          password: '123456',
-          avatarColor: '#ff0000'
-        },
-        {
-          id: 2,
-          email: 'jane.doe@example.com',
-          name: 'Jane Doe',
-          phoneNumber: '+0987654321',
-          password: '123456',
-          avatarColor: '#ffa000'
-        },
-        {
-          id: 3,
-          email: 'alice.smith@example.com',
-          name: 'Alice Smith',
-          phoneNumber: '+1122334455',
-          password: '123456',
-          avatarColor: '#ffca70'
-        }
-      ],
-      status: TASK_STATUSES['TO_DO']
-    },
-    {
-      id: 2,
-      title: 'Dokumentation überprüfen',
-      description: 'Stellen Sie sicher, dass die Projektdokumentation vollständig und aktuell ist.',
-      dueTo: new Date('2024-05-11'),
-      created: new Date('2024-04-20'),
-      updated: new Date('2024-04-25'),
-      priority: PRIORITIES['URGENT'],
-      category: CATEGORIES['TECHNICAL_TASK'],
-      subtasks: [
-        { id: 1, taskId: 2, description: 'Subtask 1', isDone: false }
-      ],
-      users: [
-        {
-          id: 1,
-          email: 'john.doe@example.com',
-          name: 'John Doe',
-          phoneNumber: '+1234567890',
-          password: '123456',
-          avatarColor: '#00f100'
-        },
-        {
-          id: 2,
-          email: 'jane.doe@example.com',
-          name: 'Jane Doe',
-          phoneNumber: '+0987654321',
-          password: '123456',
-          avatarColor: '#ff0000'
-        },
-        {
-          id: 3,
-          email: 'alice.smith@example.com',
-          name: 'Alice Smith',
-          phoneNumber: '+1122334455',
-          password: '123456',
-          avatarColor: '#ff00ff'
-        }
-      ],
-      status: TASK_STATUSES['IN_PROGRESS']
-    },
-    {
-      id: 3,
-      title: 'Kundenspezifikationen validieren',
-      description: 'Überprüfen Sie die Anforderungen des Kunden auf Vollständigkeit und Klarheit.',
-      dueTo: new Date('2024-05-10'),
-      created: new Date('2024-04-20'),
-      updated: new Date('2024-04-25'),
-      priority: PRIORITIES['URGENT'],
-      category: CATEGORIES['USER_STORY'],
-      subtasks: [
-        { id: 1, taskId: 3, description: 'Subtask 1', isDone: true }
-      ],
-      users: [
-        {
-          id: 1,
-          email: 'john.doe@example.com',
-          name: 'John Doe',
-          phoneNumber: '+1234567890',
-          password: '123456',
-          avatarColor: '#1f0ff0'
-        },
-        {
-          id: 2,
-          email: 'jane.doe@example.com',
-          name: 'Jane Doe',
-          phoneNumber: '+0987654321',
-          password: '123456',
-          avatarColor: '#ff0000'
-        },
-        {
-          id: 3,
-          email: 'alice.smith@example.com',
-          name: 'Alice Smith',
-          phoneNumber: '+1122334455',
-          password: '123456',
-          avatarColor: '#ff0000'
-        }
-      ],
-      status: TASK_STATUSES['AWAIT_FEEDBACK']
-    },
-    {
-      id: 4,
-      title: 'Testplan erstellen',
-      description: 'Erstellen Sie einen detaillierten Testplan für das Projekt.',
-      dueTo: new Date('2024-05-10'),
-      created: new Date('2024-04-20'),
-      updated: new Date('2024-04-25'),
-      priority: PRIORITIES['LOW'],
-      category: CATEGORIES['USER_STORY'],
-      subtasks: [],
-      users: [
-        {
-          id: 1,
-          email: 'john.doe@example.com',
-          name: 'John Doe',
-          phoneNumber: '+1234567890',
-          password: '123456',
-          avatarColor: '#ff0000'
-        },
-        {
-          id: 2,
-          email: 'jane.doe@example.com',
-          name: 'Jane Doe',
-          phoneNumber: '+0987654321',
-          password: '123456',
-          avatarColor: '#ff0000'
-        },
-        {
-          id: 3,
-          email: 'alice.smith@example.com',
-          name: 'Alice Smith',
-          phoneNumber: '+1122334455',
-          password: '123456',
-          avatarColor: '#ff0000'
-        }
-      ],
-      status: TASK_STATUSES['AWAIT_FEEDBACK']
-    },
-    {
-      id: 5,
-      title: 'Risikoanalyse durchführen',
-      description: 'Führen Sie eine Risikoanalyse durch, um potenzielle Probleme zu identifizieren.',
-      dueTo: new Date('2024-05-10'),
-      created: new Date('2024-04-20'),
-      updated: new Date('2024-04-25'),
-      priority: PRIORITIES['LOW'],
-      category: CATEGORIES['USER_STORY'],
-      subtasks: [
-        { id: 1, taskId: 5, description: 'Subtask 1', isDone: false }
-      ],
-      users: [
-        {
-          id: 1,
-          email: 'john.doe@example.com',
-          name: 'John Doe',
-          phoneNumber: '+1234567890',
-          password: '123456',
-          avatarColor: '#ff0000'
-        },
-        {
-          id: 2,
-          email: 'jane.doe@example.com',
-          name: 'Jane Doe',
-          phoneNumber: '+0987654321',
-          password: '123456',
-          avatarColor: '#ff0000'
-        },
-        {
-          id: 3,
-          email: 'alice.smith@example.com',
-          name: 'Alice Smith',
-          phoneNumber: '+1122334455',
-          password: '123456',
-          avatarColor: '#ff0000'
-        }
-      ],
-      status: TASK_STATUSES['AWAIT_FEEDBACK']
-    },
-    {
-      id: 6,
-      title: 'Sicherheitsanforderungen prüfen',
-      description: 'Überprüfen Sie die Sicherheitsanforderungen des Projekts.',
-      dueTo: new Date('2024-05-10'),
-      created: new Date('2024-04-20'),
-      updated: new Date('2024-04-25'),
-      priority: PRIORITIES['LOW'],
-      category: CATEGORIES['USER_STORY'],
-      subtasks: [
-        { id: 1, taskId: 6, description: 'Subtask 1', isDone: false }
-      ],
-      users: [
-        {
-          id: 1,
-          email: 'john.doe@example.com',
-          name: 'John Doe',
-          phoneNumber: '+1234567890',
-          password: '123456',
-          avatarColor: '#ff0000'
-        },
-        {
-          id: 2,
-          email: 'jane.doe@example.com',
-          name: 'Jane Doe',
-          phoneNumber: '+0987654321',
-          password: '123456',
-          avatarColor: '#ff0000'
-        },
-        {
-          id: 3,
-          email: 'alice.smith@example.com',
-          name: 'Alice Smith',
-          phoneNumber: '+1122334455',
-          password: '123456',
-          avatarColor: '#ff0000'
-        }
-      ],
-      status: TASK_STATUSES['AWAIT_FEEDBACK']
-    }
-  ];
 
-  constructor(private taskHttpService: TaskHttpService) {
+  constructor(private taskHttpService: TaskHttpService, private dtoMapperService: DtoMapperService, private matSnackBar: MatSnackBar) {
     this.fetchTasks()
   }
 
-  // TODO Code korrigieren
   public fetchTasks() {
-    this.tasks = this.tasksTmp;
+    this.taskHttpService.fetchTasks().subscribe({
+      next: (taskDtos: TaskDto[]) => {
+        const tasks = taskDtos.map(taskDto => this.dtoMapperService.mapTaskDtoToTask(taskDto));
+        this._tasks$.next(tasks);
+      }
+    })
   }
 
   public get tasks$(): Observable<Task[]> {
@@ -280,8 +47,17 @@ export class TaskService {
     if (status) {
       task.status = status;
     }
-    this.taskHttpService.createTask(task, status);
-    console.log("Task", task);
+    this.taskHttpService.createTask(this.dtoMapperService.mapTaskToTaskDto(task)).subscribe({
+      next: (taskDto: TaskDto) => {
+        const task = this.dtoMapperService.mapTaskDtoToTask(taskDto);
+        this._tasks$.next([...this.tasks, task]);
+        this.matSnackBar.open(`Task has been created successfully!`,'', {duration: SNACKBAR_DURATION});
+      },
+      error:(err) => {
+        this.matSnackBar.open('Task creation failed. Please try again.', 'Ok');
+      }
+    });
+
   }
 
   public updateTask(task: Task, status?: string) {
@@ -298,7 +74,7 @@ export class TaskService {
     console.log("Task deleted");
   }
 
-  public getTaskSummary(): TaskSummary {
+  public getTaskSummary(tasks: Task[]): TaskSummary {
     let closestUrgentDeadline: Date | null = null;
     const taskSummary: TaskSummary = {
       toDoTasks: 0,
@@ -310,7 +86,7 @@ export class TaskService {
       totalTasks: 0
     };
 
-    this.tasks.forEach(task => {
+    tasks.forEach(task => {
       if (task.status.key === TASK_STATUSES['TO_DO'].key) {
         taskSummary.toDoTasks++;
       }
