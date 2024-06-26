@@ -31,7 +31,15 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.selectedUserSubscription = this.userService.selectedUser$.subscribe(user => {
-        this.selectedUser = user;
+      this.selectedUser = user;
+    });
+
+    this.breakpointSubscription = this.breakpointObserver.observe([
+      "(min-width: 993px)"
+    ]).subscribe((result: BreakpointState) => {
+      if (result.matches) {
+        this.router.navigate(['users']).then(r =>{})
+      }
     });
   }
 
@@ -50,8 +58,6 @@ export class UserComponent implements OnInit, OnDestroy {
     ]).subscribe((result: BreakpointState) => {
       if (result.matches) {
         this.router.navigate(['users-details']).then(r => {})
-      } else {
-        this.router.navigate(['users']).then(r =>{})
       }
     });
   }
