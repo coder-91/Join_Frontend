@@ -31,7 +31,7 @@ export class UserComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.selectedUserSubscription = this.userService.selectedUser$.subscribe(user => {
-      this.selectedUser = user;
+        this.selectedUser = user;
     });
   }
 

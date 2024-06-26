@@ -1,69 +1,24 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, switchMap} from "rxjs";
 import {User} from "../../models/entity/user";
 import {UserHttpService} from "./user-http.service";
 import {Router} from "@angular/router";
+import {SNACKBAR_DURATION} from "../../utils/constants";
+import {DtoMapperService} from "../dtoMapperService/dto-mapper.service";
+import {UserDto} from "../../models/dtos/user-dto";
+import {MatSnackBar} from "@angular/material/snack-bar";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private _users$: BehaviorSubject<User[] | undefined> = new BehaviorSubject<User[] | undefined>(undefined);
+  private _users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   private _selectedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
   private _loggedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
-  tmpLoggedUser: User = {
-    id: 1,
-    email: "max.mustermann@gmail.com",
-    name: "Max Mustermann",
-    phoneNumber: '+1234567890',
-    avatarColor: '#ff0000'
-  }
 
-  usersTmp: User[] = [
-    {
-      id: 1,
-      email: 'john.doe@example.com',
-      name: 'John Doe',
-      phoneNumber: '+1234567890',
-      avatarColor: '#ff0000'
-    },
-    {
-      id: 2,
-      email: 'jane.doe@example.com',
-      name: 'Jane Doe',
-      phoneNumber: '+0987654321',
-      avatarColor: '#00ff00'
-    },
-    {
-      id: 3,
-      email: 'alice.smith@example.com',
-      name: 'Alice Smith',
-      phoneNumber: '+1122334455',
-      avatarColor: '#0000ff'
-    },
-    {
-      id: 4,
-      email: 'bob.smith@example.com',
-      name: 'Bob Smith',
-      phoneNumber: '+6677889900',
-      avatarColor: '#ffff00'
-    },
-    {
-      id: 5,
-      email: 'emma.jones@example.com',
-      name: 'Emma Jones',
-      phoneNumber: '+1123456789',
-      avatarColor: '#ff00ff'
-    }
-  ];
-
-  constructor(private userHttpService: UserHttpService, private router: Router) {
+  constructor(private userHttpService: UserHttpService, private router: Router, private dtoMapperService: DtoMapperService, private matSnackBar: MatSnackBar,) {
     this.fetchUsers();
-    this.loggedUser = this.tmpLoggedUser;
-  }
-
-  public fetchUsers() {
-    this.users = this.usersTmp;
+    this.fetchLoggedUser();
   }
 
   public get users$(): Observable<User[]> {
@@ -82,11 +37,6 @@ export class UserService {
     return this._loggedUser$.getValue() as User;
   }
 
-  // TODO Code korrigieren
-  public set users(users: User[]) {
-    this._users$.next(this.usersTmp);
-  }
-
   public get selectedUser$(): Observable<User> {
     return this._selectedUser$.asObservable() as Observable<User>;
   }
@@ -95,36 +45,89 @@ export class UserService {
     return this._selectedUser$.getValue() as User;
   }
 
+  public set users(users: User[]) {
+    this._users$.next(users);
+  }
+
   public set selectedUser(user: User) {
     this._selectedUser$.next(user);
   }
 
-  // TODO Code korrigieren
   public set loggedUser(user: User) {
     this._loggedUser$.next(user);
   }
 
-  public login(userData: any) {
-    this.userHttpService.login(userData).subscribe({
-      next:(response: any) => {
+  public fetchUsers() {
+    this.userHttpService.fetchUsers().subscribe({
+      next: (usersDtos: UserDto[]) => {
+        const users = usersDtos.map(userDto => this.dtoMapperService.mapUserDtoToUser(userDto));
+        this._users$.next(users);
+      }
+    });
+  }
+
+  public fetchLoggedUser() {
+    this.userHttpService.fetchLoggedUser().subscribe({
+      next: (userDto: UserDto) => {
+        this._loggedUser$.next(this.dtoMapperService.mapUserDtoToUser(userDto))
+      }
+    })
+  }
+
+  public login(user: Partial<User>) {
+    this.userHttpService.login(user).subscribe({
+      next:(response: { token: string }) => {
         localStorage.setItem('token', response.token);
+        this.fetchLoggedUser();
         this.router.navigateByUrl('/summary').then(r => {})
       },
       error: () => {
+        this.matSnackBar.open('Login failed. Please try again.', 'Ok');
       },
     })
   }
 
   public createUser(user: User) {
-    this.userHttpService.createUser(user);
+    this.userHttpService.createUser(this.dtoMapperService.mapUserToUserDto(user)).subscribe({
+      next:(userDto: UserDto) => {
+        this.users.push(this.dtoMapperService.mapUserDtoToUser(userDto));
+        this.router.navigateByUrl('/login').then(r => {})
+        this.matSnackBar.open(`Your account has been created successfully!`,'', {duration: SNACKBAR_DURATION});
+      },
+      error:(err) => {
+        this.matSnackBar.open('Account creation failed. Please try again.', 'Ok');
+      }
+    });
   }
 
   public updateUser(user: User) {
-    this.userHttpService.updateUser(user);
+    this.userHttpService.updateUser(this.dtoMapperService.mapUserToUserDto(user)).subscribe({
+      next:(userDto: UserDto) => {
+        this._selectedUser$.next(this.dtoMapperService.mapUserDtoToUser(userDto))
+        this._loggedUser$.next(this.dtoMapperService.mapUserDtoToUser(userDto))
+        this.matSnackBar.open(`Your account has been updated successfully!`,'', {duration: SNACKBAR_DURATION});
+      },
+      error:() => {
+        this.matSnackBar.open('Account updating failed. Please try again.', 'Ok');
+      }
+    });
   }
 
   public deleteUser(id: number) {
-    this.userHttpService.deleteUser(id);
+    this.userHttpService.deleteUser(id).subscribe({
+      next: () => {
+        const users = this.users;
+        const index = this.users.findIndex((user) => user.id === id);
+        if (index > -1) {
+          users.splice(index, 1);
+          this.router.navigateByUrl('/login').then(r => {})
+          this.matSnackBar.open(`Your account has been deleted successfully!`,'', {duration: SNACKBAR_DURATION});
+        }
+      },
+      error:() => {
+        this.matSnackBar.open('Account deleting failed. Please try again.', 'Ok');
+      }
+    })
   }
 
   public groupAndSortUsers(users: User[]): { [key: string]: User[] } {

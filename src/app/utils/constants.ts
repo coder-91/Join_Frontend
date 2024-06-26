@@ -9,3 +9,5 @@ export const AVATAR_BACKGROUND_COLORS: string[] = [
   '#A52A2A',
   '#000080',
 ];
+
+export const SNACKBAR_DURATION: number = 3000;

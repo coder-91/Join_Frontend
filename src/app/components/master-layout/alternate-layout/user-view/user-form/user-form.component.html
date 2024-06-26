@@ -46,11 +46,6 @@
                 <mat-label>Phone</mat-label>
                 <input matInput formControlName="phoneNumber" type="tel">
                 <mat-icon color="primary" matSuffix>phone</mat-icon>
-                @if (userForm.get('phoneNumber')?.touched) {
-                <mat-error>
-                    @switch (true) { @case (userForm.get('phoneNumber')?.hasError('required')) { Phone number is required } }
-                </mat-error>
-                }
             </mat-form-field>
 
             <div class="button-box">

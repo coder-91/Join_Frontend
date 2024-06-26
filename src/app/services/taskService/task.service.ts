@@ -7,7 +7,6 @@ import {TaskSummary} from "../../models/interfaces/task-summary";
 import {CATEGORIES, PRIORITIES, TASK_STATUSES} from "./task-constants";
 import {TaskStatus} from "../../models/interfaces/task-status";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
-import {HttpClient} from "@angular/common/http";
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +33,7 @@ export class TaskService {
           email: 'john.doe@example.com',
           name: 'John Doe',
           phoneNumber: '+1234567890',
+          password: '123456',
           avatarColor: '#ff0000'
         },
         {
@@ -41,6 +41,7 @@ export class TaskService {
           email: 'jane.doe@example.com',
           name: 'Jane Doe',
           phoneNumber: '+0987654321',
+          password: '123456',
           avatarColor: '#ffa000'
         },
         {
@@ -48,6 +49,7 @@ export class TaskService {
           email: 'alice.smith@example.com',
           name: 'Alice Smith',
           phoneNumber: '+1122334455',
+          password: '123456',
           avatarColor: '#ffca70'
         }
       ],
@@ -71,6 +73,7 @@ export class TaskService {
           email: 'john.doe@example.com',
           name: 'John Doe',
           phoneNumber: '+1234567890',
+          password: '123456',
           avatarColor: '#00f100'
         },
         {
@@ -78,6 +81,7 @@ export class TaskService {
           email: 'jane.doe@example.com',
           name: 'Jane Doe',
           phoneNumber: '+0987654321',
+          password: '123456',
           avatarColor: '#ff0000'
         },
         {
@@ -85,6 +89,7 @@ export class TaskService {
           email: 'alice.smith@example.com',
           name: 'Alice Smith',
           phoneNumber: '+1122334455',
+          password: '123456',
           avatarColor: '#ff00ff'
         }
       ],
@@ -108,6 +113,7 @@ export class TaskService {
           email: 'john.doe@example.com',
           name: 'John Doe',
           phoneNumber: '+1234567890',
+          password: '123456',
           avatarColor: '#1f0ff0'
         },
         {
@@ -115,6 +121,7 @@ export class TaskService {
           email: 'jane.doe@example.com',
           name: 'Jane Doe',
           phoneNumber: '+0987654321',
+          password: '123456',
           avatarColor: '#ff0000'
         },
         {
@@ -122,6 +129,7 @@ export class TaskService {
           email: 'alice.smith@example.com',
           name: 'Alice Smith',
           phoneNumber: '+1122334455',
+          password: '123456',
           avatarColor: '#ff0000'
         }
       ],
@@ -143,6 +151,7 @@ export class TaskService {
           email: 'john.doe@example.com',
           name: 'John Doe',
           phoneNumber: '+1234567890',
+          password: '123456',
           avatarColor: '#ff0000'
         },
         {
@@ -150,6 +159,7 @@ export class TaskService {
           email: 'jane.doe@example.com',
           name: 'Jane Doe',
           phoneNumber: '+0987654321',
+          password: '123456',
           avatarColor: '#ff0000'
         },
         {
@@ -157,6 +167,7 @@ export class TaskService {
           email: 'alice.smith@example.com',
           name: 'Alice Smith',
           phoneNumber: '+1122334455',
+          password: '123456',
           avatarColor: '#ff0000'
         }
       ],
@@ -180,6 +191,7 @@ export class TaskService {
           email: 'john.doe@example.com',
           name: 'John Doe',
           phoneNumber: '+1234567890',
+          password: '123456',
           avatarColor: '#ff0000'
         },
         {
@@ -187,6 +199,7 @@ export class TaskService {
           email: 'jane.doe@example.com',
           name: 'Jane Doe',
           phoneNumber: '+0987654321',
+          password: '123456',
           avatarColor: '#ff0000'
         },
         {
@@ -194,6 +207,7 @@ export class TaskService {
           email: 'alice.smith@example.com',
           name: 'Alice Smith',
           phoneNumber: '+1122334455',
+          password: '123456',
           avatarColor: '#ff0000'
         }
       ],
@@ -217,6 +231,7 @@ export class TaskService {
           email: 'john.doe@example.com',
           name: 'John Doe',
           phoneNumber: '+1234567890',
+          password: '123456',
           avatarColor: '#ff0000'
         },
         {
@@ -224,6 +239,7 @@ export class TaskService {
           email: 'jane.doe@example.com',
           name: 'Jane Doe',
           phoneNumber: '+0987654321',
+          password: '123456',
           avatarColor: '#ff0000'
         },
         {
@@ -231,6 +247,7 @@ export class TaskService {
           email: 'alice.smith@example.com',
           name: 'Alice Smith',
           phoneNumber: '+1122334455',
+          password: '123456',
           avatarColor: '#ff0000'
         }
       ],

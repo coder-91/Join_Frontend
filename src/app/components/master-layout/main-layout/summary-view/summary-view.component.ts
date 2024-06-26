@@ -6,6 +6,7 @@ import {DatePipe} from "@angular/common";
 import {UserService} from "../../../../services/userService/user.service";
 import {getGreetingByTime$} from "../../../../utils/date-utils";
 import {Subscription} from "rxjs";
+import {User} from "../../../../models/entity/user";
 
 @Component({
   selector: 'app-summary-view',
@@ -21,12 +22,17 @@ export class SummaryViewComponent implements OnInit, OnDestroy {
   taskSummary!: TaskSummary;
   greetingByTime:string = '';
   greetingByTimeSubscription!: Subscription;
-
+  loggedUser!: User;
+  loggedUserSubscription!: Subscription;
   constructor(public taskService: TaskService, public userService: UserService) {}
 
 
 
   ngOnInit() {
+    this.loggedUserSubscription = this.userService.loggedUser$.subscribe(loggedUser => {
+      this.loggedUser = loggedUser;
+    })
+
     //TODO als Observable?
     this.taskSummary = this.taskService.getTaskSummary()
     this.greetingByTimeSubscription = getGreetingByTime$().subscribe(greetingByTime => {
@@ -35,6 +41,7 @@ export class SummaryViewComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.greetingByTimeSubscription.unsubscribe()
+    this.greetingByTimeSubscription.unsubscribe();
+    this.loggedUserSubscription.unsubscribe();
   }
 }

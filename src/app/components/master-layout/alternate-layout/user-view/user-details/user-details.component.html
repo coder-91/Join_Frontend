@@ -1,19 +1,20 @@
 <div class="user-details-box">
 
-    <div class="mobile-user-actions">
-        <button mat-icon-button [matMenuTriggerFor]="menu">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-        <mat-menu #menu="matMenu">
-            <button (click)="onUpdateUser()" mat-menu-item>
-        <mat-icon>edit</mat-icon>Update
+    @if(selectedUser?.id === loggedUser?.id) {
+      <div class="mobile-user-actions">
+          <button mat-icon-button [matMenuTriggerFor]="menu">
+        <mat-icon>more_vert</mat-icon>
       </button>
-            <button (click)="onDeleteUser()" mat-menu-item>
-        <mat-icon color="warn">delete</mat-icon>Delete
-      </button>
-        </mat-menu>
-    </div>
-
+          <mat-menu #menu="matMenu">
+              <button (click)="onUpdateUser()" mat-menu-item>
+          <mat-icon>edit</mat-icon>Update
+        </button>
+              <button (click)="onDeleteUser()" mat-menu-item>
+          <mat-icon color="warn">delete</mat-icon>Delete
+        </button>
+          </mat-menu>
+      </div>
+    }
     <div class="headline-box">
         <div class="top-line">
             <h1>Users</h1>
@@ -34,16 +35,15 @@
 
         <div class="user-info">
             <div class="name">{{ selectedUser.name }}</div>
-            <div class="icons-box">
-                <button (click)="onUpdateUser()" mat-button color="primary">
-            Update
-            <mat-icon>edit</mat-icon>
-          </button>
-                <button (click)="onDeleteUser()" mat-button color="primary">
-            Delete
-            <mat-icon color="warn">delete</mat-icon>
-          </button>
-            </div>
+            @if(selectedUser?.id === loggedUser?.id){
+              <div class="icons-box">
+                <button (click)="onUpdateUser()" mat-button color="primary">Update
+                  <mat-icon>edit</mat-icon>
+                </button>
+                <button (click)="onDeleteUser()" mat-button color="primary">Delete
+                <mat-icon color="warn">delete</mat-icon></button>
+              </div>
+            }
         </div>
     </div>
 
@@ -57,9 +57,13 @@
 
     <div class="tel-box">
         <div class="tel-label">Phone</div>
+        @if(selectedUser?.phoneNumber){
         <address>
         <a class="tel" href="tel: {{ selectedUser.phoneNumber }}">{{ selectedUser.phoneNumber }}</a>
-      </address>
+        </address>
+        } @else {
+          <div>------------</div>
+        }
     </div>
     }
 </div>

@@ -37,7 +37,7 @@ export class UserFormComponent {
       id: this.user?.id,
       name: new FormControl('', [Validators.required, Validators.minLength(2)]),
       email: new FormControl('', [Validators.required, Validators.email]),
-      phoneNumber: new FormControl('', [Validators.required]),
+      phoneNumber: new FormControl(''),
     });
 
     if (this.user) {

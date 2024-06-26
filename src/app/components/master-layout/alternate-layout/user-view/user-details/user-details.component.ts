@@ -26,17 +26,24 @@ import {User} from "../../../../../models/entity/user";
 export class UserDetailsComponent implements OnInit, OnDestroy  {
   protected readonly getInitials = getInitials;
   selectedUser!: User;
+  loggedUser!: User;
   private selectedUserSubscription!: Subscription;
+  private loggedUserSubscription!: Subscription;
   constructor(private router: Router, private userService: UserService, private userDialogService: UserDialogService) {}
 
   ngOnInit(): void {
     this.selectedUserSubscription = this.userService.selectedUser$.subscribe(user => {
       this.selectedUser = user;
     });
+
+    this.loggedUserSubscription = this.userService.loggedUser$.subscribe(user => {
+      this.loggedUser = user;
+    });
   }
 
   ngOnDestroy(): void {
     this.selectedUserSubscription.unsubscribe();
+    this.loggedUserSubscription.unsubscribe();
   }
 
   public onUpdateUser() {

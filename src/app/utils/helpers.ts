@@ -3,7 +3,7 @@ export function getRandomHexCode(hexCodes: string[]): string {
   return hexCodes[randomIndex];
 }
 
-export function getInitials(name: string): string {
+export function getInitials(name: string | undefined): string {
   if (!name) return '';
 
   const nameParts = name.split(' ');

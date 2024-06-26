@@ -3,10 +3,9 @@ import {MatButton, MatIconButton} from "@angular/material/button";
 import {MatIconModule} from '@angular/material/icon';
 import {MatList, MatListItem} from "@angular/material/list";
 import {MatDivider} from "@angular/material/divider";
-import {UserDialogService} from "../../../../../services/userService/user-dialog.service";
 import {UserComponent} from "./user/user.component";
 import {NgClass} from "@angular/common";
-import {Subscription} from "rxjs";
+import {combineLatest, Subscription} from "rxjs";
 import {UserService} from "../../../../../services/userService/user.service";
 import {User} from "../../../../../models/entity/user";
 
@@ -29,23 +28,29 @@ import {User} from "../../../../../models/entity/user";
 export class UserListComponent implements OnInit, OnDestroy {
   protected readonly Object = Object;
   users!: User[];
-  usersSubscription!: Subscription;
+  loggedUser!: User;
+  userSubscription!: Subscription;
   groupedAndSortedUsers!: { [key: string]: User[] };
 
-  constructor(private userService:UserService, private userDialogService: UserDialogService) {}
+  constructor(private userService:UserService) {
+  }
 
   ngOnInit() {
-    this.usersSubscription = this.userService.users$.subscribe(users => {
+    this.userSubscription = combineLatest([
+      this.userService.loggedUser$,
+      this.userService.users$
+    ]).subscribe(([loggedUser,users]) => {
+      this.loggedUser = loggedUser;
       this.users = users;
-      this.groupedAndSortedUsers = this.userService.groupAndSortUsers(this.users);
+
+      if (this.loggedUser && this.users) {
+        const filteredUsers = this.users.filter(user => user.id !== this.loggedUser.id);
+        this.groupedAndSortedUsers = this.userService.groupAndSortUsers(filteredUsers);
+      }
     });
   }
 
   ngOnDestroy() {
-    this.usersSubscription.unsubscribe();
-  }
-
-  public onCreateUser() {
-    this.userDialogService.createUserDialog();
+    this.userSubscription.unsubscribe();
   }
 }
