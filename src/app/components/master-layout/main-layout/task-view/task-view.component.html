@@ -69,7 +69,7 @@
             <mat-form-field>
                 <mat-label>Assigned to</mat-label>
                 <mat-icon color="primary" matSuffix>group_add</mat-icon>
-                <mat-select formControlName="assignedTo" multiple [compareWith]="userCompareWithFn">
+                <mat-select formControlName="users" multiple [compareWith]="userCompareWithFn">
                     @for (user of users; track user.id) {
                     <mat-option [value]="user">{{ user.name }}</mat-option>
                     }

@@ -35,7 +35,6 @@ export class ChipFieldComponent implements OnInit {
     const value = (event.value || '').trim();
     if (value) {
       this.keywords.push({
-        id: undefined,
         taskId: this.taskId,
         description: value,
         isDone: false,

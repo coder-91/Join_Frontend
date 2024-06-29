@@ -7,10 +7,10 @@ import {TaskSummary} from "../../models/interfaces/task-summary";
 import {PRIORITIES, TASK_STATUSES} from "./task-constants";
 import {TaskStatus} from "../../models/interfaces/task-status";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
-import {TaskDto} from "../../models/dtos/task-dto";
 import {DtoMapperService} from "../dtoMapperService/dto-mapper.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SNACKBAR_DURATION} from "../../utils/constants";
+import {TaskReceiveDto} from "../../models/dtos/task-receive-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -24,8 +24,8 @@ export class TaskService {
 
   public fetchTasks() {
     this.taskHttpService.fetchTasks().subscribe({
-      next: (taskDtos: TaskDto[]) => {
-        const tasks = taskDtos.map(taskDto => this.dtoMapperService.mapTaskDtoToTask(taskDto));
+      next: (taskReceiveDtos: TaskReceiveDto[]) => {
+        const tasks = taskReceiveDtos.map(taskReceiveDto => this.dtoMapperService.mapTaskReceiveDtoToTask(taskReceiveDto));
         this._tasks$.next(tasks);
       }
     })
@@ -47,9 +47,9 @@ export class TaskService {
     if (status) {
       task.status = status;
     }
-    this.taskHttpService.createTask(this.dtoMapperService.mapTaskToTaskDto(task)).subscribe({
-      next: (taskDto: TaskDto) => {
-        const task = this.dtoMapperService.mapTaskDtoToTask(taskDto);
+    this.taskHttpService.createTask(this.dtoMapperService.mapTaskToTaskSendDto(task)).subscribe({
+      next: (taskReceiveDto: TaskReceiveDto) => {
+        const task = this.dtoMapperService.mapTaskReceiveDtoToTask(taskReceiveDto);
         this._tasks$.next([...this.tasks, task]);
         this.matSnackBar.open(`Task has been created successfully!`,'', {duration: SNACKBAR_DURATION});
       },

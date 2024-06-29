@@ -42,13 +42,13 @@ export class TaskStatusComponent implements OnInit, OnDestroy {
 
     this.tasksSubscription = this.taskService.tasks$.subscribe(tasks => {
       this.tasks = tasks;
+
+      this.tasksByStatus = Object.keys(TASK_STATUSES).reduce((acc, cur) => {
+        acc[cur] = this.tasks?.filter((x) => x.status.key === cur);
+
+        return acc;
+      }, {} as { [key: string]: Task[] });
     });
-
-    this.tasksByStatus = Object.keys(TASK_STATUSES).reduce((acc, cur) => {
-      acc[cur] = this.tasks.filter((x) => x.status.key === cur);
-
-      return acc;
-    }, {} as { [key: string]: Task[] });
   }
 
   ngOnDestroy(): void {

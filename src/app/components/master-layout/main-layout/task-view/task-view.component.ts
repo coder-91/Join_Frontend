@@ -77,7 +77,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         updated: this.data?.task?.updated,
         priority: new FormControl(Object.values(PRIORITIES)[0], [Validators.required]),
         category: new FormControl([]),
-        assignedTo: new FormControl([]),
+        users: new FormControl([]),
         subtasks: new FormControl([]),
         status: Object.values(TASK_STATUSES)[0],
       }
@@ -96,7 +96,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         updated: this.data?.task.updated,
         priority: this.data.task.priority,
         category: this.data.task.category,
-        assignedTo: this.data.task.users,
+        users: this.data.task.users,
         subtasks: this.data.task.subtasks,
         status: this.data?.task.status
       });

@@ -7,7 +7,7 @@
   </div>
 
   <div #list="cdkDropList" cdkDropList [id]="taskStatus.key" [cdkDropListData]="assignTasksByStatus(taskStatus)" (cdkDropListDropped)="onDropTask($event)" [cdkDropListConnectedTo]="taskStatusKeys" class="task-status-drop-list">
-    @if(list.data.length === 0) {
+    @if(list.data?.length === 0) {
       <div class="no-task-container">
         <div>No Tasks</div>
       </div>

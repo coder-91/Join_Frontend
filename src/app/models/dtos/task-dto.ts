@@ -1,5 +1,4 @@
-import {Subtask} from "../entity/subtask";
-import {User} from "../entity/user";
+import {SubtaskDto} from "./subtask-dto";
 
 export interface TaskDto {
   id: number,
@@ -10,7 +9,6 @@ export interface TaskDto {
   updated: Date,
   priority: string,
   category: string,
-  subtasks: Subtask[],
-  users: User[],
-  status: string
+  status: string,
+  subtasks: SubtaskDto[],
 }

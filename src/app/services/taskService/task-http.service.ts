@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
 import {Task} from "../../models/entity/task";
 import {Observable} from "rxjs";
-import {TaskDto} from "../../models/dtos/task-dto";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
+import {TaskReceiveDto} from "../../models/dtos/task-receive-dto";
+import {TaskSendDto} from "../../models/dtos/task-send-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -12,13 +13,14 @@ export class TaskHttpService {
 
   constructor(private httpClient: HttpClient,) { }
 
-  public fetchTasks():Observable<TaskDto[]> {
+  public fetchTasks():Observable<TaskReceiveDto[]> {
     const url = environment.baseUrl + `/api/tasks/`;
-    return this.httpClient.get<TaskDto[]>(url);
+    return this.httpClient.get<TaskReceiveDto[]>(url);
   }
-  public createTask(taskDto: TaskDto):Observable<TaskDto> {
+
+  public createTask(taskSendDto: TaskSendDto):Observable<TaskReceiveDto> {
     const url = environment.baseUrl + `/api/tasks/`;
-    return this.httpClient.post<TaskDto>(url, taskDto);
+    return this.httpClient.post<TaskReceiveDto>(url, taskSendDto);
   }
 
   public updateTask(task: Task) {
