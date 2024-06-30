@@ -60,18 +60,47 @@ export class TaskService {
 
   }
 
-  public updateTask(task: Task, status?: string) {
+  public updateTask(task: Task, status?: TaskStatus) {
     if (status) {
-      // TODO
-      //task.status = status;
+      task.status = status;
     }
-    this.taskHttpService.updateTask(task);
-    console.log("Task", task);
+
+    this.taskHttpService.updateTask(this.dtoMapperService.mapTaskToTaskSendDto(task)).subscribe({
+      next: (taskReceiveDto: TaskReceiveDto) => {
+        const updatedTask = this.dtoMapperService.mapTaskReceiveDtoToTask(taskReceiveDto);
+        const taskIndex = this.tasks.findIndex((e) => e.id === task.id);
+        if (taskIndex > -1) {
+          this.tasks[taskIndex] = updatedTask;
+        }
+
+        this._tasks$.next([...this.tasks]);
+        this.matSnackBar.open(`Task has been updated successfully!`,'', {duration: SNACKBAR_DURATION});
+      },
+      error:(err) => {
+        this.matSnackBar.open('Task updating failed. Please try again.', 'Ok');
+      }
+    })
   }
 
   public deleteTask(taskId: number) {
-    this.taskHttpService.deleteTask(taskId);
-    console.log("Task deleted");
+    this.taskHttpService.deleteTask(taskId).subscribe({
+      next: () => {
+        const tmp = this.tasks;
+
+        const index = this.tasks.findIndex((e) => e.id === taskId);
+        if (index > -1) {
+          // only splice array when item is found
+          // Remove Employee from array
+          // 2nd parameter means remove one item only
+          tmp.splice(index, 1);
+          this.matSnackBar.open(`Task has been deleted successfully!`,'', {duration: SNACKBAR_DURATION});
+        }
+        this._tasks$.next(tmp);
+      },
+      error:(err) => {
+        this.matSnackBar.open('Task deletion failed. Please try again.', 'Ok');
+      }
+    })
   }
 
   public getTaskSummary(tasks: Task[]): TaskSummary {

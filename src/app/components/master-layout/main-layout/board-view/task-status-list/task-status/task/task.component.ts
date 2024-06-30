@@ -48,7 +48,7 @@ export class TaskComponent {
   }
 
   public updateTask(task: Task, newStatus: TaskStatus) {
-    this.taskService.updateTask(task, newStatus.key);
+    this.taskService.updateTask(task, newStatus);
   }
 
   public showTaskDetailsDialog(task: Task) {

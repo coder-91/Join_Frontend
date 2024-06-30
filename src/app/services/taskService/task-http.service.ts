@@ -1,5 +1,4 @@
 import {Injectable} from "@angular/core";
-import {Task} from "../../models/entity/task";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {HttpClient} from "@angular/common/http";
@@ -23,11 +22,13 @@ export class TaskHttpService {
     return this.httpClient.post<TaskReceiveDto>(url, taskSendDto);
   }
 
-  public updateTask(task: Task) {
-
+  public updateTask(taskSendDto: TaskSendDto) {
+    const url = environment.baseUrl + `/api/tasks/${taskSendDto.id}/`;
+    return this.httpClient.patch<TaskReceiveDto>(url, taskSendDto);
   }
 
-  public deleteTask(taskId: number) {
-
+  public deleteTask(taskId: number):Observable<void> {
+    const url = environment.baseUrl + `/api/tasks/${taskId}/`;
+    return this.httpClient.delete<void>(url);
   }
 }
