@@ -113,6 +113,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   public onSubmit() {
     if (this.data?.task) {
+      this.taskService.taskDetails = this.taskForm.getRawValue();
       this.onUpdateTask();
     } else {
       this.onCreateTask();

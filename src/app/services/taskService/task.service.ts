@@ -17,6 +17,7 @@ import {TaskReceiveDto} from "../../models/dtos/task-receive-dto";
 })
 export class TaskService {
   private _tasks$: BehaviorSubject<Task[] | undefined> = new BehaviorSubject<Task[] | undefined>(undefined);
+  private _taskDetails$: BehaviorSubject<Task | undefined> = new BehaviorSubject<Task | undefined>(undefined);
 
   constructor(private taskHttpService: TaskHttpService, private dtoMapperService: DtoMapperService, private matSnackBar: MatSnackBar) {
     this.fetchTasks()
@@ -39,8 +40,20 @@ export class TaskService {
     return this._tasks$.getValue() as Task[];
   }
 
+  public get taskDetails$(): Observable<Task> {
+    return this._taskDetails$.asObservable() as Observable<Task>;
+  }
+
+  public get taskDetails(): Task {
+    return this._taskDetails$.getValue() as Task;
+  }
+
   public set tasks(tasks: Task[]) {
     this._tasks$.next(tasks);
+  }
+
+  public set taskDetails(taskDetails: Task) {
+    this._taskDetails$.next(taskDetails);
   }
 
   public createTask(task: Task, status?: TaskStatus) {

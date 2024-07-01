@@ -53,8 +53,6 @@ export class TaskDialogService {
   public showTaskDetailsDialog(task: Task) {
     this.dialog.open(TaskDetailsComponent, {
       data: { fromPopup: true, task: task },
-    }).afterClosed().pipe(filter((task) => task)).subscribe(task => {
-
-    });
+    }).afterClosed().pipe(filter((task) => task)).subscribe(task => {});
   }
 }

@@ -1,4 +1,4 @@
-import {Component, Inject, Optional} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit, Optional} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {
   MAT_DIALOG_DATA,
@@ -28,6 +28,8 @@ import {getInitials} from "../../../../../../../../utils/helpers";
 import {MatCheckbox, MatCheckboxChange} from "@angular/material/checkbox";
 import {Subtask} from "../../../../../../../../models/entity/subtask";
 import {SubtaskService} from "../../../../../../../../services/subtaskService/subtask.service";
+import {Subscription} from "rxjs";
+import {TaskService} from "../../../../../../../../services/taskService/task.service";
 
 @Component({
   selector: 'app-task-details',
@@ -62,10 +64,23 @@ import {SubtaskService} from "../../../../../../../../services/subtaskService/su
   styleUrl: './task-details.component.scss'
 })
 
-export class TaskDetailsComponent {
+export class TaskDetailsComponent implements OnInit, OnDestroy {
   protected readonly getInitials = getInitials;
+  taskDetailsSubscription!: Subscription;
 
-  constructor(private subtaskService: SubtaskService, @Optional() private dialogRef: MatDialogRef<TaskDetailsComponent>, @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean, task: Task }, private taskDialogService: TaskDialogService) {}
+  constructor(private subtaskService: SubtaskService, @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean, task: Task }, private taskDialogService: TaskDialogService, private taskService: TaskService) {
+    this.taskService.taskDetails = this.data.task;
+  }
+
+  ngOnInit() {
+    this.taskDetailsSubscription = this.taskService.taskDetails$.subscribe(task => {
+      this.data.task = task;
+    })
+  }
+
+  ngOnDestroy() {
+    this.taskDetailsSubscription.unsubscribe();
+  }
 
   onDelete(id: number) {
     this.taskDialogService.deleteTaskDialog(id);
