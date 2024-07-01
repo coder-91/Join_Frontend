@@ -168,12 +168,10 @@ export class TaskService {
   }
 
   public onDropTask(event: CdkDragDrop<Task[]>) {
-    /*let fromContainer = event.previousContainer.id;
-        let toContainer = event.container.id;
-        let dragDropData: Task = event.item.data;
-        console.log("fromContainer:", fromContainer)
-        console.log("toContainer:", toContainer)
-        console.log("dragDropData:", dragDropData)*/
+    const status = TASK_STATUSES[event.container.id];
+    const task: Task = event.item.data;
+    task.status = status;
+    this.updateTask(task, status);
 
     if (event.previousContainer === event.container) {
       moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
