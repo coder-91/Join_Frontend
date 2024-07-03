@@ -67,7 +67,7 @@ export class TaskService {
         this.matSnackBar.open(`Task has been created successfully!`,'', {duration: SNACKBAR_DURATION});
       },
       error:(err) => {
-        this.matSnackBar.open('Task creation failed. Please try again.', 'Ok');
+        this.matSnackBar.open('Task creation failed.', 'Ok');
       }
     });
 
@@ -90,7 +90,7 @@ export class TaskService {
         this.matSnackBar.open(`Task has been updated successfully!`,'', {duration: SNACKBAR_DURATION});
       },
       error:(err) => {
-        this.matSnackBar.open('Task updating failed. Please try again.', 'Ok');
+        this.matSnackBar.open('Task updating failed.', 'Ok');
       }
     })
   }
@@ -111,7 +111,7 @@ export class TaskService {
         this._tasks$.next(tmp);
       },
       error:(err) => {
-        this.matSnackBar.open('Task deletion failed. Please try again.', 'Ok');
+        this.matSnackBar.open('Task deletion failed.', 'Ok');
       }
     })
   }

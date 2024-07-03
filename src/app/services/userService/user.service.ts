@@ -82,9 +82,13 @@ export class UserService {
         this.router.navigateByUrl('/summary').then(r => {})
       },
       error: () => {
-        this.matSnackBar.open('Login failed. Please try again.', 'Ok');
+        this.matSnackBar.open('Login failed.', 'Ok');
       },
     })
+  }
+
+  public isLoggedIn(): boolean {
+    return !!localStorage.getItem('token');
   }
 
   public logout() {
@@ -108,7 +112,7 @@ export class UserService {
         this.matSnackBar.open(`Your account has been created successfully!`,'', {duration: SNACKBAR_DURATION});
       },
       error:(err) => {
-        this.matSnackBar.open('Account creation failed. Please try again.', 'Ok');
+        this.matSnackBar.open('Account creation failed', 'Ok');
       }
     });
   }
@@ -121,7 +125,7 @@ export class UserService {
         this.matSnackBar.open(`Your account has been updated successfully!`,'', {duration: SNACKBAR_DURATION});
       },
       error:() => {
-        this.matSnackBar.open('Account updating failed. Please try again.', 'Ok');
+        this.matSnackBar.open('Account updating failed.', 'Ok');
       }
     });
   }
@@ -138,7 +142,7 @@ export class UserService {
         }
       },
       error:() => {
-        this.matSnackBar.open('Account deleting failed. Please try again.', 'Ok');
+        this.matSnackBar.open('Account deleting failed.', 'Ok');
       }
     })
   }
