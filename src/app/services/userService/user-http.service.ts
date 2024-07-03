@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from "@angular/common/http";
+import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {User} from "../../models/entity/user";
 import {Observable} from "rxjs";
@@ -26,6 +26,11 @@ export class UserHttpService {
     return this.httpClient.post<{ token: string }>(url, user);
   }
 
+  public logout(): Observable<void> {
+    const url = environment.baseUrl + `/api/users/logout/`;
+    return this.httpClient.post<void>(url, {});
+  }
+
   public createUser(userDto: UserDto):Observable<UserDto> {
     const url = environment.baseUrl + `/api/users/register/`;
     return this.httpClient.post<UserDto>(url, userDto);
@@ -40,7 +45,4 @@ export class UserHttpService {
     const url = environment.baseUrl + `/api/users/${id}/`;
     return this.httpClient.delete<void>(url);
   }
-
-
-
 }

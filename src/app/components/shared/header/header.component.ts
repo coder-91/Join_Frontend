@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import {MatIconModule} from '@angular/material/icon';
 import {MatMenuModule} from '@angular/material/menu';
 import {RouterLink, RouterLinkActive} from '@angular/router';
+import {UserService} from "../../../services/userService/user.service";
 
 @Component({
   selector: 'app-header',
@@ -13,7 +14,10 @@ import {RouterLink, RouterLinkActive} from '@angular/router';
 })
 export class HeaderComponent {
 
-  public logout() {
+  constructor(private userService: UserService) {
+  }
 
+  public logout() {
+    this.userService.logout();
   }
 }

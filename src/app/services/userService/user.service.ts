@@ -87,6 +87,19 @@ export class UserService {
     })
   }
 
+  public logout() {
+    this.userHttpService.logout().subscribe({
+      next:(response) => {
+        localStorage.removeItem('token');
+        this.matSnackBar.open(`You have been successfully logged out.`,'', {duration: SNACKBAR_DURATION});
+        this.router.navigateByUrl('/login').then(r => {})
+      },
+      error: () => {
+        this.matSnackBar.open('Logout failed.', 'Ok');
+      },
+    })
+  }
+
   public createUser(user: User) {
     this.userHttpService.createUser(this.dtoMapperService.mapUserToUserDto(user)).subscribe({
       next:(userDto: UserDto) => {
