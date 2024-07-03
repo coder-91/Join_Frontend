@@ -7,7 +7,7 @@
       </button>
           <mat-menu #menu="matMenu">
               <button (click)="onUpdateUser()" mat-menu-item>
-          <mat-icon>edit</mat-icon>Update
+          <mat-icon>edit</mat-icon>Edit
         </button>
               <button (click)="onDeleteUser()" mat-menu-item>
           <mat-icon color="warn">delete</mat-icon>Delete
@@ -37,7 +37,7 @@
             <div class="name">{{ selectedUser.name }}</div>
             @if(selectedUser?.id === loggedUser?.id){
               <div class="icons-box">
-                <button (click)="onUpdateUser()" mat-button color="primary">Update
+                <button (click)="onUpdateUser()" mat-button color="primary">Edit
                   <mat-icon>edit</mat-icon>
                 </button>
                 <button (click)="onDeleteUser()" mat-button color="primary">Delete

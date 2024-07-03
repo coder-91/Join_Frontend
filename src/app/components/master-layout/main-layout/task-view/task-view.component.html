@@ -1,6 +1,6 @@
 <div class="task-view-container">
     <div mat-dialog-title [ngClass]="{'title-container-from-popup': fromPopup, 'title-container': !fromPopup}" class="title-container">
-        <div class="title">{{data?.task? 'Update Task' : 'Add Task'}}</div>
+        <div class="title">{{data?.task? 'Edit Task' : 'Add Task'}}</div>
         @if (fromPopup) {
         <button mat-icon-button mat-dialog-close color="primary" aria-label="close dialog">
         <mat-icon>close</mat-icon>
