@@ -1,11 +1,11 @@
-import {Component, Inject, OnDestroy, OnInit, Optional} from '@angular/core';
+import {Component, Inject, OnDestroy, OnInit} from '@angular/core';
 import {ReactiveFormsModule} from "@angular/forms";
 import {
   MAT_DIALOG_DATA,
   MatDialogActions,
   MatDialogClose,
   MatDialogContent,
-  MatDialogRef, MatDialogTitle
+  MatDialogTitle
 } from "@angular/material/dialog";
 import {Task} from "../../../../../../../../models/entity/task";
 import {ChipFieldComponent} from "../../../../../../../shared/form-fields/chip-field/chip-field.component";
@@ -91,6 +91,7 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   }
 
   public onUpdateSubtask(event: MatCheckboxChange, subtask: Subtask) {
-    this.subtaskService.updateSubtask(subtask, event.checked)
+    subtask.isDone = event.checked;
+    this.subtaskService.updateSubtask(subtask)
   }
 }

@@ -102,9 +102,6 @@ export class TaskService {
 
         const index = this.tasks.findIndex((e) => e.id === taskId);
         if (index > -1) {
-          // only splice array when item is found
-          // Remove Employee from array
-          // 2nd parameter means remove one item only
           tmp.splice(index, 1);
           this.matSnackBar.open(`Task has been deleted successfully!`,'', {duration: SNACKBAR_DURATION});
         }

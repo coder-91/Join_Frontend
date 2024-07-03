@@ -22,7 +22,7 @@ export class TaskHttpService {
     return this.httpClient.post<TaskReceiveDto>(url, taskSendDto);
   }
 
-  public updateTask(taskSendDto: TaskSendDto) {
+  public updateTask(taskSendDto: TaskSendDto):Observable<TaskReceiveDto> {
     const url = environment.baseUrl + `/api/tasks/${taskSendDto.id}/`;
     return this.httpClient.patch<TaskReceiveDto>(url, taskSendDto);
   }
