@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {User} from "../../models/entity/user";
 import {Observable} from "rxjs";
 import {UserDto} from "../../models/dtos/user-dto";
 
@@ -19,16 +18,6 @@ export class UserHttpService {
   public fetchLoggedUser(): Observable<UserDto> {
     const url = environment.baseUrl + `/api/users/me/`;
     return this.httpClient.get<UserDto>(url);
-  }
-
-  public login(user: Partial<User>): Observable<{ token: string }> {
-    const url = environment.baseUrl + `/api/users/token/`;
-    return this.httpClient.post<{ token: string }>(url, user);
-  }
-
-  public logout(): Observable<void> {
-    const url = environment.baseUrl + `/api/users/logout/`;
-    return this.httpClient.post<void>(url, {});
   }
 
   public createUser(userDto: UserDto):Observable<UserDto> {

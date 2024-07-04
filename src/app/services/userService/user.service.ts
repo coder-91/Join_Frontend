@@ -13,16 +13,15 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 })
 export class UserService {
   private _users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
-  private _selectedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
   private _loggedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
-
+  private _selectedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
   constructor(private userHttpService: UserHttpService, private router: Router, private dtoMapperService: DtoMapperService, private matSnackBar: MatSnackBar) {
-    this.fetchUsers();
-    this.fetchLoggedUser();
+      this.fetchUsers();
+      this.fetchLoggedUser();
   }
 
   public get users$(): Observable<User[]> {
-    return this._users$.asObservable() as Observable<User[]>;
+    return this._users$.asObservable();
   }
 
   public get users(): User[] {
@@ -49,12 +48,12 @@ export class UserService {
     this._users$.next(users);
   }
 
-  public set selectedUser(user: User) {
-    this._selectedUser$.next(user);
-  }
-
   public set loggedUser(user: User) {
     this._loggedUser$.next(user);
+  }
+
+  public set selectedUser(user: User) {
+    this._selectedUser$.next(user);
   }
 
   public fetchUsers() {
@@ -74,36 +73,6 @@ export class UserService {
     })
   }
 
-  public login(user: Partial<User>) {
-    this.userHttpService.login(user).subscribe({
-      next:(response: { token: string }) => {
-        localStorage.setItem('token', response.token);
-        this.fetchLoggedUser();
-        this.router.navigateByUrl('/summary').then(r => {})
-      },
-      error: () => {
-        this.matSnackBar.open('Login failed.', 'Ok');
-      },
-    })
-  }
-
-  public isLoggedIn(): boolean {
-    return !!localStorage.getItem('token');
-  }
-
-  public logout() {
-    this.userHttpService.logout().subscribe({
-      next:(response) => {
-        localStorage.removeItem('token');
-        this.matSnackBar.open(`You have been successfully logged out.`,'', {duration: SNACKBAR_DURATION});
-        this.router.navigateByUrl('/login').then(r => {})
-      },
-      error: () => {
-        this.matSnackBar.open('Logout failed.', 'Ok');
-      },
-    })
-  }
-
   public createUser(user: User) {
     this.userHttpService.createUser(this.dtoMapperService.mapUserToUserDto(user)).subscribe({
       next:(userDto: UserDto) => {
@@ -112,7 +81,12 @@ export class UserService {
         this.matSnackBar.open(`Your account has been created successfully!`,'', {duration: SNACKBAR_DURATION});
       },
       error:(err) => {
-        this.matSnackBar.open('Account creation failed', 'Ok');
+        if(err.error.email) {
+          this.matSnackBar.open('User with this email already exists.', 'Ok');
+        } else {
+          this.matSnackBar.open('Account creation failed', 'Ok');
+        }
+
       }
     });
   }
@@ -121,7 +95,6 @@ export class UserService {
     this.userHttpService.updateUser(this.dtoMapperService.mapUserToUserDto(user)).subscribe({
       next:(userDto: UserDto) => {
         this._selectedUser$.next(this.dtoMapperService.mapUserDtoToUser(userDto))
-        this._loggedUser$.next(this.dtoMapperService.mapUserDtoToUser(userDto))
         this.matSnackBar.open(`Your account has been updated successfully!`,'', {duration: SNACKBAR_DURATION});
       },
       error:() => {
