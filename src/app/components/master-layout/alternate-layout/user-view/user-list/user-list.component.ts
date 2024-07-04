@@ -5,7 +5,7 @@ import {MatList, MatListItem} from "@angular/material/list";
 import {MatDivider} from "@angular/material/divider";
 import {UserComponent} from "./user/user.component";
 import {NgClass} from "@angular/common";
-import {combineLatest, Subscription} from "rxjs";
+import {filter, Subscription, switchMap} from "rxjs";
 import {UserService} from "../../../../../services/userService/user.service";
 import {User} from "../../../../../models/entity/user";
 
@@ -36,17 +36,15 @@ export class UserListComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.userSubscription = combineLatest([
-      this.userService.loggedUser$,
-      this.userService.users$
-    ]).subscribe(([loggedUser,users]) => {
-      this.loggedUser = loggedUser;
-      this.users = users;
-
-      if (this.loggedUser && this.users) {
-        const filteredUsers = this.users.filter(user => user.id !== this.loggedUser.id);
-        this.groupedAndSortedUsers = this.userService.groupAndSortUsers(filteredUsers);
-      }
+    this.userSubscription = this.userService.loggedUser$.pipe(
+      filter(loggedUser => !!loggedUser),
+      switchMap(loggedUser => {
+        this.loggedUser = loggedUser;
+        return this.userService.users$;
+      })
+    ).subscribe(users => {
+      this.users = users.filter(user => user?.id !== this.loggedUser.id);
+      this.groupedAndSortedUsers = this.userService.groupAndSortUsers(this.users);
     });
   }
 
