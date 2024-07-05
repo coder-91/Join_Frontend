@@ -1,57 +1,66 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
-  <img src="../../../../assets/images/logo_dark.svg" alt="">
-  <h1>Login</h1>
-  <div class="hr"></div>
+<div class="form-container">
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+    <img src="../../../../assets/images/logo_dark.svg" alt="">
+    <h1>Login</h1>
+    <div class="hr"></div>
 
-  <mat-form-field>
-    <mat-label>Email</mat-label>
-    <input matInput type="email" formControlName="email" placeholder="Ex. pat@example.com ">
-    <mat-icon color="primary" matSuffix>email</mat-icon>
-    @if (loginForm.get('email')?.touched) {
-      <mat-error>
-        @switch (true) {
-          @case (loginForm.get('email')?.hasError('required'))
-            { Email is required }
-          @case (loginForm.get('email')?.hasError('email'))
-            { Please enter a valid email }
-        }
-      </mat-error>
-    }
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" placeholder="Ex. pat@example.com ">
+      <mat-icon color="primary" matSuffix>email</mat-icon>
+      @if (loginForm.get('email')?.touched) {
+        <mat-error>
+          @switch (true) {
+            @case (loginForm.get('email')?.hasError('required'))
+              { Email is required }
+            @case (loginForm.get('email')?.hasError('email'))
+              { Please enter a valid email }
+          }
+        </mat-error>
+      }
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Password</mat-label>
-    <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
-    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-      <mat-icon color="primary">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-    @if (loginForm.get('password')?.touched) {
-      <mat-error>
-        @switch (true) {
-          @case (loginForm.get('password')?.hasError('required'))
-          { Password is required }
-          @case (loginForm.get('password')?.hasError('minlength'))
-          { Password must be 6 characters in length }
-        }
-      </mat-error>
-    }
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" [type]="hidePassword ? 'password' : 'text'">
+      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+        <mat-icon color="primary">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      @if (loginForm.get('password')?.touched) {
+        <mat-error>
+          @switch (true) {
+            @case (loginForm.get('password')?.hasError('required'))
+            { Password is required }
+            @case (loginForm.get('password')?.hasError('minlength'))
+            { Password must be 6 characters in length }
+          }
+        </mat-error>
+      }
+    </mat-form-field>
 
-  <mat-checkbox class="custom-checkbox mb-3" formControlName="rememberMe"><span class="remember-me">Remember me</span></mat-checkbox>
+    <mat-checkbox class="custom-checkbox mb-3" formControlName="rememberMe"><span class="remember-me">Remember me</span></mat-checkbox>
 
-  <div class="button-box">
-    <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
-      Login
-    </button>
+    <div class="button-box">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!loginForm.valid">
+        Login
+      </button>
 
-    <button class="animated-button" mat-raised-button color="accent" type="button" (click)="loginAsGuest()">
-      Guest Login
-    </button>
+      <button class="animated-button" mat-raised-button color="accent" type="button" (click)="loginAsGuest()">
+        Guest Login
+      </button>
+    </div>
+
+    <div class="sign-up">Not a Join user?
+      <button (click)="navigateToSignUp()" mat-button type="button" color="accent">
+        Sign up
+      </button>
+    </div>
+  </form>
+  <div class="privacy-legal-container">
+    <a href="privacy-policy">Privacy Policy</a>
+    <a href="legal-notice">Legal Notice</a>
+    <a href="imprint">Imprint</a>
   </div>
+</div>
 
-  <p class="sign-up">Not a Join user?
-    <button (click)="navigateToSignUp()" mat-button type="button" color="accent">
-      Sign up
-    </button>
-  </p>
-</form>
+

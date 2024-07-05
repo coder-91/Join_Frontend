@@ -1,96 +1,103 @@
-<form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="sign-up-form">
-  <img src="../../../../assets/images/logo_dark.svg" alt="">
-  <h1>Sign up</h1>
-  <div class="hr"></div>
+<div class="form-container">
+  <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()" class="sign-up-form">
+    <img src="../../../../assets/images/logo_dark.svg" alt="">
+    <h1>Sign up</h1>
+    <div class="hr"></div>
 
-  <mat-form-field>
-    <mat-label>Name</mat-label>
-    <input matInput formControlName="name" type="text" placeholder="Firstname Lastname">
-    <mat-icon color="primary" matSuffix>person</mat-icon>
-    @if (signUpForm.get('name')?.touched) {
-      <mat-error>
-        @switch (true) {
-          @case (signUpForm.get('name')?.hasError('required'))
-            { Name is required }
-          @case (signUpForm.get('name')?.hasError('minlength'))
-            { Name must be at least 2 characters in length }
-        }
-      </mat-error>
-    }
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput formControlName="name" type="text" placeholder="Firstname Lastname">
+      <mat-icon color="primary" matSuffix>person</mat-icon>
+      @if (signUpForm.get('name')?.touched) {
+        <mat-error>
+          @switch (true) {
+            @case (signUpForm.get('name')?.hasError('required'))
+              { Name is required }
+            @case (signUpForm.get('name')?.hasError('minlength'))
+              { Name must be at least 2 characters in length }
+          }
+        </mat-error>
+      }
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Email</mat-label>
-    <input matInput type="email" formControlName="email" placeholder="Ex. pat@example.com ">
-    <mat-icon color="primary" matSuffix>email</mat-icon>
-    @if (signUpForm.get('email')?.touched) {
-      <mat-error>
-        @switch (true) {
-          @case (signUpForm.get('email')?.hasError('required'))
-            { Email is required }
-          @case (signUpForm.get('email')?.hasError('email'))
-            { Please enter a valid email }
-        }
-      </mat-error>
-    }
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput type="email" formControlName="email" placeholder="Ex. pat@example.com ">
+      <mat-icon color="primary" matSuffix>email</mat-icon>
+      @if (signUpForm.get('email')?.touched) {
+        <mat-error>
+          @switch (true) {
+            @case (signUpForm.get('email')?.hasError('required'))
+              { Email is required }
+            @case (signUpForm.get('email')?.hasError('email'))
+              { Please enter a valid email }
+          }
+        </mat-error>
+      }
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Phone Number</mat-label>
-    <input matInput type="tel" formControlName="phoneNumber">
-    <mat-icon color="primary" matSuffix>phone</mat-icon>
-  </mat-form-field>
+    <mat-form-field>
+      <mat-label>Phone Number</mat-label>
+      <input matInput type="tel" formControlName="phoneNumber">
+      <mat-icon color="primary" matSuffix>phone</mat-icon>
+    </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Password</mat-label>
-    <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" type="password">
-    <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
-      <mat-icon color="primary">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-    @if (signUpForm.get('password')?.touched) {
-    <mat-error>
-        @switch (true) {
-          @case (signUpForm.get('password')?.hasError('required'))
-            { Password is required }
-          @case (signUpForm.get('password')?.hasError('minlength'))
-            { Password must be 6 characters in length }
-        }
-    </mat-error>
-    }
-  </mat-form-field>
-
-  <mat-form-field>
-    <mat-label>Confirm Password</mat-label>
-    <input matInput formControlName="confirmPassword" [errorStateMatcher]="matcher" [type]="hidePasswordConfirm ? 'password' : 'text'" type="password">
-    <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswordConfirm">
-      <mat-icon color="primary">{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
-    </button>
-    @if (signUpForm.get('confirmPassword')?.touched) {
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'" formControlName="password" type="password">
+      <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword">
+        <mat-icon color="primary">{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      @if (signUpForm.get('password')?.touched) {
       <mat-error>
           @switch (true) {
-            @case (signUpForm.get('confirmPassword')?.hasError('required'))
-              { Confirm Password is required }
-            @case (signUpForm.errors?.['mismatch']) { Password does not match }
+            @case (signUpForm.get('password')?.hasError('required'))
+              { Password is required }
+            @case (signUpForm.get('password')?.hasError('minlength'))
+              { Password must be 6 characters in length }
           }
       </mat-error>
-    }
-  </mat-form-field>
+      }
+    </mat-form-field>
 
-  <mat-checkbox class="custom-checkbox mb-3" formControlName="privacyPolicy">
-      <span class="privacy-policy-box">
-        I accept the <a class="privacy-policy" href="privacy-policy">Privacy Policy</a>
-      </span>
-  </mat-checkbox>
+    <mat-form-field>
+      <mat-label>Confirm Password</mat-label>
+      <input matInput formControlName="confirmPassword" [errorStateMatcher]="matcher" [type]="hidePasswordConfirm ? 'password' : 'text'" type="password">
+      <button mat-icon-button matSuffix (click)="hidePasswordConfirm = !hidePasswordConfirm" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePasswordConfirm">
+        <mat-icon color="primary">{{hidePasswordConfirm ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+      @if (signUpForm.get('confirmPassword')?.touched) {
+        <mat-error>
+            @switch (true) {
+              @case (signUpForm.get('confirmPassword')?.hasError('required'))
+                { Confirm Password is required }
+              @case (signUpForm.errors?.['mismatch']) { Password does not match }
+            }
+        </mat-error>
+      }
+    </mat-form-field>
 
-  <div class="button-box">
-    <button mat-raised-button color="primary" type="submit" [disabled]="!signUpForm.valid">
-      Sign up
-    </button>
+    <mat-checkbox class="custom-checkbox mb-3" formControlName="privacyPolicy">
+        <span class="privacy-policy-box">
+          I accept the <a class="privacy-policy" href="privacy-policy">Privacy Policy</a>
+        </span>
+    </mat-checkbox>
+
+    <div class="button-box">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!signUpForm.valid">
+        Sign up
+      </button>
+    </div>
+
+    <div class="login">Already a Join user?
+      <button (click)="navigateToLogin()" mat-button type="button" color="accent">
+        Login
+      </button>
+    </div>
+  </form>
+  <div class="privacy-legal-container">
+    <a href="privacy-policy">Privacy Policy</a>
+    <a href="legal-notice">Legal Notice</a>
+    <a href="imprint">Imprint</a>
   </div>
-
-  <p class="login">Already a Join user?
-    <button (click)="navigateToLogin()" mat-button type="button" color="accent">
-      Login
-    </button>
-  </p>
-</form>
+</div>

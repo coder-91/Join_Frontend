@@ -4,6 +4,17 @@
 
 @include custom-checkbox-styles(".custom-checkbox");
 
+.form-container {
+  background-color: $col-light-gray;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 15px;
+}
+
 .login-form {
   display: flex;
   flex-direction: column;
@@ -50,6 +61,17 @@ div.hr {
   font-size: 15px;
 }
 
+.privacy-legal-container {
+  display: flex;
+  column-gap: 25px;
+  font-size: 11px;
+  color: $col-gray;
+}
+
+.privacy-legal-container > *:hover {
+  color: $col-light-blue;
+}
+
 .animated-button {
   animation: pulsate 2s infinite;
 }
@@ -60,20 +82,23 @@ div.hr {
   100% { transform: scale(1); }
 }
 
-@include medium-screen {
-  .login-form {
-    display: flex;
-    flex-direction: column;
-    background: #fff;
-    border-radius: 20px;
-    padding: 10px 20px;
-  }
-}
-
 @include small-screen {
+  .form-container {
+    background-color: #fff;
+    row-gap:0;
+  }
+
   .login-form {
     width: 100%;
+    height: 100%;
+    border: none;
+    display: flex;
+    background: #fff;
+    border-radius: 0;
+    box-shadow: unset;
+    padding: 20px 20px;
   }
+
   .button-box {
     flex-direction: column;
     row-gap: 10px;
