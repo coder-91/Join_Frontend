@@ -38,5 +38,6 @@ export class LoginViewComponent {
   }
 
   public loginAsGuest() {
+    this.authService.login();
   }
 }

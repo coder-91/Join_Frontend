@@ -9,7 +9,7 @@ import { FormsModule }   from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import {NgClass} from "@angular/common";
 import {MatIconModule} from '@angular/material/icon';
-import {UserService} from "../../../services/userService/user.service";
+import {AuthService} from "../../../services/authService/auth.service";
 
 export class MyErrorStateMatcher implements ErrorStateMatcher {
   isErrorState(
@@ -34,7 +34,7 @@ export class SignUpViewComponent {
   signUpForm: FormGroup;
   matcher = new MyErrorStateMatcher();
 
-  constructor(private router: Router, public userService: UserService) {
+  constructor(private router: Router, public authService: AuthService) {
     this.signUpForm = new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(2)]),
       email: new FormControl('', [Validators.required, Validators.email]),
@@ -59,6 +59,6 @@ export class SignUpViewComponent {
   }
 
   public onSubmit(): void {
-    this.userService.createUser(this.signUpForm.getRawValue())
+    this.authService.register(this.signUpForm.getRawValue())
   }
 }

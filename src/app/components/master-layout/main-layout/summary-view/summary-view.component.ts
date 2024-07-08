@@ -3,11 +3,11 @@ import {MatIcon} from "@angular/material/icon";
 import {TaskService} from "../../../../services/taskService/task.service";
 import {TaskSummary} from "../../../../models/interfaces/task-summary";
 import {DatePipe} from "@angular/common";
-import {UserService} from "../../../../services/userService/user.service";
 import {getGreetingByTime$} from "../../../../utils/date-utils";
 import {Subscription} from "rxjs";
 import {User} from "../../../../models/entity/user";
 import { Task } from '../../../../models/entity/task';
+import {AuthService} from "../../../../services/authService/auth.service";
 
 @Component({
   selector: 'app-summary-view',
@@ -28,10 +28,10 @@ export class SummaryViewComponent implements OnInit, OnDestroy {
 
   tasks!: Task[];
   tasksSubscription!: Subscription;
-  constructor(public taskService: TaskService, public userService: UserService) {}
+  constructor(public taskService: TaskService, public authService: AuthService) {}
 
   ngOnInit() {
-    this.loggedUserSubscription = this.userService.loggedUser$.subscribe(loggedUser => {
+    this.loggedUserSubscription = this.authService.loggedUser$.subscribe(loggedUser => {
       this.loggedUser = loggedUser;
     })
 

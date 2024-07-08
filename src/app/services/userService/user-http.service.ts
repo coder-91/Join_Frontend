@@ -15,16 +15,6 @@ export class UserHttpService {
     return this.httpClient.get<UserDto[]>(url);
   }
 
-  public fetchLoggedUser(): Observable<UserDto> {
-    const url = environment.baseUrl + `/api/users/me/`;
-    return this.httpClient.get<UserDto>(url);
-  }
-
-  public createUser(userDto: UserDto):Observable<UserDto> {
-    const url = environment.baseUrl + `/api/users/register/`;
-    return this.httpClient.post<UserDto>(url, userDto);
-  }
-
   public updateUser(userDto: UserDto):Observable<UserDto> {
     const url = environment.baseUrl + `/api/users/${userDto.id}/`;
     return this.httpClient.patch<UserDto>(url, userDto);

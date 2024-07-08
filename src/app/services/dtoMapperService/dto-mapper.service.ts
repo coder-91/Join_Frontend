@@ -21,7 +21,8 @@ export class DtoMapperService {
       name: user.name,
       phone_number: user.phoneNumber,
       password: user.password,
-      avatar_color: user.avatarColor
+      avatar_color: user.avatarColor,
+      is_guest: user.isGuest
     }
   }
 
@@ -32,7 +33,8 @@ export class DtoMapperService {
       name: userDto.name,
       phoneNumber: userDto.phone_number,
       password: userDto.password,
-      avatarColor: userDto.avatar_color
+      avatarColor: userDto.avatar_color,
+      isGuest: userDto.is_guest
     }
   }
 

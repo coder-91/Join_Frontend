@@ -8,6 +8,7 @@ import {NgClass} from "@angular/common";
 import {filter, Subscription, switchMap} from "rxjs";
 import {UserService} from "../../../../../services/userService/user.service";
 import {User} from "../../../../../models/entity/user";
+import {AuthService} from "../../../../../services/authService/auth.service";
 
 @Component({
   selector: 'app-user-list',
@@ -32,11 +33,11 @@ export class UserListComponent implements OnInit, OnDestroy {
   userSubscription!: Subscription;
   groupedAndSortedUsers!: { [key: string]: User[] };
 
-  constructor(private userService:UserService) {
+  constructor(private userService:UserService, private authService:AuthService) {
   }
 
   ngOnInit() {
-    this.userSubscription = this.userService.loggedUser$.pipe(
+    this.userSubscription = this.authService.loggedUser$.pipe(
       filter(loggedUser => !!loggedUser),
       switchMap(loggedUser => {
         this.loggedUser = loggedUser;

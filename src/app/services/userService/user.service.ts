@@ -7,17 +7,17 @@ import {SNACKBAR_DURATION} from "../../utils/constants";
 import {DtoMapperService} from "../dtoMapperService/dto-mapper.service";
 import {UserDto} from "../../models/dtos/user-dto";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {AuthService} from "../authService/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   private _users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
-  private _loggedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
   private _selectedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
-  constructor(private userHttpService: UserHttpService, private router: Router, private dtoMapperService: DtoMapperService, private matSnackBar: MatSnackBar) {
+  constructor(private userHttpService: UserHttpService, private authService:AuthService, private router: Router, private dtoMapperService: DtoMapperService, private matSnackBar: MatSnackBar) {
       this.fetchUsers();
-      this.fetchLoggedUser();
+      this.authService.fetchLoggedUser();
   }
 
   public get users$(): Observable<User[]> {
@@ -26,14 +26,6 @@ export class UserService {
 
   public get users(): User[] {
     return this._users$.getValue() as User[];
-  }
-
-  public get loggedUser$(): Observable<User> {
-    return this._loggedUser$.asObservable() as Observable<User>;
-  }
-
-  public get loggedUser(): User {
-    return this._loggedUser$.getValue() as User;
   }
 
   public get selectedUser$(): Observable<User> {
@@ -48,10 +40,6 @@ export class UserService {
     this._users$.next(users);
   }
 
-  public set loggedUser(user: User) {
-    this._loggedUser$.next(user);
-  }
-
   public set selectedUser(user: User) {
     this._selectedUser$.next(user);
   }
@@ -61,32 +49,6 @@ export class UserService {
       next: (usersDtos: UserDto[]) => {
         const users = usersDtos.map(userDto => this.dtoMapperService.mapUserDtoToUser(userDto));
         this._users$.next(users);
-      }
-    });
-  }
-
-  public fetchLoggedUser() {
-    this.userHttpService.fetchLoggedUser().subscribe({
-      next: (userDto: UserDto) => {
-        this._loggedUser$.next(this.dtoMapperService.mapUserDtoToUser(userDto))
-      }
-    })
-  }
-
-  public createUser(user: User) {
-    this.userHttpService.createUser(this.dtoMapperService.mapUserToUserDto(user)).subscribe({
-      next:(userDto: UserDto) => {
-        this.users.push(this.dtoMapperService.mapUserDtoToUser(userDto));
-        this.router.navigateByUrl('/login').then(r => {})
-        this.matSnackBar.open(`Your account has been created successfully!`,'', {duration: SNACKBAR_DURATION});
-      },
-      error:(err) => {
-        if(err.error.email) {
-          this.matSnackBar.open('User with this email already exists.', 'Ok');
-        } else {
-          this.matSnackBar.open('Account creation failed', 'Ok');
-        }
-
       }
     });
   }

@@ -4,5 +4,6 @@ export interface User {
   name: string,
   phoneNumber: string,
   password: string,
-  avatarColor: string
+  avatarColor: string,
+  isGuest: boolean
 }

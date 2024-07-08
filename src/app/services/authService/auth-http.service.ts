@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {User} from "../../models/entity/user";
+import {UserDto} from "../../models/dtos/user-dto";
 
 @Injectable({
   providedIn: 'root'
@@ -10,13 +11,23 @@ import {User} from "../../models/entity/user";
 export class AuthHttpService {
   constructor(private httpClient: HttpClient,) { }
 
-  public login(user: Partial<User>): Observable<{ token: string }> {
-    const url = environment.baseUrl + `/api/users/token/`;
-    return this.httpClient.post<{ token: string }>(url, user);
+  public fetchLoggedUser(): Observable<UserDto> {
+    const url = environment.baseUrl + `/api/users/me/`;
+    return this.httpClient.get<UserDto>(url);
   }
 
-  public logout(): Observable<void> {
-    const url = environment.baseUrl + `/api/users/logout/`;
+  public register(userDto: UserDto):Observable<UserDto> {
+    const url = environment.baseUrl + `/api/users/register/`;
+    return this.httpClient.post<UserDto>(url, userDto);
+  }
+
+  public login(user?: Partial<User>): Observable<{ token: string, user: UserDto }> {
+    const url = user ? environment.baseUrl + `/api/users/login/` : environment.baseUrl + `/api/users/login/guest/`;
+    return this.httpClient.post<{ token: string, user: UserDto }>(url, user);
+  }
+
+  public logout(loggedUser: User): Observable<void> {
+    const url = loggedUser.isGuest ? environment.baseUrl + `/api/users/logout/guest/` : environment.baseUrl + `/api/users/logout/`;
     return this.httpClient.post<void>(url, {});
   }
 }

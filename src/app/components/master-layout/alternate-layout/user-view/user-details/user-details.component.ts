@@ -9,6 +9,7 @@ import {NgStyle} from "@angular/common";
 import {UserDialogService} from "../../../../../services/userService/user-dialog.service";
 import {Router} from "@angular/router";
 import {User} from "../../../../../models/entity/user";
+import {AuthService} from "../../../../../services/authService/auth.service";
 
 @Component({
   selector: 'app-user-details',
@@ -29,14 +30,14 @@ export class UserDetailsComponent implements OnInit, OnDestroy  {
   loggedUser!: User;
   private selectedUserSubscription!: Subscription;
   private loggedUserSubscription!: Subscription;
-  constructor(private router: Router, private userService: UserService, private userDialogService: UserDialogService) {}
+  constructor(private router: Router, private authService: AuthService, private userService: UserService, private userDialogService: UserDialogService) {}
 
   ngOnInit(): void {
     this.selectedUserSubscription = this.userService.selectedUser$.subscribe(user => {
       this.selectedUser = user;
     });
 
-    this.loggedUserSubscription = this.userService.loggedUser$.subscribe(user => {
+    this.loggedUserSubscription = this.authService.loggedUser$.subscribe(user => {
       this.loggedUser = user;
     });
   }

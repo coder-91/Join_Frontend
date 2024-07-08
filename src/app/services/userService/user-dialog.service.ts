@@ -12,13 +12,6 @@ import {User} from "../../models/entity/user";
 export class UserDialogService {
   constructor(private dialog: MatDialog, private userService: UserService, private dialogService: DialogService) {}
 
-  public createUserDialog() {
-    this.dialog.open(UserFormComponent, {
-    }).afterClosed().pipe(filter((user) => user)).subscribe(user => {
-      this.userService.createUser(user);
-    });
-  }
-
   public updateUserDialog(user: User) {
     this.dialog.open(UserFormComponent, {
       data: user,
