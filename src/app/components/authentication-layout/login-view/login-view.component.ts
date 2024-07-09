@@ -34,10 +34,10 @@ export class LoginViewComponent {
   }
 
   public onSubmit(): void {
-    this.authService.login(this.loginForm.getRawValue())
+    this.authService.login(this.loginForm.getRawValue().rememberMe, this.loginForm.getRawValue())
   }
 
   public loginAsGuest() {
-    this.authService.login();
+    this.authService.login(true);
   }
 }

@@ -53,12 +53,16 @@ export class AuthService {
     });
   }
 
-  public login(user?: Partial<User>) {
+  public login(rememberMe: boolean, user?: Partial<User>, ) {
     this.authHttpService.login(user).subscribe({
       next:(response: { token: string, user: UserDto }) => {
         const user = this.dtoMapperService.mapUserDtoToUser(response.user);
         this._loggedUser$.next(user);
-        localStorage.setItem('token', response.token);
+        if (rememberMe) {
+          localStorage.setItem('token', response.token);
+        } else {
+          sessionStorage.setItem('token', response.token);
+        }
         this.router.navigateByUrl('/summary').then(r => {})
       },
       error: () => {
@@ -71,6 +75,7 @@ export class AuthService {
     this.authHttpService.logout(this._loggedUser$.getValue() as User).subscribe({
       next:(response) => {
         localStorage.removeItem('token');
+        sessionStorage.removeItem('token');
         this.router.navigateByUrl('/login').then(r => {})
         this.matSnackBar.open(`You have been successfully logged out.`,'', {duration: SNACKBAR_DURATION});
       },

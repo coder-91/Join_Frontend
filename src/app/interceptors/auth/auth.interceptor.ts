@@ -5,7 +5,11 @@ import {inject} from "@angular/core";
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const router = inject(Router);
-  const token = localStorage.getItem('token');
+  const localToken = localStorage.getItem('token');
+  const sessionToken = sessionStorage.getItem('token');
+
+
+  const token = localToken || sessionToken;
   if (token) {
     req = req.clone({
       setHeaders: { Authorization: `Token ${token}`, 'Content-Type': 'application/json' }
