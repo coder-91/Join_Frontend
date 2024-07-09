@@ -19,6 +19,9 @@
     <a [routerLink]="['/legal-notice']" [routerLinkActive]="['nav-active']">
       <button mat-menu-item>Legal Notice</button>
     </a>
-    <button (click)="logout()" mat-menu-item>Log out</button>
+    @if(authService.isLoggedIn()) {
+      <button (click)="logout()" mat-menu-item>Log out</button>
+    }
+
   </mat-menu>
 </div>

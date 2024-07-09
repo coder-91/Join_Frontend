@@ -14,6 +14,8 @@ import {MasterLayoutComponent} from "./components/master-layout/master-layout.co
 import {MainLayoutComponent} from "./components/master-layout/main-layout/main-layout.component";
 import {AlternateLayoutComponent} from "./components/master-layout/alternate-layout/alternate-layout.component";
 import {UserDetailsComponent} from "./components/master-layout/alternate-layout/user-view/user-details/user-details.component";
+import {AuthGuard} from "./guards/auth/auth.guard";
+import {LoggedInGuard} from "./guards/loggedIn/logged-in.guard";
 
 export const routes: Routes = [
   {
@@ -25,8 +27,8 @@ export const routes: Routes = [
     path: '',
     component: AuthenticationLayoutComponent,
     children: [
-      {path: 'login', component: LoginViewComponent},
-      {path: 'sign-up', component: SignUpViewComponent}
+      {path: 'login', component: LoginViewComponent, canActivate: [LoggedInGuard]},
+      {path: 'sign-up', component: SignUpViewComponent, canActivate: [LoggedInGuard]}
     ]
   },
   {
@@ -37,9 +39,9 @@ export const routes: Routes = [
         path: '',
         component: MainLayoutComponent,
         children:[
-          {path: 'summary', component: SummaryViewComponent},
-          {path: 'task', component: TaskViewComponent},
-          {path: 'board', component: BoardViewComponent},
+          {path: 'summary', component: SummaryViewComponent, canActivate: [AuthGuard]},
+          {path: 'task', component: TaskViewComponent, canActivate: [AuthGuard]},
+          {path: 'board', component: BoardViewComponent, canActivate: [AuthGuard]},
           {path: 'privacy-policy', component: PrivacyPolicyViewComponent},
           {path: 'legal-notice', component: LegalNoticeViewComponent},
           {path: 'imprint', component: ImprintViewComponent},
@@ -51,12 +53,14 @@ export const routes: Routes = [
         path: '',
         component: AlternateLayoutComponent,
         children:[
-          {path: 'users', component: UserViewComponent},
-          {path: 'users-details', component: UserDetailsComponent},
+          {path: 'users', component: UserViewComponent, canActivate: [AuthGuard]},
+          {path: 'users-details', component: UserDetailsComponent, canActivate: [AuthGuard]},
         ]
       }
     ]
   },
+  { path: '**', redirectTo: '/summary', pathMatch: 'full' }
+
 ];
 
 
