@@ -72,6 +72,8 @@ export class UserService {
         const index = this.users.findIndex((user) => user.id === id);
         if (index > -1) {
           users.splice(index, 1);
+          localStorage.removeItem('token');
+          sessionStorage.removeItem('token');
           this.router.navigateByUrl('/login').then(r => {})
           this.matSnackBar.open(`Your account has been deleted successfully!`,'', {duration: SNACKBAR_DURATION});
         }

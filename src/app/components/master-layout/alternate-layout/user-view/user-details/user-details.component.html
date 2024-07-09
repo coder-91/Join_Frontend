@@ -6,9 +6,9 @@
         <mat-icon>more_vert</mat-icon>
       </button>
           <mat-menu #menu="matMenu">
-              <button (click)="onUpdateUser()" mat-menu-item>
-          <mat-icon>edit</mat-icon>Edit
-        </button>
+              @if(!selectedUser?.isGuest) {
+                <button (click)="onUpdateUser()" mat-menu-item><mat-icon>edit</mat-icon>Edit</button>
+              }
               <button (click)="onDeleteUser()" mat-menu-item>
           <mat-icon color="warn">delete</mat-icon>Delete
         </button>
@@ -37,9 +37,11 @@
             <div class="name">{{ selectedUser.name }}</div>
             @if(selectedUser?.id === loggedUser?.id){
               <div class="icons-box">
-                <button (click)="onUpdateUser()" mat-button color="primary">Edit
-                  <mat-icon>edit</mat-icon>
-                </button>
+                @if(!selectedUser?.isGuest) {
+                  <button (click)="onUpdateUser()" mat-button color="primary">Edit
+                    <mat-icon>edit</mat-icon>
+                  </button>
+                }
                 <button (click)="onDeleteUser()" mat-button color="primary">Delete
                 <mat-icon color="warn">delete</mat-icon></button>
               </div>
@@ -50,9 +52,14 @@
     <h2>User Information</h2>
     <div class="email-box">
         <div class="email-label">Email</div>
-        <div class="email">
+        @if(!selectedUser?.isGuest) {
+          <div class="email">
             <a href="mailto: {{ selectedUser.email }}">{{ selectedUser.email }}</a>
-        </div>
+          </div>
+        } @else {
+          <div>------------</div>
+        }
+
     </div>
 
     <div class="tel-box">

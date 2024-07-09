@@ -3,7 +3,10 @@
         <div [ngStyle]="{'background-color': user?.avatarColor}" class="avatar">{{getInitials(user?.name)}}</div>
         <div class="user-info-box">
             <div class="name">{{ user?.name }}</div>
-            <div class="email">{{ user?.email }}</div>
+            @if(!user?.isGuest) {
+              <div class="email">{{ user?.email }}</div>
+            }
+
         </div>
     </div>
 </mat-list-item>
