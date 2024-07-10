@@ -14,7 +14,11 @@ import {BehaviorSubject, Observable} from "rxjs";
 export class AuthService {
   private _loggedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
 
-  constructor(private authHttpService: AuthHttpService, private dtoMapperService: DtoMapperService, private router: Router, private matSnackBar: MatSnackBar) { }
+  constructor(private authHttpService: AuthHttpService, private dtoMapperService: DtoMapperService, private router: Router, private matSnackBar: MatSnackBar) {
+    if (this.router.url !== '/login' && this.router.url !== '/sign-up' && this.isLoggedIn()) {
+      this.fetchLoggedUser();
+    }
+  }
 
   public get loggedUser$(): Observable<User> {
     return this._loggedUser$.asObservable() as Observable<User>;
