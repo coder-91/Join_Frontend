@@ -39,7 +39,7 @@
         <div class="subtask-container">
             <div class="label">Subtasks:</div>
             @for (subtask of data.task.subtasks; track subtask.id) {
-            <mat-checkbox (change)="onUpdateSubtask($event, subtask)" [checked]="subtask.isDone">{{ subtask.description }}</mat-checkbox>
+            <mat-checkbox (change)="onUpdateTask(data.task, subtask, $event)" [checked]="subtask.isDone">{{ subtask.description }}</mat-checkbox>
             }
         </div>
     </mat-dialog-content>

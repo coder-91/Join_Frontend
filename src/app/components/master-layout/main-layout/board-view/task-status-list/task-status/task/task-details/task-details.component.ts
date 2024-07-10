@@ -27,7 +27,6 @@ import {DatePipe, NgStyle} from "@angular/common";
 import {getInitials} from "../../../../../../../../utils/helpers";
 import {MatCheckbox, MatCheckboxChange} from "@angular/material/checkbox";
 import {Subtask} from "../../../../../../../../models/entity/subtask";
-import {SubtaskService} from "../../../../../../../../services/subtaskService/subtask.service";
 import {Subscription} from "rxjs";
 import {TaskService} from "../../../../../../../../services/taskService/task.service";
 
@@ -68,7 +67,7 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
   protected readonly getInitials = getInitials;
   taskDetailsSubscription!: Subscription;
 
-  constructor(private subtaskService: SubtaskService, @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean, task: Task }, private taskDialogService: TaskDialogService, private taskService: TaskService) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean, task: Task }, private taskDialogService: TaskDialogService, private taskService: TaskService) {
     this.taskService.taskDetails = this.data.task;
   }
 
@@ -90,8 +89,8 @@ export class TaskDetailsComponent implements OnInit, OnDestroy {
     this.taskDialogService.updateTaskDialog(task);
   }
 
-  public onUpdateSubtask(event: MatCheckboxChange, subtask: Subtask) {
+  public onUpdateTask(task: Task, subtask: Subtask, event: MatCheckboxChange) {
     subtask.isDone = event.checked;
-    this.subtaskService.updateSubtask(subtask)
+    this.taskService.updateTask(task);
   }
 }
