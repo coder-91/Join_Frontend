@@ -3,7 +3,7 @@
 
   <mat-form-field class="search-form-field">
     <mat-label>Find Task</mat-label>
-    <input matInput type="text" [(ngModel)]="searchValue">
+    <input matInput type="text" (keyup)="onKeyUp($event)" [(ngModel)]="searchValue">
     <mat-icon color="primary" matPrefix>search</mat-icon>
     @if (searchValue) {
       <button matSuffix mat-icon-button aria-label="Clear" (click)="searchValue=''">

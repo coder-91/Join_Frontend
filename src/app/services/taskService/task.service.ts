@@ -18,6 +18,7 @@ import {TaskReceiveDto} from "../../models/dtos/task-receive-dto";
 export class TaskService {
   private _tasks$: BehaviorSubject<Task[] | undefined> = new BehaviorSubject<Task[] | undefined>(undefined);
   private _taskDetails$: BehaviorSubject<Task | undefined> = new BehaviorSubject<Task | undefined>(undefined);
+  tasks: Task[] = [];
 
   constructor(private taskHttpService: TaskHttpService, private dtoMapperService: DtoMapperService, private matSnackBar: MatSnackBar) {
     this.fetchTasks()
@@ -26,8 +27,8 @@ export class TaskService {
   public fetchTasks() {
     this.taskHttpService.fetchTasks().subscribe({
       next: (taskReceiveDtos: TaskReceiveDto[]) => {
-        const tasks = taskReceiveDtos.map(taskReceiveDto => this.dtoMapperService.mapTaskReceiveDtoToTask(taskReceiveDto));
-        this._tasks$.next(tasks);
+        this.tasks = taskReceiveDtos.map(taskReceiveDto => this.dtoMapperService.mapTaskReceiveDtoToTask(taskReceiveDto));
+        this._tasks$.next(this.tasks);
       }
     })
   }
@@ -36,20 +37,8 @@ export class TaskService {
     return this._tasks$.asObservable() as Observable<Task[]>;
   }
 
-  public get tasks(): Task[] {
-    return this._tasks$.getValue() as Task[];
-  }
-
   public get taskDetails$(): Observable<Task> {
     return this._taskDetails$.asObservable() as Observable<Task>;
-  }
-
-  public get taskDetails(): Task {
-    return this._taskDetails$.getValue() as Task;
-  }
-
-  public set tasks(tasks: Task[]) {
-    this._tasks$.next(tasks);
   }
 
   public set taskDetails(taskDetails: Task) {
@@ -111,6 +100,21 @@ export class TaskService {
         this.matSnackBar.open('Task deletion failed.', 'Ok');
       }
     })
+  }
+
+  public filterTasks(searchText: string): void {
+    if (!searchText) {
+      this._tasks$.next(this.tasks);
+    }
+
+    searchText = searchText.toLowerCase();
+
+    const filteredTasks = this.tasks.filter(
+      (task) =>
+        task.title.toLowerCase().includes(searchText) ||
+        task.description.toLowerCase().includes(searchText)
+    );
+    this._tasks$.next(filteredTasks);
   }
 
   public getTaskSummary(tasks: Task[]): TaskSummary {

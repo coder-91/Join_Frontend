@@ -6,6 +6,7 @@ import {MatInput} from "@angular/material/input";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {TaskDialogService} from "../../../../../services/taskService/task-dialog.service";
 import {TASK_STATUSES} from "../../../../../services/taskService/task-constants";
+import {TaskService} from "../../../../../services/taskService/task.service";
 
 @Component({
   selector: 'app-task-manager',
@@ -28,7 +29,11 @@ import {TASK_STATUSES} from "../../../../../services/taskService/task-constants"
 export class TaskManagerComponent {
   searchValue:string="";
 
-  constructor(public taskDialogService: TaskDialogService) {}
+  constructor(public taskDialogService: TaskDialogService, private taskService: TaskService) {}
+
+  public onKeyUp(event: KeyboardEvent): void {
+    this.taskService.filterTasks(this.searchValue);
+  }
 
   public onCreateTask() {
     this.taskDialogService.createTaskDialog(Object.values(TASK_STATUSES)[0]);
