@@ -1,23 +1,23 @@
 <nav>
+  <a class="logo" href="login"><img src="../../../assets/images/logo_light.svg" alt="Join Logo"></a>
   @if(authService.isLoggedIn()) {
-    <a class="logo" href="summary"><img src="../../../assets/images/logo_light.svg" alt="Join Logo"></a>
     <div class="app-navigation-links">
       <a [routerLink]="['/summary']" [routerLinkActive]="['nav-active']"><span><mat-icon aria-hidden="false"
-                                                                                         aria-label="Example summary icon"
-                                                                                         fontIcon="dashboard_outline"></mat-icon></span>
+                                                                                           aria-label="Example summary icon"
+                                                                                           fontIcon="dashboard_outline"></mat-icon></span>
         <span class="nav-item-text">Summary</span> </a>
-      <a [routerLink]="['/task']" [routerLinkActive]="['nav-active']"><span><mat-icon aria-hidden="false"
-                                                                                      aria-label="Example task icon"
-                                                                                      fontIcon="task_outline"></mat-icon></span>
-        <span class="nav-item-text">Add Task</span> </a>
-      <a [routerLink]="['/board']" [routerLinkActive]="['nav-active']"><span><mat-icon aria-hidden="false"
-                                                                                       aria-label="Example board icon"
-                                                                                       fontIcon="view_kanban_outline"></mat-icon></span>
-        <span class="nav-item-text">Board</span> </a>
-      <a [routerLink]="['/users']" [routerLinkActive]="['nav-active']">
-        <span><mat-icon aria-hidden="false" aria-label="Example user icon" fontIcon="contact_page_outline"></mat-icon></span>
-        <span class="nav-item-text">Users</span>
-      </a>
+        <a [routerLink]="['/task']" [routerLinkActive]="['nav-active']"><span><mat-icon aria-hidden="false"
+                                                                                        aria-label="Example task icon"
+                                                                                        fontIcon="task_outline"></mat-icon></span>
+          <span class="nav-item-text">Add Task</span> </a>
+        <a [routerLink]="['/board']" [routerLinkActive]="['nav-active']"><span><mat-icon aria-hidden="false"
+                                                                                         aria-label="Example board icon"
+                                                                                         fontIcon="view_kanban_outline"></mat-icon></span>
+          <span class="nav-item-text">Board</span> </a>
+        <a [routerLink]="['/users']" [routerLinkActive]="['nav-active']">
+          <span><mat-icon aria-hidden="false" aria-label="Example user icon" fontIcon="contact_page_outline"></mat-icon></span>
+          <span class="nav-item-text">Users</span>
+        </a>
 
     </div>
   }
