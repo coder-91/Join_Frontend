@@ -31,8 +31,13 @@ export class TaskManagerComponent {
 
   constructor(public taskDialogService: TaskDialogService, private taskService: TaskService) {}
 
-  public onKeyUp(event: KeyboardEvent): void {
+  public onKeyUp(): void {
     this.taskService.filterTasks(this.searchValue);
+  }
+
+  public onResetFilter() {
+    this.searchValue="";
+    this.onKeyUp();
   }
 
   public onCreateTask() {

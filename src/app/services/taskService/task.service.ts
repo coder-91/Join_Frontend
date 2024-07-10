@@ -19,6 +19,7 @@ export class TaskService {
   private _tasks$: BehaviorSubject<Task[] | undefined> = new BehaviorSubject<Task[] | undefined>(undefined);
   private _taskDetails$: BehaviorSubject<Task | undefined> = new BehaviorSubject<Task | undefined>(undefined);
   tasks: Task[] = [];
+  private currentFilterText: string = '';
 
   constructor(private taskHttpService: TaskHttpService, private dtoMapperService: DtoMapperService, private matSnackBar: MatSnackBar) {
     this.fetchTasks()
@@ -51,8 +52,9 @@ export class TaskService {
     }
     this.taskHttpService.createTask(this.dtoMapperService.mapTaskToTaskSendDto(task)).subscribe({
       next: (taskReceiveDto: TaskReceiveDto) => {
-        const task = this.dtoMapperService.mapTaskReceiveDtoToTask(taskReceiveDto);
-        this._tasks$.next([...this.tasks, task]);
+        const newTask = this.dtoMapperService.mapTaskReceiveDtoToTask(taskReceiveDto);
+        this.tasks.push(newTask);
+        this.applyFilter();
         this.matSnackBar.open(`Task has been created successfully!`,'', {duration: SNACKBAR_DURATION});
       },
       error:(err) => {
@@ -74,8 +76,7 @@ export class TaskService {
         if (taskIndex > -1) {
           this.tasks[taskIndex] = updatedTask;
         }
-
-        this._tasks$.next([...this.tasks]);
+        this.applyFilter();
         this.matSnackBar.open(`Task has been updated successfully!`,'', {duration: SNACKBAR_DURATION});
       },
       error:(err) => {
@@ -87,14 +88,12 @@ export class TaskService {
   public deleteTask(taskId: number) {
     this.taskHttpService.deleteTask(taskId).subscribe({
       next: () => {
-        const tmp = this.tasks;
-
         const index = this.tasks.findIndex((e) => e.id === taskId);
         if (index > -1) {
-          tmp.splice(index, 1);
-          this.matSnackBar.open(`Task has been deleted successfully!`,'', {duration: SNACKBAR_DURATION});
+          this.tasks.splice(index, 1);
+          this.applyFilter();
+          this.matSnackBar.open(`Task has been deleted successfully!`, '', { duration: SNACKBAR_DURATION });
         }
-        this._tasks$.next(tmp);
       },
       error:(err) => {
         this.matSnackBar.open('Task deletion failed.', 'Ok');
@@ -103,18 +102,21 @@ export class TaskService {
   }
 
   public filterTasks(searchText: string): void {
-    if (!searchText) {
+    this.currentFilterText = searchText.toLowerCase();
+    this.applyFilter();
+  }
+
+  private applyFilter(): void {
+    if (!this.currentFilterText) {
       this._tasks$.next(this.tasks);
+    } else {
+      const filteredTasks = this.tasks.filter(
+        (task) =>
+          task.title.toLowerCase().includes(this.currentFilterText) ||
+          task.description.toLowerCase().includes(this.currentFilterText)
+      );
+      this._tasks$.next(filteredTasks);
     }
-
-    searchText = searchText.toLowerCase();
-
-    const filteredTasks = this.tasks.filter(
-      (task) =>
-        task.title.toLowerCase().includes(searchText) ||
-        task.description.toLowerCase().includes(searchText)
-    );
-    this._tasks$.next(filteredTasks);
   }
 
   public getTaskSummary(tasks: Task[]): TaskSummary {
