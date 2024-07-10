@@ -76,7 +76,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         created: this.data?.task?.created,
         updated: this.data?.task?.updated,
         priority: new FormControl(Object.values(PRIORITIES)[0], [Validators.required]),
-        category: new FormControl([]),
+        category: new FormControl([], [Validators.required]),
         users: new FormControl([]),
         subtasks: new FormControl([]),
         status: Object.values(TASK_STATUSES)[0],
