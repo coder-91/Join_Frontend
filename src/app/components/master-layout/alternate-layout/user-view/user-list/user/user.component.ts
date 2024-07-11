@@ -26,20 +26,12 @@ export class UserComponent implements OnInit, OnDestroy {
   selectedUserSubscription!: Subscription;
   private breakpointSubscription!: Subscription;
 
-  constructor(private userService: UserService, private router: Router, private breakpointObserver: BreakpointObserver,) {
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private userService: UserService) {
   }
 
   ngOnInit() {
     this.selectedUserSubscription = this.userService.selectedUser$.subscribe(user => {
       this.selectedUser = user;
-    });
-
-    this.breakpointSubscription = this.breakpointObserver.observe([
-      "(min-width: 993px)"
-    ]).subscribe((result: BreakpointState) => {
-      if (result.matches) {
-        this.router.navigate(['users']).then(r =>{})
-      }
     });
   }
 

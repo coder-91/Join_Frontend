@@ -10,6 +10,7 @@ import {UserDialogService} from "../../../../../services/userService/user-dialog
 import {Router} from "@angular/router";
 import {User} from "../../../../../models/entity/user";
 import {AuthService} from "../../../../../services/authService/auth.service";
+import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
 
 @Component({
   selector: 'app-user-details',
@@ -30,7 +31,9 @@ export class UserDetailsComponent implements OnInit, OnDestroy  {
   loggedUser!: User;
   private selectedUserSubscription!: Subscription;
   private loggedUserSubscription!: Subscription;
-  constructor(private router: Router, private authService: AuthService, private userService: UserService, private userDialogService: UserDialogService) {}
+  private breakpointSubscription!: Subscription;
+
+  constructor(private breakpointObserver: BreakpointObserver, private router: Router, private authService: AuthService, private userService: UserService, private userDialogService: UserDialogService) {}
 
   ngOnInit(): void {
     this.selectedUserSubscription = this.userService.selectedUser$.subscribe(user => {
@@ -40,11 +43,22 @@ export class UserDetailsComponent implements OnInit, OnDestroy  {
     this.loggedUserSubscription = this.authService.loggedUser$.subscribe(user => {
       this.loggedUser = user;
     });
+
+    this.breakpointSubscription = this.breakpointObserver.observe([
+      "(min-width: 992px)"
+    ]).subscribe((result: BreakpointState) => {
+      if (result.matches) {
+        this.router.navigate(['users']).then(r =>{})
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this.selectedUserSubscription.unsubscribe();
     this.loggedUserSubscription.unsubscribe();
+    if(this.breakpointSubscription) {
+      this.breakpointSubscription.unsubscribe();
+    }
   }
 
   public onUpdateUser() {
