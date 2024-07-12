@@ -31,6 +31,10 @@ $column-gap-content: 30px;
   > * {
     flex: 1 1 calc(50% - $column-gap-content);
   }
+
+  > *:last-child {
+    max-width: calc(50% - $column-gap-content / 2);
+  }
 }
 
 .from-popup, .not-from-popup {
@@ -47,8 +51,25 @@ $column-gap-content: 30px;
   padding-left: 24px;
 }
 
+.vertical-divider {
+  display: inline-block;
+  height: 24px;
+  width: 1px;
+  background-color: rgba(0, 0, 0, 0.12);
+  margin: 0 8px;
+}
+
+.fix-height {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
 @include large-screen {
   .content-container > * {
     flex: 100%;
+  }
+
+  .content-container > *:last-child {
+    max-width: 100%;
   }
 }
