@@ -189,6 +189,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   public onReset() {
     this.taskForm.reset();
+    this.subtasks=[];
   }
 
   public clearSubtask() {
