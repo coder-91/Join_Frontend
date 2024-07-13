@@ -7,8 +7,9 @@
       </button> }
     </div>
 
-    <mat-dialog-content [ngStyle]="fromPopup ? {'padding-bottom': 0} : {}">
-        <form [formGroup]="taskForm" (ngSubmit)="onSubmit()" class="content-container mb-3">
+    <div [ngClass]="{'fix-height': !data?.fromPopup}">
+  <mat-dialog-content [ngStyle]="fromPopup ? {'padding-bottom': 0} : {}">
+        <form [formGroup]="taskForm"  class="content-container mb-3">
             <mat-form-field>
                 <mat-label>Title</mat-label>
                 <input matInput formControlName="title" type="text" placeholder="Enter a title">
@@ -76,13 +77,42 @@
                 </mat-select>
             </mat-form-field>
 
-            <app-chip-field [taskId]="data?.task?.id" [control]="subtasksFormControl" [controlTitle]="'subtask'"></app-chip-field>
-
-
+          <mat-form-field>
+            <mat-label>Subtasks</mat-label>
+            <input matInput formControlName="subtasks" type="text" placeholder="Enter a subtask" >
+            <button mat-icon-button matSuffix (click)="addSubtask()">
+              <mat-icon>add</mat-icon>
+            </button>
+            <div class="vertical-divider" matSuffix></div>
+            <button mat-icon-button matSuffix (click)="clearSubtask()">
+              <mat-icon>close</mat-icon>
+            </button>
+            <mat-hint>Press enter to add a subtask</mat-hint>
+          </mat-form-field>
         </form>
+
+    <div class="subtasks-container">
+        @for (subtask of subtasks; track subtask){
+            <div class="subtask-text">
+              <span>&#8226;</span>
+              <input [(ngModel)]="subtask.description" type="text" name="subtask" [readonly]="!subtask.isEditable" [ngClass]="{'editable': subtask.isEditable, 'read-only': !subtask.isEditable}">
+              <div class="subtasks-actions-container">
+                @if(!subtask.isEditable) {
+                  <mat-icon color="primary" (click)="editSubtask($index)">edit</mat-icon>
+                }
+                @if(subtask.isEditable) {
+                  <mat-icon color="primary" (click)="saveSubtask($index, subtask)">save</mat-icon>
+                }
+                <mat-icon color="warn" (click)="deleteSubtask($index)">delete</mat-icon>
+              </div>
+            </div>
+        }
+      </div>
     </mat-dialog-content>
-    <mat-dialog-actions [ngClass]="{'from-popup': fromPopup, 'not-from-popup': !fromPopup}">
-        <button mat-raised-button color="primary" type="submit" (click)="onSubmit()" [disabled]="!taskForm.valid">{{data?.task ? 'Update' : 'Create'}}</button>
+    </div>
+
+  <mat-dialog-actions [ngClass]="{'from-popup': fromPopup, 'not-from-popup': !fromPopup}">
+        <button mat-raised-button color="primary" type="button" (click)="onSubmit()" [disabled]="!taskForm.valid">{{data?.task ? 'Update' : 'Create'}}</button>
         <button mat-raised-button type="button" color="warn" (click)="onReset()">Clear</button>
     </mat-dialog-actions>
 </div>

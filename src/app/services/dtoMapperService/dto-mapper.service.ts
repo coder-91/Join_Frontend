@@ -84,7 +84,8 @@ export class DtoMapperService {
       id: subtaskDto.id,
       taskId: subtaskDto.task_id,
       description: subtaskDto.description,
-      isDone: subtaskDto.is_done
+      isDone: subtaskDto.is_done,
+      isEditable: false
     }
   }
 }

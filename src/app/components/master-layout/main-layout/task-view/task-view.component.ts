@@ -1,14 +1,21 @@
-import { CommonModule } from '@angular/common';
+import {CommonModule, TitleCasePipe} from '@angular/common';
 import {Component, Inject, OnDestroy, OnInit, Optional, ViewChild} from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatError, MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
-import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {
+  FormArray,
+  FormBuilder,
+  FormControl,
+  FormGroup,
+  FormsModule,
+  ReactiveFormsModule,
+  Validators
+} from "@angular/forms";
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatInputModule} from '@angular/material/input';
 import {MatOption, provideNativeDateAdapter} from '@angular/material/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
-import {TitleCasePipe} from "@angular/common";
 import {MatSelect} from "@angular/material/select";
 import {MatIcon} from "@angular/material/icon";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
@@ -18,8 +25,9 @@ import {User} from "../../../../models/entity/user";
 import {UserService} from "../../../../services/userService/user.service";
 import {Subscription} from "rxjs";
 import {CATEGORIES, PRIORITIES, TASK_STATUSES} from "../../../../services/taskService/task-constants";
-import { Task } from '../../../../models/entity/task';
+import {Task} from '../../../../models/entity/task';
 import {TaskService} from "../../../../services/taskService/task.service";
+import {Subtask} from "../../../../models/entity/subtask";
 
 @Component({
   selector: 'app-task-view',
@@ -27,6 +35,7 @@ import {TaskService} from "../../../../services/taskService/task.service";
   providers: [provideNativeDateAdapter()],
   imports: [
     CommonModule,
+    FormsModule,
     MatButtonModule,
     MatCheckbox,
     MatError,
@@ -55,18 +64,18 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   protected readonly Object = Object;
   taskForm!: FormGroup;
   minDate!: Date;
-  keywords!: string[];
   fromPopup = false;
   @ViewChild(ChipFieldComponent) chipFieldComponent!: ChipFieldComponent;
   users!: User[];
   usersSubscription!: Subscription;
+  subtasks: Subtask[] = [];
+  taskDetailsSubscription!: Subscription;
   userCompareWithFn = (user: User, value: User) => user?.id == value?.id
   constructor(private fb: FormBuilder, @Optional() private dialogRef: MatDialogRef<TaskViewComponent>, private taskService: TaskService, private userService:UserService, @Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean, task: Task }) {}
 
   ngOnInit() {
     this.minDate = new Date();
     this.fromPopup = !!this.data?.fromPopup;
-    this.keywords = [];
 
     this.taskForm = this.fb.group({
         id: this.data?.task?.id,
@@ -78,7 +87,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         priority: new FormControl(Object.values(PRIORITIES)[0], [Validators.required]),
         category: new FormControl([], [Validators.required]),
         users: new FormControl([]),
-        subtasks: new FormControl([]),
+        subtasks: new FormControl(''),
         status: Object.values(TASK_STATUSES)[0],
       }
     );
@@ -97,14 +106,33 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         priority: this.data.task.priority,
         category: this.data.task.category,
         users: this.data.task.users,
-        subtasks: this.data.task.subtasks,
+        subtasks: [],
         status: this.data?.task.status
       });
+
+      this.subtasks = this.data.task.subtasks;
     }
   }
 
   ngOnDestroy() {
     this.usersSubscription.unsubscribe();
+    if(this.taskDetailsSubscription) {
+      this.taskDetailsSubscription.unsubscribe();
+    }
+  }
+
+  public addSubtask() {
+    const subtask = this.taskForm.get('subtasks')?.value;
+    if(subtask.trim()) {
+      this.subtasks.push({
+        taskId: undefined,
+        description: subtask,
+        isDone: false,
+      } as Subtask)
+
+      this.subtasksFormControl.setValue(this.subtasks);
+    }
+    this.clearSubtask();
   }
 
   public get subtasksFormControl () {
@@ -113,7 +141,13 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   public onSubmit() {
     if (this.data?.task) {
-      this.taskService.taskDetails = this.taskForm.getRawValue();
+      const taskRawValue = {
+        ...this.taskForm.getRawValue(),
+        subtasks: this.subtasks
+      };
+      this.taskDetailsSubscription = this.taskService.taskDetails$.subscribe(task => {
+        this.data.task = taskRawValue;
+      })
       this.onUpdateTask();
     } else {
       this.onCreateTask();
@@ -122,26 +156,56 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   public onCreateTask() {
+    const taskRawValue = {
+      ...this.taskForm.getRawValue(),
+      subtasks: this.subtasks
+    };
+
     if(this.fromPopup) {
       this.dialogRef.close(this.taskForm.getRawValue());
     } else {
-      this.taskService.createTask(this.taskForm.getRawValue(), Object.values(TASK_STATUSES)[0])
+      this.taskService.createTask(taskRawValue, Object.values(TASK_STATUSES)[0])
     }
+    this.subtasks=[];
   }
 
   public onUpdateTask() {
+    const taskRawValue = {
+      ...this.taskForm.getRawValue(),
+      subtasks: this.subtasks
+    };
     if(this.fromPopup) {
-      this.dialogRef.close(this.taskForm.getRawValue());
+      this.dialogRef.close(taskRawValue);
     } else {
-      this.taskService.updateTask(this.data?.task)
+      this.taskService.updateTask(taskRawValue)
     }
+
+    this.subtasks.forEach(subtask => {
+      subtask.isEditable = false;
+    });
+
+
   }
 
   public onReset() {
     this.taskForm.reset();
-    this.chipFieldComponent.keywords=[];
-    this.subtasksFormControl.reset();
-    this.subtasksFormControl.markAsPristine();
-    this.subtasksFormControl.markAsUntouched()
+  }
+
+  public clearSubtask() {
+    this.taskForm.patchValue({ subtasks: '' });
+  }
+
+  public editSubtask(index: number) {
+    this.subtasks[index].isEditable = true;
+  }
+
+  public saveSubtask(index: number, subtask:Subtask) {
+    this.subtasks[index].isEditable=false;
+    this.subtasks[index] = subtask;
+
+  }
+
+  public deleteSubtask(index: number) {
+    this.subtasks.splice(index, 1);
   }
 }
