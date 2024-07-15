@@ -9,6 +9,7 @@ import {TaskStatus} from "../../models/interfaces/task-status";
 import {
   TaskDetailsComponent
 } from "../../components/master-layout/main-layout/board-view/task-status-list/task-status/task/task-details/task-details.component";
+import * as _ from 'lodash';
 
 @Injectable({
   providedIn: 'root'
@@ -28,7 +29,7 @@ export class TaskDialogService {
 
   public updateTaskDialog(task: Task) {
     this.dialog.open(TaskViewComponent, {
-      data: { fromPopup: true, task: task},
+      data: { fromPopup: true, task: _.cloneDeep(task)},
     }).afterClosed().pipe(filter((task) => task)).subscribe(task => {
       this.taskService.updateTask(task);
     });

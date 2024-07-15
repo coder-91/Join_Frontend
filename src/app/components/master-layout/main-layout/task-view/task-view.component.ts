@@ -4,7 +4,6 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatError, MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {
-  FormArray,
   FormBuilder,
   FormControl,
   FormGroup,
@@ -28,6 +27,7 @@ import {CATEGORIES, PRIORITIES, TASK_STATUSES} from "../../../../services/taskSe
 import {Task} from '../../../../models/entity/task';
 import {TaskService} from "../../../../services/taskService/task.service";
 import {Subtask} from "../../../../models/entity/subtask";
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-task-view',
@@ -110,7 +110,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
         status: this.data?.task.status
       });
 
-      this.subtasks = this.data.task.subtasks;
+      this.subtasks = _.cloneDeep(this.data.task.subtasks);
     }
   }
 
@@ -143,11 +143,11 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     if (this.data?.task) {
       const taskRawValue = {
         ...this.taskForm.getRawValue(),
-        subtasks: this.subtasks
+        subtasks: this.subtasks.map((x, i) =>
+          x.isEditable ? (this.data.task.subtasks.at(i) ?? x) : x
+        ),
       };
-      this.taskDetailsSubscription = this.taskService.taskDetails$.subscribe(task => {
-        this.data.task = taskRawValue;
-      })
+      this.taskService.taskDetails = taskRawValue;
       this.onUpdateTask();
     } else {
       this.onCreateTask();
@@ -158,11 +158,13 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   public onCreateTask() {
     const taskRawValue = {
       ...this.taskForm.getRawValue(),
-      subtasks: this.subtasks
+      subtasks: this.subtasks.map((x, i) =>
+        x.isEditable ? (this.data.task.subtasks.at(i) ?? x) : x
+      ),
     };
 
     if(this.fromPopup) {
-      this.dialogRef.close(this.taskForm.getRawValue());
+      this.dialogRef.close(taskRawValue);
     } else {
       this.taskService.createTask(taskRawValue, Object.values(TASK_STATUSES)[0])
     }
@@ -183,8 +185,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.subtasks.forEach(subtask => {
       subtask.isEditable = false;
     });
-
-
   }
 
   public onReset() {
@@ -208,5 +208,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   public deleteSubtask(index: number) {
     this.subtasks.splice(index, 1);
+    this.data.task.subtasks.splice(index, 1);
   }
 }
