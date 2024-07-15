@@ -88,11 +88,11 @@
           <mat-form-field>
             <mat-label>Subtasks</mat-label>
             <input matInput formControlName="subtasks" type="text" placeholder="Enter a subtask" >
-            <button mat-icon-button matSuffix (click)="addSubtask()">
+            <button mat-icon-button matSuffix type="button" (click)="addSubtask()">
               <mat-icon>add</mat-icon>
             </button>
             <div class="vertical-divider" matSuffix></div>
-            <button mat-icon-button matSuffix (click)="clearSubtask()">
+            <button mat-icon-button matSuffix type="button" (click)="clearSubtask()">
               <mat-icon>close</mat-icon>
             </button>
             <mat-hint>Press enter to add a subtask</mat-hint>
@@ -109,7 +109,7 @@
                   <mat-icon color="primary" (click)="editSubtask($index)">edit</mat-icon>
                 }
                 @if(subtask.isEditable) {
-                  <mat-icon color="primary" (click)="saveSubtask($index, subtask)">save</mat-icon>
+                  <mat-icon color="primary" (click)="saveSubtask($index, subtask)">check</mat-icon>
                 }
                 <mat-icon color="warn" (click)="deleteSubtask($index)">delete</mat-icon>
               </div>
