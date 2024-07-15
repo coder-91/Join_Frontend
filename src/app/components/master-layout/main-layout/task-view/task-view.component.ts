@@ -4,11 +4,12 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatError, MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {
+  AbstractControl,
   FormBuilder,
   FormControl,
-  FormGroup,
+  FormGroup, FormGroupDirective,
   FormsModule,
-  ReactiveFormsModule,
+  ReactiveFormsModule, ValidationErrors, ValidatorFn,
   Validators
 } from "@angular/forms";
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -58,6 +59,7 @@ import * as _ from 'lodash';
   templateUrl: './task-view.component.html',
   styleUrl: './task-view.component.scss'
 })
+
 export class TaskViewComponent implements OnInit, OnDestroy {
   protected readonly PRIORITIES = PRIORITIES;
   protected readonly CATEGORIES = CATEGORIES;
@@ -70,7 +72,10 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   usersSubscription!: Subscription;
   subtasks: Subtask[] = [];
   taskDetailsSubscription!: Subscription;
+  @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
   userCompareWithFn = (user: User, value: User) => user?.id == value?.id
+
+
   constructor(private fb: FormBuilder, @Optional() private dialogRef: MatDialogRef<TaskViewComponent>, private taskService: TaskService, private userService:UserService, @Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean, task: Task }) {}
 
   ngOnInit() {
@@ -80,7 +85,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
     this.taskForm = this.fb.group({
         id: this.data?.task?.id,
         title: new FormControl('', [Validators.required]),
-        dueTo: new FormControl('', [Validators.required]),
+        dueTo: new FormControl('', [Validators.required, /*this.dateFormatValidator()*/]),
         description: new FormControl(''),
         created: this.data?.task?.created,
         updated: this.data?.task?.updated,
@@ -188,7 +193,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   }
 
   public onReset() {
-    this.taskForm.reset();
+    this.formDirective.resetForm();
     this.subtasks=[];
   }
 
@@ -209,5 +214,15 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   public deleteSubtask(index: number) {
     this.subtasks.splice(index, 1);
     this.data.task.subtasks.splice(index, 1);
+  }
+
+  private dateFormatValidator(): ValidatorFn {
+    return (control: AbstractControl): ValidationErrors | null => {
+      if (!control.value) {
+        return null;  // If no value, don't validate the format
+      }
+      const validFormat = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
+      return validFormat.test(control.value) ? null : { invalidDateFormat: true };
+    };
   }
 }

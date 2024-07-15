@@ -9,7 +9,7 @@
 
     <div [ngClass]="{'fix-height': !data?.fromPopup}">
   <mat-dialog-content [ngStyle]="fromPopup ? {'padding-bottom': 0} : {}">
-        <form [formGroup]="taskForm"  class="content-container mb-3">
+        <form [formGroup]="taskForm" class="content-container mb-3">
             <mat-form-field>
                 <mat-label>Title</mat-label>
                 <input matInput formControlName="title" type="text" placeholder="Enter a title">
@@ -28,9 +28,12 @@
                     <mat-icon color="primary" matDatepickerToggleIcon>calendar_month</mat-icon>
                 </mat-datepicker-toggle>
                 <mat-datepicker #picker></mat-datepicker>
-                @if (taskForm.get('dueDate')?.touched) {
+                @if (taskForm.get('dueTo')?.touched) {
                 <mat-error>
-                    @switch (true) { @case (taskForm.get('dueDate')?.hasError('required')) { Due Date is required } }
+                    @switch (true) {
+                      @case (taskForm.get('dueTo')?.hasError('required')) { Date is required }
+                      <!-- @case (taskForm.get('dueTo')?.hasError('invalidDateFormat')) { Invalid date format. Please use MM/DD/YYYY. } -->
+                    }
                 </mat-error>
                 }
             </mat-form-field>
@@ -65,6 +68,11 @@
                     <mat-option [value]=category>{{ category.value }}</mat-option>
                     }
                 </mat-select>
+              @if (taskForm.get('category')?.touched) {
+                <mat-error>
+                  @switch (true) { @case (taskForm.get('category')?.hasError('required')) { Category is required } }
+                </mat-error>
+              }
             </mat-form-field>
 
             <mat-form-field>
