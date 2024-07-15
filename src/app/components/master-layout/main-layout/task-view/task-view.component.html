@@ -31,8 +31,8 @@
                 @if (taskForm.get('dueTo')?.touched) {
                 <mat-error>
                     @switch (true) {
+                      @case (taskForm.get('dueTo')?.hasError('matDatepickerParse')) { Invalid date format. Please use MM/DD/YYYY. }
                       @case (taskForm.get('dueTo')?.hasError('required')) { Date is required }
-                      <!-- @case (taskForm.get('dueTo')?.hasError('invalidDateFormat')) { Invalid date format. Please use MM/DD/YYYY. } -->
                     }
                 </mat-error>
                 }

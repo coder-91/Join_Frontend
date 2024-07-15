@@ -4,12 +4,11 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatCheckbox} from "@angular/material/checkbox";
 import {MatError, MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {
-  AbstractControl,
   FormBuilder,
   FormControl,
   FormGroup, FormGroupDirective,
   FormsModule,
-  ReactiveFormsModule, ValidationErrors, ValidatorFn,
+  ReactiveFormsModule,
   Validators
 } from "@angular/forms";
 import {MatDatepickerModule} from '@angular/material/datepicker';
@@ -214,15 +213,5 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   public deleteSubtask(index: number) {
     this.subtasks.splice(index, 1);
     this.data.task.subtasks.splice(index, 1);
-  }
-
-  private dateFormatValidator(): ValidatorFn {
-    return (control: AbstractControl): ValidationErrors | null => {
-      if (!control.value) {
-        return null;  // If no value, don't validate the format
-      }
-      const validFormat = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
-      return validFormat.test(control.value) ? null : { invalidDateFormat: true };
-    };
   }
 }
