@@ -44,7 +44,7 @@ export class UserListComponent implements OnInit, OnDestroy {
         return this.userService.users$;
       })
     ).subscribe(users => {
-      this.users = users.filter(user => user?.id !== this.loggedUser.id);
+      this.users = users.filter(user => user?.id !== this.loggedUser.id && !user?.isGuest);
       this.groupedAndSortedUsers = this.userService.groupAndSortUsers(this.users);
     });
   }

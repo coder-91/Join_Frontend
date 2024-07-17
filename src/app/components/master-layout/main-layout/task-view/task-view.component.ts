@@ -96,7 +96,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
       }
     );
     this.usersSubscription = this.userService.users$.subscribe(users => {
-      this.users = users;
+      this.users = users.filter(user => !user.isGuest);
     })
 
     if (this.data?.task) {
