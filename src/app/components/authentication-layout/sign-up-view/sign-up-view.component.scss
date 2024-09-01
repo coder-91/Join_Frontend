@@ -4,15 +4,22 @@
 
 @include custom-checkbox-styles(".custom-checkbox");
 
-.form-container {
-  background-color: $col-light-gray;
+:host {
+  display: grid;
+  place-items: center;
   width: 100%;
-  display: flex;
+  height: 100%;
+  background-color: inherit;
+  overflow-y: auto;
+}
+
+.form-container {
+  display: inline-flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   row-gap: 15px;
-  padding-top: 20px;
+  margin: 15px 0;
 }
 
 .sign-up-form {
@@ -81,10 +88,13 @@ div.hr {
 }
 
 @include small-screen {
-  .form-container {
+  :host {
     background-color: #fff;
-    padding-top: 0;
-    row-gap: 0;
+    place-items: start center;
+  }
+
+  .form-container {
+    width: 100%;
   }
 
   .sign-up-form {
