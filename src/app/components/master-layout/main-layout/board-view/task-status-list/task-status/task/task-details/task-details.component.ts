@@ -8,7 +8,6 @@ import {
   MatDialogTitle
 } from "@angular/material/dialog";
 import {Task} from "../../../../../../../../models/entity/task";
-import {ChipFieldComponent} from "../../../../../../../shared/form-fields/chip-field/chip-field.component";
 import {MatButton, MatIconButton} from "@angular/material/button";
 import {
   MatDatepicker,
@@ -34,7 +33,6 @@ import {TaskService} from "../../../../../../../../services/taskService/task.ser
   selector: 'app-task-details',
   standalone: true,
   imports: [
-    ChipFieldComponent,
     MatButton,
     MatDatepicker,
     MatDatepickerInput,

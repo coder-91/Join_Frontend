@@ -19,7 +19,6 @@ import {MatSelect} from "@angular/material/select";
 import {MatIcon} from "@angular/material/icon";
 import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
-import {ChipFieldComponent} from "../../../shared/form-fields/chip-field/chip-field.component";
 import {User} from "../../../../models/entity/user";
 import {UserService} from "../../../../services/userService/user.service";
 import {Subscription} from "rxjs";
@@ -52,7 +51,6 @@ import * as _ from 'lodash';
     MatIcon,
     MatRadioGroup,
     MatRadioButton,
-    ChipFieldComponent,
     MatDialogModule,
   ],
   templateUrl: './task-view.component.html',
@@ -66,7 +64,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   taskForm!: FormGroup;
   minDate!: Date;
   fromPopup = false;
-  @ViewChild(ChipFieldComponent) chipFieldComponent!: ChipFieldComponent;
   users!: User[];
   usersSubscription!: Subscription;
   subtasks: Subtask[] = [];
