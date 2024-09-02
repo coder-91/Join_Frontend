@@ -50,7 +50,7 @@ export class DtoMapperService {
       category: task.category.key,
       status: task.status.key,
       subtasks: task.subtasks?.map(subtask => this.mapSubtaskToSubtaskDto(subtask)),
-      users: task.users?.map(user => user.id)
+      users: task.users?.map(user => user.id) || []
     }
   }
 

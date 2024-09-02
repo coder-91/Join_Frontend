@@ -6,7 +6,8 @@ import {MatError, MatFormField, MatFormFieldModule, MatLabel} from "@angular/mat
 import {
   FormBuilder,
   FormControl,
-  FormGroup, FormGroupDirective,
+  FormGroup,
+  FormGroupDirective,
   FormsModule,
   ReactiveFormsModule,
   Validators
@@ -142,13 +143,12 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   public onSubmit() {
     if (this.data?.task) {
-      const taskRawValue = {
+      this.taskService.taskDetails = {
         ...this.taskForm.getRawValue(),
         subtasks: this.subtasks.map((x, i) =>
           x.isEditable ? (this.data.task.subtasks.at(i) ?? x) : x
         ),
       };
-      this.taskService.taskDetails = taskRawValue;
       this.onUpdateTask();
     } else {
       this.onCreateTask();
