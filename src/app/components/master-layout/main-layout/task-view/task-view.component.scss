@@ -4,12 +4,13 @@ $column-gap-content: 30px;
 
 .title-container-from-popup, .title-container {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 }
 
 .title-container-from-popup {
   padding-top: 20px;
+  justify-content: space-between;
 }
 
 .title-container {
@@ -19,7 +20,8 @@ $column-gap-content: 30px;
 .title {
   font-size: clamp(20px, 3vw, 40px);
   font-weight: bold;
-  margin-right: auto;
+  display: flex;
+  justify-content: center;
 }
 
 .content-container {
@@ -113,7 +115,7 @@ mat-icon {
 }
 
 
-@include large-screen {
+@include medium-screen {
   .content-container > * {
     flex: 100%;
   }
