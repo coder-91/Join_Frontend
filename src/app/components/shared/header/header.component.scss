@@ -6,36 +6,50 @@
   height: 100%;
   box-shadow: $box-shadow;
   z-index:2;
+  display: flex;
+  justify-content: center;
+  padding-left: 20px;
+  padding-right: 20px;
 }
 
 .header {
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  column-gap: 10px;
-  padding: 0 20px;
+  column-gap: 20px;
   height: 100%;
+  width: 100%;
 }
 
-.help-menu,
-.logo {
-  display: none;
+.help-menu {
+  margin-left: auto;
 }
 
-.header-text {
-  margin-right: auto;
+img {
+  width: 30px;
+  height: auto;
+  -o-object-fit: cover;
+  object-fit: cover;
+}
+
+.menu-item {
+  font-weight: bold;
+  color: #999;
+}
+
+.menu-item:hover {
+  color: $col-light-blue;
+}
+
+
+.nav-active {
+  color: $col-navbar-active;
 }
 
 .help {
-  margin-left: auto;
   color: $col-gray;
   font-size: 17px;
   display: flex;
   align-items: center;
-
-  &:hover {
-    font-size: 20px;
-  }
 }
 
 .profile {
@@ -51,27 +65,14 @@
     letter-spacing: 2px;
 }
 
-.initials {
-  color: #fff;
-}
-
 .profile:hover {
   background-color: $col-navbar-hover;
 }
 
 @include medium-screen {
-  .help-menu,
-  .logo {
-    display: block;
-  }
-  .help-icon,
-  .header-text {
+  .menu-item {
     display: none;
   }
-  img {
-    width: 30px;
-    height: auto;
-    -o-object-fit: cover;
-    object-fit: cover;
-  }
 }
+
+
