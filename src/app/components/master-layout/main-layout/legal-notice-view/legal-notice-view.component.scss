@@ -1,14 +1,19 @@
 @import '../../../../../styles/variables';
 @import '../../../../../styles/font-size';
+@import '../../../../../styles/mixins';
 
 .headline-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 
 .text-color {
   color: $col-light-blue;
 }
 
+mat-icon {
+  @include custom-width-icon(20px);
+}
 

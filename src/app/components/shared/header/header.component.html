@@ -1,23 +1,30 @@
 <div class="header max-width">
+  <a class="logo" [routerLink]="['/summary']"><img src="../../../assets/images/logo_dark.svg" alt="Join Logo"></a>
+  @if(!authService.isLoggedIn()) {
+    <div>Kanban Projekt Management Tool</div>
+  }
   @if(authService.isLoggedIn()) {
-    <a class="logo" [routerLink]="['/summary']"><img src="../../../assets/images/logo_dark.svg" alt="Join Logo"></a>
     <a class="menu-item" [routerLink]="['/summary']" [routerLinkActive]="['nav-active']">Summary</a>
     <a class="menu-item" [routerLink]="['/task']" [routerLinkActive]="['nav-active']">Add Task</a>
     <a class="menu-item" [routerLink]="['/board']" [routerLinkActive]="['nav-active']">Board</a>
     <a class="menu-item" [routerLink]="['/users']" [routerLinkActive]="['nav-active']">Users</a>
-
+  }
     <div class="help-menu clickable" [matMenuTriggerFor]="menuHelp">
       <mat-icon class="help" aria-hidden="false" aria-label="Example help icon" fontIcon="help_outline"></mat-icon>
     </div>
 
+    @if(authService.isLoggedIn()) {
     <div [matMenuTriggerFor]="menu" class="profile clickable">
       <mat-icon [ngStyle]="{'color': '#fff'}">person</mat-icon>
     </div>
+    }
 
     <mat-menu #menuHelp="matMenu" yPosition="below">
-      <a [routerLink]="['/help']" class="help-menu">
-        <button mat-menu-item>Help</button>
-      </a>
+      @if(authService.isLoggedIn()) {
+        <a [routerLink]="['/help']" class="help-menu">
+          <button mat-menu-item>Help</button>
+        </a>
+      }
       <a [routerLink]="['/privacy-policy']" [routerLinkActive]="['nav-active']">
         <button mat-menu-item>Privacy Policy</button>
       </a>
@@ -32,5 +39,5 @@
     <mat-menu #menu="matMenu" yPosition="below">
       <button (click)="logout()" mat-menu-item>Log out</button>
     </mat-menu>
-  }
+
 </div>

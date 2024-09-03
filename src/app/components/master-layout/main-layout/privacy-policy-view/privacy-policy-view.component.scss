@@ -1,11 +1,14 @@
 @import '../../../../../styles/font-size';
+@import '../../../../../styles/mixins';
 
 .headline-container {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 20px;
 }
 
-.container {
-  padding-bottom: 40px;
+mat-icon {
+  @include custom-width-icon(20px);
 }
