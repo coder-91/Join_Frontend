@@ -3,12 +3,16 @@
 
 $title-container-height: 40px;
 
+  :host {
+    height: 100%;
+  }
+
 .task-status-container {
   padding: 0 10px 10px 10px;
   background-color: $col-light-gray-2;
   box-shadow: $box-shadow;
   border-radius: 10px;
-  height: calc(100vh - 220px);
+  height: 100%;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;

@@ -72,4 +72,10 @@ input:focus {
   }
 }
 
+@include small-screen {
+  .task-manager-container .search-form-field {
+    width: 100%;
+  }
+}
+
 

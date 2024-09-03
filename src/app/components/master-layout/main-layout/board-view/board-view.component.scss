@@ -1,8 +1,8 @@
 @import '../../../../../styles/media-queries';
 
 .board-container {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-rows: auto 1fr;
   height: 100%;
   row-gap: 20px;
 }

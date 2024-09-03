@@ -1,8 +1,5 @@
 @import '../../../../../../../../../styles/variables';
-
-.task-details-container {
-  min-width: 50vw;
-}
+@import '../../../../../../../../../styles/media-queries';
 
 .title-container {
   display: flex;
@@ -90,3 +87,38 @@
 mat-dialog-actions {
   padding-left: 24px;
 }
+
+@media (min-width: $extra-large-screen + 1px ) {
+  .task-details-container {
+    min-width: 50vw;
+  }
+}
+
+@include extra-large-screen {
+  .task-details-container {
+    min-width: 50vw;
+  }
+}
+
+@include large-screen {
+  .task-details-container {
+    min-width: 50vw;
+  }
+}
+
+@include medium-screen {
+  .task-details-container {
+    min-width: 50vw;
+  }
+}
+
+
+@include small-screen {
+  .task-details-container {
+    min-width: 75vw;
+  }
+}
+
+
+
+
