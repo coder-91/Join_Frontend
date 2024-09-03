@@ -3,7 +3,7 @@
 @import '../../../../styles/media-queries';
 
 :host {
-  background-color: #fff;
+  background-color: $col-primary;
   height: 100%;
   box-shadow: $box-shadow;
   z-index:2;
@@ -34,21 +34,23 @@ img {
 
 .menu-item {
   font-weight: bold;
-  color: #aaa;
+  color: #fff;
+  border-bottom: 2px solid transparent;
+  transition: all 0.3s ease;
 }
 
 .menu-item:hover {
-  color: $col-light-blue;
+  border-bottom: 2px solid $col-light-blue;
 }
 
 
 .nav-active {
-  color: $col-navbar-active;
+  color: $col-light-blue;
 }
 
 .help {
-  color: $col-gray;
-  font-size: 17px;
+  color: #fff;
+  font-size: 18px;
   display: flex;
   align-items: center;
 }
@@ -65,13 +67,9 @@ mat-icon {
     justify-content: center;
     align-items: center;
     color: #fff;
-    background-color: $col-primary;
+    background-color: #fff;
     font-size: 14px;
     letter-spacing: 2px;
-}
-
-.profile:hover {
-  background-color: $col-navbar-hover;
 }
 
 @include medium-screen {

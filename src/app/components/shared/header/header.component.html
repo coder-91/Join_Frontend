@@ -1,5 +1,5 @@
 <div class="header max-width">
-  <a class="logo" [routerLink]="['/summary']"><img src="../../../assets/images/logo_dark.svg" alt="Join Logo"></a>
+  <a class="logo" [routerLink]="['/summary']"><img src="../../../assets/images/logo_light.svg" alt="Join Logo"></a>
   @if(!authService.isLoggedIn()) {
     <div>Kanban Projekt Management Tool</div>
   }
@@ -15,7 +15,7 @@
 
     @if(authService.isLoggedIn()) {
     <div [matMenuTriggerFor]="menu" class="profile clickable">
-      <mat-icon [ngStyle]="{'color': '#fff'}">person</mat-icon>
+      <mat-icon color="primary">person</mat-icon>
     </div>
     }
 
