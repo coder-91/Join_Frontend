@@ -115,7 +115,7 @@ mat-icon {
 }
 
 
-@include medium-screen {
+@include large-screen {
   .content-container > * {
     flex: 100%;
   }

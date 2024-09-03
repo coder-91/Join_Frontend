@@ -1,5 +1,9 @@
 @import '../../../../../../../../../styles/variables';
 
+.task-details-container {
+  min-width: 50vw;
+}
+
 .title-container {
   display: flex;
   justify-content: flex-end;
