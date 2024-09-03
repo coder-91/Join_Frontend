@@ -45,6 +45,10 @@ export class UserComponent implements OnInit, OnDestroy {
   public onSelectUser(user: User) {
     this.userService.selectedUser = user;
 
+    if (this.breakpointSubscription) {
+      this.breakpointSubscription.unsubscribe();
+    }
+
     this.breakpointSubscription = this.breakpointObserver.observe([
       "(max-width: 992px)"
     ]).subscribe((result: BreakpointState) => {
