@@ -112,8 +112,8 @@ export class TaskService {
     } else {
       const filteredTasks = this.tasks.filter(
         (task) =>
-          task.title.toLowerCase().includes(this.currentFilterText) ||
-          task.description.toLowerCase().includes(this.currentFilterText)
+          task?.title?.toLowerCase().includes(this.currentFilterText) ||
+          task?.description?.toLowerCase().includes(this.currentFilterText)
       );
       this._tasks$.next(filteredTasks);
     }
