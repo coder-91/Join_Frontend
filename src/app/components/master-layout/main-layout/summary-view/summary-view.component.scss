@@ -125,6 +125,7 @@
   grid-template-columns: repeat(6, 50px);
   grid-template-rows: auto;
   grid-template-areas:
+    "greeting greeting greeting greeting greeting greeting"
     "todo todo todo done done done"
     "urgent urgent urgent urgent urgent urgent"
     "task task progress progress feedback feedback";
@@ -159,6 +160,7 @@
   grid-area: greeting;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
 .task-box {
@@ -187,24 +189,13 @@
 
   .grid-box {
     grid-template-columns: repeat(6, 50px);
-    grid-template-areas:
-    "todo todo todo done done done"
-    "urgent urgent urgent urgent urgent urgent"
-    "task task progress progress feedback feedback";
     justify-content: center;
-  }
-
-  .greeting-box {
-    display: none;
   }
 }
 
 @media only screen and (max-width: 460px) {
   .grid-box {
     grid-template-columns: repeat(6, 1fr);
-    grid-template-areas:
-    "todo todo todo done done done"
-    "urgent urgent urgent urgent urgent urgent"
-    "task task progress progress feedback feedback";
+
   }
 }
