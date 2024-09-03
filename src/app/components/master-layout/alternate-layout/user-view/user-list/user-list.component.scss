@@ -12,8 +12,7 @@ button {
 }
 
 .user-list-box {
-    padding: 0 10px;
-    height: calc(100% - $user-button-height - $user-button-padding - $user-button-padding);
+    height: 100%;
     overflow-y: auto;
     position: relative;
 }
