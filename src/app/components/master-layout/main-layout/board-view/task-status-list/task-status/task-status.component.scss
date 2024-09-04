@@ -8,7 +8,7 @@ $title-container-height: 40px;
   background-color: $col-light-gray-2;
   box-shadow: $box-shadow;
   border-radius: 10px;
-  min-height: calc(100svh - $header-height - 60px - 60px);
+  height: calc(100svh - 180px);
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
@@ -76,7 +76,6 @@ $title-container-height: 40px;
 
 @include extra-large-screen {
   .task-status-container{
-    min-height: unset;
-    max-height: calc(100svh - $header-height - 60px - 60px);
+    height: unset;
   }
 }
