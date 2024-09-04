@@ -1,11 +1,6 @@
 @import '../../../../../../../styles/variables';
-@import '../../../../../../../styles/media-queries';
 
 $title-container-height: 40px;
-
-  :host {
-    height: 100%;
-  }
 
 .task-status-container {
   padding: 0 10px 10px 10px;
@@ -13,6 +8,7 @@ $title-container-height: 40px;
   box-shadow: $box-shadow;
   border-radius: 10px;
   height: 100%;
+  max-height: calc(100svh - $header-height - 60px - 60px);
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
@@ -76,10 +72,4 @@ $title-container-height: 40px;
 
 .cdk-drag-animating {
   transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-@include extra-large-screen {
-  .task-status-container {
-    height: 100%;
-  }
 }
