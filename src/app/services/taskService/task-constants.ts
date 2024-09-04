@@ -20,13 +20,13 @@ export const TASK_STATUSES: {[key: string]: TaskStatus } = {
     key: 'TO_DO',
     value: 'To Do',
   },
-  AWAIT_FEEDBACK: {
-    key: 'AWAIT_FEEDBACK',
-    value: 'Await Feedback',
-  },
   IN_PROGRESS: {
     key: 'IN_PROGRESS',
     value: 'In Progress',
+  },
+  AWAIT_FEEDBACK: {
+    key: 'AWAIT_FEEDBACK',
+    value: 'Await Feedback',
   },
   DONE: {
     key: 'DONE',
