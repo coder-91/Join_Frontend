@@ -13,22 +13,22 @@ export class TaskHttpService {
   constructor(private httpClient: HttpClient,) { }
 
   public fetchTasks():Observable<TaskReceiveDto[]> {
-    const url = environment.baseUrl + `/api/tasks/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/tasks/`;
     return this.httpClient.get<TaskReceiveDto[]>(url);
   }
 
   public createTask(taskSendDto: TaskSendDto):Observable<TaskReceiveDto> {
-    const url = environment.baseUrl + `/api/tasks/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/tasks/`;
     return this.httpClient.post<TaskReceiveDto>(url, taskSendDto);
   }
 
   public updateTask(taskSendDto: TaskSendDto):Observable<TaskReceiveDto> {
-    const url = environment.baseUrl + `/api/tasks/${taskSendDto.id}/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/tasks/${taskSendDto.id}/`;
     return this.httpClient.patch<TaskReceiveDto>(url, taskSendDto);
   }
 
   public deleteTask(taskId: number):Observable<void> {
-    const url = environment.baseUrl + `/api/tasks/${taskId}/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/tasks/${taskId}/`;
     return this.httpClient.delete<void>(url);
   }
 }

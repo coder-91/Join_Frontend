@@ -12,22 +12,22 @@ export class SubtaskHttpService {
   constructor(private httpClient: HttpClient,) { }
 
   public fetchSubtasks():Observable<SubtaskDto[]> {
-    const url = environment.baseUrl + `/api/subtasks/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/subtasks/`;
     return this.httpClient.get<SubtaskDto[]>(url);
   }
 
   public createSubtask(subtaskDto: SubtaskDto):Observable<SubtaskDto> {
-    const url = environment.baseUrl + `/api/subtasks/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/subtasks/`;
     return this.httpClient.post<SubtaskDto>(url, subtaskDto);
   }
 
   public updateSubtask(subtaskDto: SubtaskDto):Observable<SubtaskDto> {
-    const url = environment.baseUrl + `/api/subtasks/${subtaskDto.id}/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/subtasks/${subtaskDto.id}/`;
     return this.httpClient.patch<SubtaskDto>(url, subtaskDto);
   }
 
   public deleteSubtask(subtaskId: number):Observable<void> {
-    const url = environment.baseUrl + `/api/tasks/${subtaskId}/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/tasks/${subtaskId}/`;
     return this.httpClient.delete<void>(url);
   }
 }

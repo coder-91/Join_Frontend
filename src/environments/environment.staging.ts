@@ -1,5 +1,7 @@
 export const environment = {
-  production: true,
-  baseUrl: '',
-  headers: { 'Content-Type': 'application/json' },
+  production: false,
+  protocol: 'https',
+  hostname: 'join-backend-stg.veysel-karaali.com',
+  port: '443',
+  headers: { 'Content-Type': 'application/json' }
 };

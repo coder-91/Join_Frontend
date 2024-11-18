@@ -12,22 +12,22 @@ export class AuthHttpService {
   constructor(private httpClient: HttpClient,) { }
 
   public fetchLoggedUser(): Observable<UserDto> {
-    const url = environment.baseUrl + `/api/users/me/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/users/me/`;
     return this.httpClient.get<UserDto>(url);
   }
 
   public register(userDto: UserDto):Observable<UserDto> {
-    const url = environment.baseUrl + `/api/users/register/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/users/register/`;
     return this.httpClient.post<UserDto>(url, userDto);
   }
 
   public login(user?: Partial<User>): Observable<{ token: string, user: UserDto }> {
-    const url = user ? environment.baseUrl + `/api/users/login/` : environment.baseUrl + `/api/users/login/guest/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/users/login${user ? '/' : '/guest/'}`;
     return this.httpClient.post<{ token: string, user: UserDto }>(url, user);
   }
 
   public logout(loggedUser: User): Observable<void> {
-    const url = loggedUser.isGuest ? environment.baseUrl + `/api/users/logout/guest/` : environment.baseUrl + `/api/users/logout/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}${loggedUser.isGuest ? '/api/users/logout/guest/' : '/api/users/logout/'}`;
     return this.httpClient.post<void>(url, {});
   }
 }

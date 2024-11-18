@@ -11,17 +11,17 @@ export class UserHttpService {
   constructor(private httpClient: HttpClient,) { }
 
   public fetchUsers(): Observable<UserDto[]> {
-    const url = environment.baseUrl + `/api/users/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/users/`;
     return this.httpClient.get<UserDto[]>(url);
   }
 
   public updateUser(userDto: UserDto):Observable<UserDto> {
-    const url = environment.baseUrl + `/api/users/${userDto.id}/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/users/${userDto.id}/`;
     return this.httpClient.patch<UserDto>(url, userDto);
   }
 
   public deleteUser(id: number):Observable<void> {
-    const url = environment.baseUrl + `/api/users/${id}/`;
+    const url = `${environment.protocol}://${environment.hostname}:${environment.port}/api/users/${id}/`;
     return this.httpClient.delete<void>(url);
   }
 }

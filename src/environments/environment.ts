@@ -1,5 +1,7 @@
 export const environment = {
   production: false,
-  baseUrl: 'http://localhost:8000',
-  headers: { 'Content-Type': 'application/json' },
+  protocol: 'http',
+  hostname: 'localhost',
+  port: '8000',
+  headers: { 'Content-Type': 'application/json' }
 };
