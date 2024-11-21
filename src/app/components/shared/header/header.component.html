@@ -1,7 +1,7 @@
 <div class="header max-width">
   <a class="logo" [routerLink]="['/summary']"><img src="../../../assets/images/logo_light.svg" alt="Join Logo"></a>
   @if(!authService.isLoggedIn()) {
-    <div>Kanban Projekt Management Tool</div>
+    <div class="headline">Kanban Projekt Management Tool</div>
   }
   @if(authService.isLoggedIn()) {
     <a class="menu-item" [routerLink]="['/summary']" [routerLinkActive]="['nav-active']">Summary</a>
