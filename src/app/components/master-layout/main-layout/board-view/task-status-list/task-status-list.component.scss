@@ -12,14 +12,8 @@
   }
 }
 
-@include large-screen {
+@media (max-width: 675px) {
   .task-status-list-container {
     grid-template-columns: repeat(1, minmax(200px, 1fr));
-  }
-}
-
-@media (max-width: 450px) {
-  .task-status-list-container {
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   }
 }
