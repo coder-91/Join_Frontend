@@ -87,7 +87,7 @@
 
           <mat-form-field>
             <mat-label>Subtasks</mat-label>
-            <input matInput formControlName="subtasks" type="text" placeholder="Enter a subtask" >
+            <input matInput formControlName="subtasks" type="text" placeholder="Enter a subtask" (keydown.enter)="addSubtask()">
             <button mat-icon-button matSuffix type="button" (click)="addSubtask()">
               <mat-icon>add</mat-icon>
             </button>
