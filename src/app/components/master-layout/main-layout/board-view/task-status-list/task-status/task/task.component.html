@@ -53,7 +53,7 @@
                     }
                 </div>
 
-                <mat-icon [ngStyle]="{'color': task.priority.color}" matSuffix>{{ task.priority.icon }}
+                <mat-icon matTooltip="{{task.priority.value}}" [ngStyle]="{'color': task.priority.color}" matSuffix>{{ task.priority.icon }}
                 </mat-icon>
 
             </div>

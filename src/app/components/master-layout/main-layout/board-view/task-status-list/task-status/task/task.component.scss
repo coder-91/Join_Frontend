@@ -2,6 +2,8 @@
 @import '../../../../../../../../styles/mixins';
 @import '../../../../../../../../styles/media-queries';
 
+$ticket-height: 170px;
+
 @mixin clamp-lines($line-count) {
   overflow: hidden;
   display: -webkit-box;
@@ -14,6 +16,7 @@
   background-color: #fff;
   font-size: 12px;
   border-radius: 10px;
+  min-height: $ticket-height;
 }
 
 :host ::ng-deep .mat-mdc-card {
@@ -24,9 +27,14 @@
   margin-bottom:10px;
 }
 
+:host ::ng-deep mat-card.mat-mdc-card mdc-card {
+  height: $ticket-height;
+}
+
 mat-card-content {
   display: flex;
   flex-direction: column;
+  height: $ticket-height;
 }
 
 .menu-container {
@@ -78,6 +86,7 @@ mat-card-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-top: auto;
 
   .avatar-group {
     display:flex;
