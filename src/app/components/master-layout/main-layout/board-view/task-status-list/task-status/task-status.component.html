@@ -24,21 +24,23 @@
     </ng-template>
 
     <ng-template #smallScreenTemplate>
-    <p-carousel
-      [value]="list.data"
-      [numVisible]="1"
-      [numScroll]="1"
-      [circular]="true">
-      <ng-template let-task pTemplate="item">
-        <div class="border-1 surface-border border-round p-1">
-          <div>
-            <div class="relative mx-auto">
-              <app-task cdkDrag [cdkDragData]="task" [task]="task"></app-task>
+      @if (list.data.length > 0) {
+        <p-carousel
+          [value]="list.data"
+          [numVisible]="1"
+          [numScroll]="1"
+          [circular]="true">
+          <ng-template let-task pTemplate="item">
+            <div class="border-1 surface-border border-round p-1">
+              <div>
+                <div class="relative mx-auto">
+                  <app-task cdkDrag [cdkDragData]="task" [task]="task"></app-task>
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
-      </ng-template>
-    </p-carousel>
+          </ng-template>
+        </p-carousel>
+      }
   </ng-template>
   </div>
 </div>

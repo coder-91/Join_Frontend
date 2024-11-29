@@ -2,6 +2,7 @@
 @import '../../../../../../../styles/media-queries';
 
 $title-container-height: 40px;
+$task-status-container-height: 302px;
 
 .task-status-container {
   padding: 0 10px 10px 10px;
@@ -75,7 +76,8 @@ $title-container-height: 40px;
 }
 
 @include extra-large-screen {
-  .task-status-container{
+  .task-status-container {
     height: unset;
+    min-height: $task-status-container-height;
   }
 }

@@ -1,14 +1,23 @@
 @import '../../../../../../styles/media-queries';
 
+$grid-gap: 20px;
+
 .task-status-list-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-  gap: 20px;
+  gap: $grid-gap;
 }
 
 @include extra-large-screen {
   .task-status-list-container {
     grid-template-columns: repeat(2, minmax(200px, 1fr));
+    padding-bottom: $grid-gap;
+  }
+}
+
+@include large-screen {
+  .task-status-list-container {
+    padding-bottom: 0;
   }
 }
 
