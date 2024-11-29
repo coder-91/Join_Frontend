@@ -42,19 +42,6 @@ h1 {
     column-gap: 30px;
 }
 
-.avatar {
-    min-width: 80px;
-    min-height: 80px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 25px;
-    letter-spacing: 2px;
-    border: 3px solid #fff;
-}
-
 mat-icon {
     font-size: 33px;
     display: flex;
@@ -93,7 +80,7 @@ mat-form-field {
         padding: 60px 20px 40px 20px;
         width: 100%;
     }
-    .avatar {
+    app-avatar {
         position: absolute;
         top: 0;
         left: 50%;

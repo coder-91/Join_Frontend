@@ -28,6 +28,7 @@ import {MatCheckbox, MatCheckboxChange} from "@angular/material/checkbox";
 import {Subtask} from "../../../../../../../../models/entity/subtask";
 import {Subscription} from "rxjs";
 import {TaskService} from "../../../../../../../../services/taskService/task.service";
+import {AvatarComponent} from "../../../../../../../shared/avatar/avatar.component";
 
 @Component({
   selector: 'app-task-details',
@@ -55,7 +56,8 @@ import {TaskService} from "../../../../../../../../services/taskService/task.ser
     ReactiveFormsModule,
     DatePipe,
     MatCheckbox,
-    NgStyle
+    NgStyle,
+    AvatarComponent
   ],
   templateUrl: './task-details.component.html',
   styleUrl: './task-details.component.scss'

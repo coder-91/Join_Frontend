@@ -9,16 +9,8 @@
     </div>
 
     <div class="cont-lvl-2-2">
-
-        <div class="avatar" [ngStyle]="{'background-color': user ? user.avatarColor:'#aaa'}">
-            @if (user) {
-            <div>{{ getInitials(user.name) }}</div>
-            } @else {
-            <mat-icon>person_outline</mat-icon>
-            }
-
-        </div>
-
+        <app-avatar [initials]="getInitials(user.name)" [size]="80" [backgroundColor]="user.avatarColor"></app-avatar>
+      
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
             <mat-form-field>
                 <mat-label>Name</mat-label>

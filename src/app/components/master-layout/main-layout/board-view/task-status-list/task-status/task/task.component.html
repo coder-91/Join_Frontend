@@ -49,7 +49,7 @@
             <div class="avatar-container">
                 <div class="avatar-group">
                     @for (user of task.users; track user.id) {
-                    <div [ngStyle]="{'background-color': user.avatarColor}" class="avatar" matTooltip="{{user.name}}">{{getInitials(user.name)}}</div>
+                      <app-avatar [initials]="getInitials(user.name)" [size]="30" [backgroundColor]="user.avatarColor" matTooltip="{{user.name}}"></app-avatar>
                     }
                 </div>
 

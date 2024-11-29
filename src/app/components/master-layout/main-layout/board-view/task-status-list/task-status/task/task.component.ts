@@ -14,11 +14,12 @@ import {TaskDialogService} from "../../../../../../../services/taskService/task-
 import {getInitials} from "../../../../../../../utils/helpers";
 import {TASK_STATUSES} from "../../../../../../../services/taskService/task-constants";
 import {TaskStatus} from "../../../../../../../models/interfaces/task-status";
+import {AvatarComponent} from "../../../../../../shared/avatar/avatar.component";
 
 @Component({
   selector: 'app-task',
   standalone: true,
-  imports: [MatCardModule, MatTooltipModule, CommonModule, MatButtonModule, MatMenuModule, MatIconModule, MatOption, MatSuffix],
+    imports: [MatCardModule, MatTooltipModule, CommonModule, MatButtonModule, MatMenuModule, MatIconModule, MatOption, MatSuffix, AvatarComponent],
   templateUrl: './task.component.html',
   styleUrl: './task.component.scss'
 })

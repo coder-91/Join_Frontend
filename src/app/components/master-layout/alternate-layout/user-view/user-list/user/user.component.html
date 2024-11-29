@@ -1,6 +1,6 @@
 <mat-list-item [ngClass]="{'active': selectedUser == user}" (click)="onSelectUser(user)" class="clickable" role="listitem">
     <div class="user-box">
-        <div [ngStyle]="{'background-color': user?.avatarColor}" class="avatar">{{getInitials(user?.name)}}</div>
+      <app-avatar [initials]="getInitials(user.name)" [size]="35" [backgroundColor]="user.avatarColor"></app-avatar>
         <div class="user-info-box">
             <div class="name">{{ user?.name }}</div>
             @if(!user?.isGuest) {

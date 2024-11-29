@@ -91,19 +91,6 @@ mat-card-content {
   .avatar-group {
     display:flex;
 
-    .avatar {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #fff;
-      font-size: 12px;
-      letter-spacing: 2px;
-      border: 2px solid #fff;
-    }
-
     :not(:first-child){
       margin-left: -8px;
     }

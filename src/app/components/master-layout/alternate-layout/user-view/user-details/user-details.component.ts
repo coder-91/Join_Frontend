@@ -11,6 +11,7 @@ import {Router} from "@angular/router";
 import {User} from "../../../../../models/entity/user";
 import {AuthService} from "../../../../../services/authService/auth.service";
 import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
+import {AvatarComponent} from "../../../../shared/avatar/avatar.component";
 
 @Component({
   selector: 'app-user-details',
@@ -20,7 +21,8 @@ import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
     MatIcon,
     MatIconButton,
     MatMenuModule,
-    NgStyle
+    NgStyle,
+    AvatarComponent
   ],
   templateUrl: './user-details.component.html',
   styleUrl: './user-details.component.scss'

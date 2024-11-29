@@ -1,0 +1,14 @@
+<div class="avatar"
+     [ngStyle]="{
+       'width': size + 'px',
+       'height': size + 'px',
+       'background-color': backgroundColor}">
+
+  <span class="initials"
+        [ngStyle]="{
+        'font-size': (size / 2.5) + 'px',
+        'margin-right': -(size / 25) + 'px',
+        'letter-spacing': (size / 25) + 'px'}">
+    {{ initials }}
+  </span>
+</div>

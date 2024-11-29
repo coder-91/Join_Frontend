@@ -10,6 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { CommonModule } from '@angular/common';
 import {User} from "../../../../../models/entity/user";
 import {getInitials} from "../../../../../utils/helpers";
+import {AvatarComponent} from "../../../../shared/avatar/avatar.component";
 
 @Component({
   selector: 'app-user-form',
@@ -23,7 +24,8 @@ import {getInitials} from "../../../../../utils/helpers";
     MatInputModule,
     MatLabel,
     ReactiveFormsModule,
-    MatIconModule
+    MatIconModule,
+    AvatarComponent
   ],
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.scss'

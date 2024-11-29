@@ -6,19 +6,6 @@
   align-items: center;
   column-gap: 30px;
 
-  .avatar {
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: #fff;
-    font-size: 11px;
-    border: 2px solid #fff;
-    letter-spacing: 2px;
-  }
-
   .user-info-box {
     display: flex;
     flex-direction: column;

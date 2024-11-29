@@ -7,15 +7,17 @@ import {Router} from "@angular/router";
 import {BreakpointObserver, BreakpointState} from "@angular/cdk/layout";
 import {User} from "../../../../../../models/entity/user";
 import {UserService} from "../../../../../../services/userService/user.service";
+import {AvatarComponent} from "../../../../../shared/avatar/avatar.component";
 
 @Component({
   selector: 'app-user',
   standalone: true,
-  imports: [
-    MatListItem,
-    NgStyle,
-    NgClass
-  ],
+    imports: [
+        MatListItem,
+        NgStyle,
+        NgClass,
+        AvatarComponent
+    ],
   templateUrl: './user.component.html',
   styleUrl: './user.component.scss'
 })

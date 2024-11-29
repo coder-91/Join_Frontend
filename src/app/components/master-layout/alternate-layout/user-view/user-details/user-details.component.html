@@ -31,8 +31,7 @@
 
     @if(selectedUser) {
     <div class="user-details">
-        <div class="avatar" [ngStyle]="{'background-color': selectedUser.avatarColor}">{{ getInitials(selectedUser.name) }}</div>
-
+        <app-avatar [initials]="getInitials(selectedUser.name)" [size]="70" [backgroundColor]="selectedUser.avatarColor"></app-avatar>
         <div class="user-info">
             <div class="name">{{ selectedUser.name }}</div>
             @if(selectedUser?.id === loggedUser?.id){

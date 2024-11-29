@@ -24,7 +24,7 @@
     </ng-template>
 
     <ng-template #smallScreenTemplate>
-      @if (list.data.length > 0) {
+      <ng-container *ngIf="list?.data?.length">
         <p-carousel
           [value]="list.data"
           [numVisible]="1"
@@ -40,7 +40,7 @@
             </div>
           </ng-template>
         </p-carousel>
-      }
+        </ng-container>
   </ng-template>
   </div>
 </div>

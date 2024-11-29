@@ -29,10 +29,9 @@
             <div class="label">Assigned To:</div>
             @for (user of data.task.users; track user.id) {
             <div class="user-container">
-                <div class="avatar" [ngStyle]="{'background-color': user.avatarColor}">{{getInitials(user.name)}}</div>
-                <div class="user-name">{{ user.name }}</div>
+              <app-avatar [initials]="getInitials(user.name)" [size]="40" [backgroundColor]="user.avatarColor"></app-avatar>
+              <div class="user-name">{{ user.name }}</div>
             </div>
-
             }
         </div>
 
