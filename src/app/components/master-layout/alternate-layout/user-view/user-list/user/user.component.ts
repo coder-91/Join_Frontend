@@ -23,6 +23,7 @@ import {AvatarComponent} from "../../../../../shared/avatar/avatar.component";
 })
 export class UserComponent implements OnInit, OnDestroy {
   @Input() user!: User;
+  @Input() loggedUser!: User;
   protected readonly getInitials = getInitials;
   selectedUser: User | undefined;
   selectedUserSubscription!: Subscription;

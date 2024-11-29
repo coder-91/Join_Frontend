@@ -56,7 +56,8 @@ export class UserService {
   public updateUser(user: User) {
     this.userHttpService.updateUser(this.dtoMapperService.mapUserToUserDto(user)).subscribe({
       next:(userDto: UserDto) => {
-        this._selectedUser$.next(this.dtoMapperService.mapUserDtoToUser(userDto))
+        this._selectedUser$.next(this.dtoMapperService.mapUserDtoToUser(userDto));
+        this.authService.loggedUser = this.dtoMapperService.mapUserDtoToUser(userDto);
         this.matSnackBar.open(`Your account has been updated successfully!`,'', {duration: SNACKBAR_DURATION});
       },
       error:() => {

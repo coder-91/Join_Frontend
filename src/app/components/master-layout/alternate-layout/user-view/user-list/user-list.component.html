@@ -8,7 +8,7 @@
             <mat-list-item role="listitem">{{ letter }}</mat-list-item>
             <mat-divider></mat-divider>
             @for (user of groupedAndSortedUsers[letter]; track user.id) {
-              <app-user [user]="user"></app-user>}
+              <app-user [user]="user" [loggedUser]="loggedUser"></app-user>}
           }
         }
 

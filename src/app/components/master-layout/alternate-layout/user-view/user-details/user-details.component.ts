@@ -64,6 +64,8 @@ export class UserDetailsComponent implements OnInit, OnDestroy  {
   }
 
   public onUpdateUser() {
+    const buttonElement = document.activeElement as HTMLElement;
+    buttonElement.blur();
     this.userDialogService.updateUserDialog(this.selectedUser);
   }
 
