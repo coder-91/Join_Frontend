@@ -1,5 +1,6 @@
 @import '../../../../../../styles/variables';
 @import '../../../../../../styles/media-queries';
+
 .user-details-box {
     height: 100%;
     padding: 50px 20px;
@@ -11,11 +12,29 @@
     z-index: 2;
     right: 60px;
     bottom: 60px;
-    button {
+
+    .round-button {
         position: fixed;
         background-color: $col-primary;
         color: #fff;
         display: none;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        row-gap: 3px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: background-color 0.3s;
+
+        .dot {
+          width: 4px;
+          height: 4px;
+          background-color: white;
+          border-radius: 50%;
+        }
     }
 }
 
@@ -56,18 +75,22 @@ h1 {
     align-items: center;
     column-gap: 30px;
     margin-bottom: 40px;
+
     .user-info {
         display: flex;
         flex-direction: column;
-        .name {
+
+      .name {
             font-size: 20px;
             font-weight: bold;
         }
-        .icons-box {
+
+      .icons-box {
             display: flex;
             column-gap: 10px;
         }
-        .icons-box button {
+
+      .icons-box button {
             padding-left: 0;
             padding-right: 0;
             font-size: 11px;
@@ -105,28 +128,34 @@ h1 {
         margin-bottom: 20px;
         align-items: normal;
     }
+
     .top-line {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
+
     .top-line button {
         display: block;
     }
+
     .bottom-line {
         flex-direction: column-reverse;
         align-items: normal;
         row-gap: 10px;
     }
+
     .divider {
         width: 60px;
         height: 2px;
     }
+
     .mobile-user-actions {
-        button {
-            display: block;
+      .round-button {
+            display: flex;
         }
     }
+
     .user-details .user-info .icons-box {
         display: none;
     }
