@@ -1,7 +1,7 @@
 @import '../../../../styles/variables';
 @import '../../../../styles/media-queries';
 
-$line-height-desktop: 50px;
+$line-height-desktop: 60px;
 $line-height-mobile: 0;
 $padding-left-nav: 20px;
 nav {
@@ -34,6 +34,7 @@ img {
     column-gap: 3px;
     padding-left: $padding-left-nav;
     height: $line-height-desktop;
+    width: 70px;
   }
 
   a:hover {
