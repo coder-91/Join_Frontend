@@ -8,6 +8,7 @@ import {DtoMapperService} from "../dtoMapperService/dto-mapper.service";
 import {UserDto} from "../../models/dtos/user-dto";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthService} from "../authService/auth.service";
+import {SessionService} from "../sessionService/session.service";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,14 @@ import {AuthService} from "../authService/auth.service";
 export class UserService {
   private _users$: BehaviorSubject<User[]> = new BehaviorSubject<User[]>([]);
   private _selectedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
-  constructor(private userHttpService: UserHttpService, private authService:AuthService, private router: Router, private dtoMapperService: DtoMapperService, private matSnackBar: MatSnackBar) {
+  constructor(
+    private userHttpService: UserHttpService,
+    private authService:AuthService,
+    private sessionService: SessionService,
+    private router: Router,
+    private dtoMapperService: DtoMapperService,
+    private matSnackBar: MatSnackBar
+  ) {
       this.fetchUsers();
       this.authService.fetchLoggedUser();
   }
@@ -73,8 +81,7 @@ export class UserService {
         const index = this.users.findIndex((user) => user.id === id);
         if (index > -1) {
           users.splice(index, 1);
-          localStorage.removeItem('token');
-          sessionStorage.removeItem('token');
+          this.sessionService.clearToken();
           this.router.navigateByUrl('/login').then(r => {})
           this.matSnackBar.open(`Your account has been deleted successfully!`,'', {duration: SNACKBAR_DURATION});
         }
