@@ -22,8 +22,4 @@ export class SessionService {
     localStorage.removeItem(this.TOKEN_KEY);
     sessionStorage.removeItem(this.TOKEN_KEY);
   }
-
-  isLoggedIn(): boolean {
-    return !!this.getToken();
-  }
 }

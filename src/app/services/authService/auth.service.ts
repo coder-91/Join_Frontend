@@ -6,7 +6,7 @@ import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthHttpService} from "./auth-http.service";
 import {UserDto} from "../../models/dtos/user-dto";
 import {DtoMapperService} from "../dtoMapperService/dto-mapper.service";
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, catchError, map, Observable, of} from "rxjs";
 import {SessionService} from "../sessionService/session.service";
 
 @Injectable({
@@ -14,6 +14,7 @@ import {SessionService} from "../sessionService/session.service";
 })
 export class AuthService {
   private _loggedUser$: BehaviorSubject<User | undefined> = new BehaviorSubject<User | undefined>(undefined);
+  private _isLoggedIn$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   constructor(
     public authHttpService: AuthHttpService,
@@ -21,11 +22,7 @@ export class AuthService {
     public dtoMapperService: DtoMapperService,
     private router: Router,
     private matSnackBar: MatSnackBar
-  ) {
-    if (this.sessionService.isLoggedIn()) {
-      this.fetchLoggedUser();
-    }
-  }
+  ) {}
 
   public get loggedUser$(): Observable<User> {
     return this._loggedUser$.asObservable() as Observable<User>;
@@ -37,6 +34,25 @@ export class AuthService {
 
   public set loggedUser(user: User) {
     this._loggedUser$.next(user);
+  }
+
+  public get isLoggedIn$(): Observable<boolean> {
+    return this._isLoggedIn$.asObservable();
+  }
+
+  public validateToken(): Observable<boolean> {
+    return this.authHttpService.fetchLoggedUser().pipe(
+      map((userDto: UserDto) => {
+        const user = this.dtoMapperService.mapUserDtoToUser(userDto);
+        this._loggedUser$.next(user);
+        this._isLoggedIn$.next(true);
+        return true;
+      }),
+      catchError(() => {
+        this.logout();
+        return of(false);
+      })
+    );
   }
 
   public fetchLoggedUser() {
@@ -63,17 +79,17 @@ export class AuthService {
         } else {
           this.matSnackBar.open('Account creation failed', 'Ok');
         }
-
       }
     });
   }
 
-  public login(rememberMe: boolean, user?: Partial<User>, ) {
+  public login(rememberMe: boolean, user?: Partial<User>) {
     this.authHttpService.login(user).subscribe({
       next:(response: { token: string, user: UserDto }) => {
         const user = this.dtoMapperService.mapUserDtoToUser(response.user);
         this._loggedUser$.next(user);
         this.sessionService.setToken(response.token, rememberMe);
+        this._isLoggedIn$.next(true);
         this.router.navigateByUrl('/summary').then(r => {})
       },
       error: () => {
@@ -83,25 +99,10 @@ export class AuthService {
   }
 
   public logout() {
-    const user = this._loggedUser$.getValue();
-    if (user) {
-      this.authHttpService.logout(user).subscribe({
-        next: () => {
-          this.sessionService.clearToken();
-          this.router.navigateByUrl('/login').then(r => {});
-          this.matSnackBar.open(`You have been successfully logged out.`, '', { duration: SNACKBAR_DURATION });
-        },
-        error: () => {
-          this.matSnackBar.open('Logout failed.', 'Ok');
-        }
-      });
-    } else {
-      this.sessionService.clearToken();
-      this.router.navigateByUrl('/login').then(r => {});
-    }
-  }
-
-  public isLoggedIn(): boolean {
-    return this.sessionService.isLoggedIn();
+    this.sessionService.clearToken();
+    this._isLoggedIn$.next(false);
+    this._loggedUser$.next(undefined);
+    this.router.navigateByUrl('/login').then(r => {});
+    this.matSnackBar.open('You\'ve been logged out', 'Ok', { duration: SNACKBAR_DURATION });
   }
 }

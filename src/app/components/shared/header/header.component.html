@@ -1,9 +1,9 @@
 <div class="header max-width">
   <a class="logo" [routerLink]="['/summary']"><img src="../../../assets/images/logo_light.svg" alt="Join Logo"></a>
-  @if(!authService.isLoggedIn()) {
+  @if(!(authService.isLoggedIn$ | async)) {
     <div class="headline">Kanban Projekt Management Tool</div>
   }
-  @if(authService.isLoggedIn()) {
+  @if(authService.isLoggedIn$ | async) {
     <a class="menu-item" [routerLink]="['/summary']" [routerLinkActive]="['nav-active']">Summary</a>
     <a class="menu-item" [routerLink]="['/task']" [routerLinkActive]="['nav-active']">Add Task</a>
     <a class="menu-item" [routerLink]="['/board']" [routerLinkActive]="['nav-active']">Board</a>
@@ -13,14 +13,14 @@
       <mat-icon class="help" aria-hidden="false" aria-label="Example help icon" fontIcon="help_outline"></mat-icon>
     </div>
 
-    @if(authService.isLoggedIn()) {
+    @if(authService.isLoggedIn$ | async) {
     <div [matMenuTriggerFor]="menu" class="profile clickable">
       <mat-icon color="primary">person</mat-icon>
     </div>
     }
 
     <mat-menu #menuHelp="matMenu" yPosition="below">
-      @if(authService.isLoggedIn()) {
+      @if(authService.isLoggedIn$ | async) {
         <a [routerLink]="['/help']" class="help-menu">
           <button mat-menu-item>Help</button>
         </a>

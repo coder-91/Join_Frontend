@@ -1,11 +1,11 @@
 import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
-import { Router } from "@angular/router";
 import { catchError, throwError } from "rxjs";
 import { inject } from "@angular/core";
 import {SessionService} from "../../services/sessionService/session.service";
+import {AuthService} from "../../services/authService/auth.service";
 
 export const authInterceptor: HttpInterceptorFn = (req, next) => {
-  const router = inject(Router);
+  const authService = inject(AuthService);
   const sessionService = inject(SessionService);
   const token = sessionService.getToken();
 
@@ -18,8 +18,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   return next(req).pipe(
     catchError((err) => {
       if (err instanceof HttpErrorResponse && err.status === 401) {
-        sessionService.clearToken();
-        router.navigateByUrl('/login').then(r => {});
+        authService.logout();
       }
       return throwError(() => err);
     })

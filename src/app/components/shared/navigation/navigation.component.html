@@ -1,6 +1,6 @@
 <nav>
   <a class="logo" href="login"><img src="../../../assets/images/logo_light.svg" alt="Join Logo"></a>
-  @if(authService.isLoggedIn()) {
+  @if(authService.isLoggedIn$ | async) {
     <div class="app-navigation-links">
       <a [routerLink]="['/summary']" [routerLinkActive]="['nav-active']"><span><mat-icon aria-hidden="false"
                                                                                            aria-label="Example summary icon"
