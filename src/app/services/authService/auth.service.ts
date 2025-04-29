@@ -62,7 +62,6 @@ export class AuthService {
       },
       error: () => {
         this.logout();
-        this.matSnackBar.open('Session expired, please log in again.', 'Ok');
       }
     })
   }
