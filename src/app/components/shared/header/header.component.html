@@ -1,5 +1,6 @@
 <div class="header max-width">
-  <a class="logo" [routerLink]="['/summary']"><img src="../../../assets/images/logo_light.svg" alt="Join Logo"></a>
+  <a class="logo"
+     [routerLink]="(authService.isLoggedIn$ | async) ? ['/summary'] : ['/login']"><img src="../../../assets/images/logo_light.svg" alt="Join Logo"></a>
   @if(!(authService.isLoggedIn$ | async)) {
     <div class="headline">Kanban Projekt Management Tool</div>
   }
