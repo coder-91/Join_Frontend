@@ -13,6 +13,8 @@ $task-status-container-height: 302px;
   position: relative;
   overflow-y: auto;
   overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
 
   .title-container {
     display: flex;
@@ -23,6 +25,7 @@ $task-status-container-height: 302px;
     left: 0;
     right: 0;
     z-index: 100;
+    padding: 10px 0;
     height: $title-container-height;
     background-color: $col-light-gray-2;
 
@@ -40,7 +43,8 @@ $task-status-container-height: 302px;
     display: flex;
     flex-direction: column;
     row-gap: 10px;
-    height: calc(100% - $title-container-height);
+    height: calc(100%);
+    flex: 1;
   }
 }
 
