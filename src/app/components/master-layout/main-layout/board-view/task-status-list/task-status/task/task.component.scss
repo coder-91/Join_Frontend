@@ -42,6 +42,12 @@ mat-card-content {
   align-items: center;
   justify-content: space-between;
 
+  .menu-icon-container {
+    width: 25px;
+    display: flex;
+    justify-content: end;
+  }
+
   mat-icon {
     @include custom-width-icon();
   }

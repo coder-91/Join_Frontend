@@ -3,8 +3,8 @@
         <mat-card-content>
             <div class="menu-container mb-1">
                 <div [ngStyle]="{'background-color': task.category.color}" class="category">{{ task.category.value }}</div>
-                <div>
-                    <mat-icon (click)="stopPropagation($event)" [matMenuTriggerFor]="menu" class="clickable">more_vert</mat-icon>
+                <div (click)="stopPropagation($event)" [matMenuTriggerFor]="menu" class="menu-icon-container">
+                    <mat-icon class="clickable">more_vert</mat-icon>
                 </div>
 
                 <mat-menu #menu="matMenu">
