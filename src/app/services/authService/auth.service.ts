@@ -102,6 +102,5 @@ export class AuthService {
     this._isLoggedIn$.next(false);
     this._loggedUser$.next(undefined);
     this.router.navigateByUrl('/login').then(r => {});
-    this.matSnackBar.open('You\'ve been logged out', 'Ok', { duration: SNACKBAR_DURATION });
   }
 }
