@@ -45,7 +45,7 @@
 
             <mat-form-field>
                 <mat-label>Priority</mat-label>
-                <mat-select formControlName="priority">
+                <mat-select formControlName="priority" [compareWith]="comparePriorityFn">
                     @for (priority of Object.values(PRIORITIES); track priority.key) {
                     <mat-option [value]=priority>{{ priority.value }}
                         <mat-icon [ngStyle]="{'color': priority.color}" matSuffix>{{ priority.icon }}
@@ -63,7 +63,7 @@
             <mat-form-field>
                 <mat-label>Category</mat-label>
                 <mat-icon color="primary" matSuffix>category</mat-icon>
-                <mat-select formControlName="category">
+                <mat-select formControlName="category" [compareWith]="compareCategoryFn">
                     @for (category of Object.values(CATEGORIES); track category.key) {
                     <mat-option [value]=category>{{ category.value }}</mat-option>
                     }

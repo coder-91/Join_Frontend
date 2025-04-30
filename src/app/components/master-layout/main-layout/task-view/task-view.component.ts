@@ -1,7 +1,6 @@
-import {CommonModule, TitleCasePipe} from '@angular/common';
+import {CommonModule} from '@angular/common';
 import {Component, Inject, OnDestroy, OnInit, Optional, ViewChild} from '@angular/core';
 import {MatButtonModule} from "@angular/material/button";
-import {MatCheckbox} from "@angular/material/checkbox";
 import {MatError, MatFormField, MatFormFieldModule, MatLabel} from "@angular/material/form-field";
 import {
   FormBuilder,
@@ -18,7 +17,6 @@ import {MatOption, provideNativeDateAdapter} from '@angular/material/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSelect} from "@angular/material/select";
 import {MatIcon} from "@angular/material/icon";
-import {MatRadioButton, MatRadioGroup} from "@angular/material/radio";
 import {MAT_DIALOG_DATA, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {User} from "../../../../models/entity/user";
 import {UserService} from "../../../../services/userService/user.service";
@@ -37,7 +35,6 @@ import * as _ from 'lodash';
     CommonModule,
     FormsModule,
     MatButtonModule,
-    MatCheckbox,
     MatError,
     MatFormField,
     MatLabel,
@@ -46,12 +43,9 @@ import * as _ from 'lodash';
     MatInputModule,
     MatFormFieldModule,
     MatButtonToggleModule,
-    TitleCasePipe,
     MatSelect,
     MatOption,
     MatIcon,
-    MatRadioGroup,
-    MatRadioButton,
     MatDialogModule,
   ],
   templateUrl: './task-view.component.html',
@@ -70,8 +64,9 @@ export class TaskViewComponent implements OnInit, OnDestroy {
   subtasks: Subtask[] = [];
   taskDetailsSubscription!: Subscription;
   @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
-  userCompareWithFn = (user: User, value: User) => user?.id == value?.id
-
+  comparePriorityFn = (a: any, b: any) => a?.key === b?.key;
+  compareCategoryFn = (a: any, b: any) => a?.key === b?.key;
+  userCompareWithFn = (user: User, value: User) => user?.id == value?.id;
 
   constructor(private fb: FormBuilder, @Optional() private dialogRef: MatDialogRef<TaskViewComponent>, private taskService: TaskService, private userService:UserService, @Optional() @Inject(MAT_DIALOG_DATA) public data: { fromPopup: boolean, task: Task }) {}
 
