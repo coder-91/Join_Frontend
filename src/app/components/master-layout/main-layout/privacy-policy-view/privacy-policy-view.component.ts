@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import {Router} from "@angular/router";
 import {MatIcon} from "@angular/material/icon";
 import {Location} from "@angular/common";
-import {AuthService} from "../../../../services/authService/auth.service";
 
 @Component({
   selector: 'app-privacy-policy-view',
@@ -14,15 +12,9 @@ import {AuthService} from "../../../../services/authService/auth.service";
   styleUrl: './privacy-policy-view.component.scss'
 })
 export class PrivacyPolicyViewComponent {
-  constructor(private router: Router, private location: Location, private authService: AuthService) {}
+  constructor(private location: Location) {}
 
-  public navigateToLogin() {
-    this.authService.isLoggedIn$.subscribe(isLoggedIn => {
-      if (isLoggedIn) {
-        this.location.back();
-      } else {
-        this.router.navigateByUrl('/login').then(r => {});
-      }
-    });
+  public goToPreviousPage() {
+    this.location.back();
   }
 }

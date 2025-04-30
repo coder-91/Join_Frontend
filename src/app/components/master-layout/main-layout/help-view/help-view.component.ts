@@ -16,7 +16,7 @@ import {MatIconButton} from "@angular/material/button";
 export class HelpViewComponent {
   constructor(private location: Location) {}
 
-  public goToPreviousComponent() {
+  public goToPreviousPage() {
     this.location.back();
   }
 }
