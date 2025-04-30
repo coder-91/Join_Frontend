@@ -171,22 +171,26 @@ export class TaskService {
   }
 
   public onDropTask(event: CdkDragDrop<Task[]>) {
-    const status = TASK_STATUSES[event.container.id];
+    const oldStatus = event.item.data.status;
+    const newStatus = TASK_STATUSES[event.container.id];
     const task: Task = event.item.data;
-    task.status = status;
-    this.updateTask(task, status);
+    task.status = newStatus;
 
-    if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex,
-      );
+    if(oldStatus.key !== newStatus.key) {
+      this.updateTask(task, newStatus);
+
+      if (event.previousContainer === event.container) {
+        moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      } else {
+        transferArrayItem(
+          event.previousContainer.data,
+          event.container.data,
+          event.previousIndex,
+          event.currentIndex,
+        );
+      }
+      event.previousContainer.data = [...event.previousContainer.data];
+      event.container.data = [...event.container.data];
     }
-    event.previousContainer.data = [...event.previousContainer.data];
-    event.container.data = [...event.container.data];
   }
 }
