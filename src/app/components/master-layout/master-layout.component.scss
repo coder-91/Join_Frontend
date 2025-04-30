@@ -41,11 +41,12 @@ app-header {
     display: block;
   }
 
-  .grid-container {
+  .grid-container.logged-in {
     grid-template-columns: 1fr;
     grid-template-rows: $header-height calc(100% - $header-height - $mobile-nav-height) $mobile-nav-height;
     grid-template-areas: "header" "router-outlet" "navigation ";
   }
+
   .grid-container > * {
     width: 100%;
   }

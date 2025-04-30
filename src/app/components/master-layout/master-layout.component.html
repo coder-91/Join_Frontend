@@ -1,5 +1,7 @@
-<div class="grid-container">
+<div class="grid-container" [class.logged-in]="authService.isLoggedIn$ | async">
   <app-header></app-header>
   <div appScrollReset class="content"><router-outlet></router-outlet></div>
-  <app-navigation></app-navigation>
+  @if(authService.isLoggedIn$ | async) {
+    <app-navigation></app-navigation>
+  }
 </div>
