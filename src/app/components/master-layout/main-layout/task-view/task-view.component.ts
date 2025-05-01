@@ -120,7 +120,7 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   public addSubtask() {
     const subtask = this.taskForm.get('subtasks')?.value;
-    if(subtask.trim()) {
+    if(subtask.length && subtask?.trim()) {
       this.subtasks.push({
         taskId: undefined,
         description: subtask,
@@ -204,6 +204,6 @@ export class TaskViewComponent implements OnInit, OnDestroy {
 
   public deleteSubtask(index: number) {
     this.subtasks.splice(index, 1);
-    this.data.task.subtasks.splice(index, 1);
+    this.data?.task?.subtasks.splice(index, 1);
   }
 }
