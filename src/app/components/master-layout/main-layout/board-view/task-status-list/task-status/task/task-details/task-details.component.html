@@ -1,14 +1,13 @@
 <div class="task-details-container">
     <div mat-dialog-title class="title-container">
+      <div [ngStyle]="{'background-color': data.task.category.color}" class="title category">{{ data.task.category.value }}</div>
         <button mat-icon-button mat-dialog-close color="primary" aria-label="close dialog">
       <mat-icon>close</mat-icon>
     </button>
     </div>
 
     <mat-dialog-content>
-        <div [ngStyle]="{'background-color': data.task.category.color}" class="category mb-2">{{ data.task.category.value }}</div>
-
-        <div class="title mb-3">{{data.task.title}}</div>
+        <div class="title mb-2">{{data.task.title}}</div>
 
         <div class="description mb-2">{{data.task.description}}</div>
 

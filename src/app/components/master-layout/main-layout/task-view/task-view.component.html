@@ -2,121 +2,121 @@
     <div mat-dialog-title [ngClass]="{'title-container-from-popup': fromPopup, 'title-container': !fromPopup}" class="title-container">
         <div class="title">{{data?.task? 'Edit Task' : 'Add Task'}}</div>
         @if (fromPopup) {
-        <button  mat-icon-button mat-dialog-close color="primary" aria-label="close dialog">
+        <button mat-icon-button mat-dialog-close color="primary" aria-label="close dialog">
         <mat-icon>close</mat-icon>
       </button> }
     </div>
 
     <div>
-  <mat-dialog-content [ngStyle]="fromPopup ? {'padding-bottom': 0} : {}">
-        <form [formGroup]="taskForm" class="content-container mb-3">
-            <mat-form-field>
-                <mat-label>Title</mat-label>
-                <input matInput formControlName="title" type="text" placeholder="Enter a title">
-                <mat-icon color="primary" matSuffix>subject</mat-icon>
-                @if (taskForm.get('title')?.touched) {
-                <mat-error>
-                    @switch (true) { @case (taskForm.get('title')?.hasError('required')) { Title is required } }
-                </mat-error>
+    <mat-dialog-content [ngStyle]="fromPopup ? {'padding-top': 0} : {}">
+          <form [formGroup]="taskForm" class="content-container">
+              <mat-form-field>
+                  <mat-label>Title</mat-label>
+                  <input matInput formControlName="title" type="text" placeholder="Enter a title">
+                  <mat-icon color="primary" matSuffix>subject</mat-icon>
+                  @if (taskForm.get('title')?.touched) {
+                  <mat-error>
+                      @switch (true) { @case (taskForm.get('title')?.hasError('required')) { Title is required } }
+                  </mat-error>
+                  }
+              </mat-form-field>
+
+              <mat-form-field>
+                  <mat-label>Choose a due date</mat-label>
+                  <input matInput formControlName="dueTo" [min]="data?.task ? null : minDate" [matDatepicker]="picker">
+                  <mat-datepicker-toggle matIconSuffix [for]="picker">
+                      <mat-icon color="primary" matDatepickerToggleIcon>calendar_month</mat-icon>
+                  </mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  @if (taskForm.get('dueTo')?.touched) {
+                  <mat-error>
+                      @switch (true) {
+                        @case (taskForm.get('dueTo')?.hasError('matDatepickerParse')) { Invalid date format. Please use MM/DD/YYYY. }
+                        @case (taskForm.get('dueTo')?.hasError('required')) { Date is required }
+                      }
+                  </mat-error>
+                  }
+              </mat-form-field>
+
+              <mat-form-field>
+                  <mat-label>Description</mat-label>
+                  <textarea rows="1" matInput formControlName="description" type="text" placeholder="Enter a Description"></textarea>
+              </mat-form-field>
+
+              <mat-form-field>
+                  <mat-label>Priority</mat-label>
+                  <mat-select formControlName="priority" [compareWith]="comparePriorityFn">
+                      @for (priority of Object.values(PRIORITIES); track priority.key) {
+                      <mat-option [value]=priority>{{ priority.value }}
+                          <mat-icon [ngStyle]="{'color': priority.color}" matSuffix>{{ priority.icon }}
+                          </mat-icon>
+                      </mat-option>
+                      }
+                  </mat-select>
+                  @if (taskForm.get('priority')?.touched) {
+                  <mat-error>
+                      @switch (true) { @case (taskForm.get('priority')?.hasError('required')) { Priority is required } }
+                  </mat-error>
+                  }
+              </mat-form-field>
+
+              <mat-form-field>
+                  <mat-label>Category</mat-label>
+                  <mat-icon color="primary" matSuffix>category</mat-icon>
+                  <mat-select formControlName="category" [compareWith]="compareCategoryFn">
+                      @for (category of Object.values(CATEGORIES); track category.key) {
+                      <mat-option [value]=category>{{ category.value }}</mat-option>
+                      }
+                  </mat-select>
+                @if (taskForm.get('category')?.touched) {
+                  <mat-error>
+                    @switch (true) { @case (taskForm.get('category')?.hasError('required')) { Category is required } }
+                  </mat-error>
                 }
-            </mat-form-field>
+              </mat-form-field>
+
+              <mat-form-field>
+                  <mat-label>Assigned to</mat-label>
+                  <mat-icon color="primary" matSuffix>group_add</mat-icon>
+                  <mat-select formControlName="users" multiple [compareWith]="userCompareWithFn">
+                      @for (user of users; track user.id) {
+                      <mat-option [value]="user">{{ user.name }}</mat-option>
+                      }
+                  </mat-select>
+              </mat-form-field>
 
             <mat-form-field>
-                <mat-label>Choose a due date</mat-label>
-                <input matInput formControlName="dueTo" [min]="data?.task ? null : minDate" [matDatepicker]="picker">
-                <mat-datepicker-toggle matIconSuffix [for]="picker">
-                    <mat-icon color="primary" matDatepickerToggleIcon>calendar_month</mat-icon>
-                </mat-datepicker-toggle>
-                <mat-datepicker #picker></mat-datepicker>
-                @if (taskForm.get('dueTo')?.touched) {
-                <mat-error>
-                    @switch (true) {
-                      @case (taskForm.get('dueTo')?.hasError('matDatepickerParse')) { Invalid date format. Please use MM/DD/YYYY. }
-                      @case (taskForm.get('dueTo')?.hasError('required')) { Date is required }
-                    }
-                </mat-error>
-                }
+              <mat-label>Subtasks</mat-label>
+              <input matInput formControlName="subtasks" type="text" placeholder="Enter a subtask" (keydown.enter)="addSubtask()">
+              <button mat-icon-button matSuffix type="button" (click)="addSubtask()">
+                <mat-icon>add</mat-icon>
+              </button>
+              <!-- <div class="vertical-divider" matSuffix></div>
+              <button mat-icon-button matSuffix type="button" (click)="clearSubtask()">
+                <mat-icon>close</mat-icon>
+              </button> -->
+              <mat-hint>Press enter to add a subtask</mat-hint>
             </mat-form-field>
+          </form>
 
-            <mat-form-field>
-                <mat-label>Description</mat-label>
-                <textarea rows="1" matInput formControlName="description" type="text" placeholder="Enter a Description"></textarea>
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Priority</mat-label>
-                <mat-select formControlName="priority" [compareWith]="comparePriorityFn">
-                    @for (priority of Object.values(PRIORITIES); track priority.key) {
-                    <mat-option [value]=priority>{{ priority.value }}
-                        <mat-icon [ngStyle]="{'color': priority.color}" matSuffix>{{ priority.icon }}
-                        </mat-icon>
-                    </mat-option>
-                    }
-                </mat-select>
-                @if (taskForm.get('priority')?.touched) {
-                <mat-error>
-                    @switch (true) { @case (taskForm.get('priority')?.hasError('required')) { Priority is required } }
-                </mat-error>
-                }
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Category</mat-label>
-                <mat-icon color="primary" matSuffix>category</mat-icon>
-                <mat-select formControlName="category" [compareWith]="compareCategoryFn">
-                    @for (category of Object.values(CATEGORIES); track category.key) {
-                    <mat-option [value]=category>{{ category.value }}</mat-option>
-                    }
-                </mat-select>
-              @if (taskForm.get('category')?.touched) {
-                <mat-error>
-                  @switch (true) { @case (taskForm.get('category')?.hasError('required')) { Category is required } }
-                </mat-error>
-              }
-            </mat-form-field>
-
-            <mat-form-field>
-                <mat-label>Assigned to</mat-label>
-                <mat-icon color="primary" matSuffix>group_add</mat-icon>
-                <mat-select formControlName="users" multiple [compareWith]="userCompareWithFn">
-                    @for (user of users; track user.id) {
-                    <mat-option [value]="user">{{ user.name }}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
-
-          <mat-form-field>
-            <mat-label>Subtasks</mat-label>
-            <input matInput formControlName="subtasks" type="text" placeholder="Enter a subtask" (keydown.enter)="addSubtask()">
-            <button mat-icon-button matSuffix type="button" (click)="addSubtask()">
-              <mat-icon>add</mat-icon>
-            </button>
-            <!-- <div class="vertical-divider" matSuffix></div>
-            <button mat-icon-button matSuffix type="button" (click)="clearSubtask()">
-              <mat-icon>close</mat-icon>
-            </button> -->
-            <mat-hint>Press enter to add a subtask</mat-hint>
-          </mat-form-field>
-        </form>
-
-    <div class="subtasks-container">
-        @for (subtask of subtasks; track subtask){
-            <div class="subtask-text">
-              <span>&#8226;</span>
-              <input [(ngModel)]="subtask.description" type="text" name="subtask" [readonly]="!subtask.isEditable" [ngClass]="{'editable': subtask.isEditable, 'read-only': !subtask.isEditable}">
-              <div class="subtasks-actions-container">
-                @if(!subtask.isEditable) {
-                  <mat-icon color="primary" (click)="editSubtask($index)">edit</mat-icon>
-                }
-                @if(subtask.isEditable) {
-                  <mat-icon color="primary" (click)="saveSubtask($index, subtask)">check</mat-icon>
-                }
-                <mat-icon color="warn" (click)="deleteSubtask($index)">delete</mat-icon>
+      <div class="subtasks-container">
+          @for (subtask of subtasks; track subtask){
+              <div class="subtask-text">
+                <span>&#8226;</span>
+                <input [(ngModel)]="subtask.description" type="text" name="subtask" [readonly]="!subtask.isEditable" [ngClass]="{'editable': subtask.isEditable, 'read-only': !subtask.isEditable}">
+                <div class="subtasks-actions-container">
+                  @if(!subtask.isEditable) {
+                    <mat-icon color="primary" (click)="editSubtask($index)">edit</mat-icon>
+                  }
+                  @if(subtask.isEditable) {
+                    <mat-icon color="primary" (click)="saveSubtask($index, subtask)">check</mat-icon>
+                  }
+                  <mat-icon color="warn" (click)="deleteSubtask($index)">delete</mat-icon>
+                </div>
               </div>
-            </div>
-        }
-      </div>
-    </mat-dialog-content>
+          }
+        </div>
+      </mat-dialog-content>
     </div>
 
   <mat-dialog-actions [ngClass]="{'from-popup': fromPopup, 'not-from-popup': !fromPopup}">

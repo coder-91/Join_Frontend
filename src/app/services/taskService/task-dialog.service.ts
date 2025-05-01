@@ -20,6 +20,9 @@ export class TaskDialogService {
 
   public createTaskDialog(taskStatus: TaskStatus) {
     this.dialog.open(TaskViewComponent, {
+      width: '95vw',
+      maxWidth: '800px',
+      maxHeight: '95vh',
       data: { fromPopup: true },
     }).afterClosed().pipe(filter((task) => task)).subscribe(task => {
       task.status = taskStatus;
@@ -29,6 +32,9 @@ export class TaskDialogService {
 
   public updateTaskDialog(task: Task) {
     this.dialog.open(TaskViewComponent, {
+      width: '95vw',
+      maxWidth: '800px',
+      maxHeight: '95vh',
       data: { fromPopup: true, task: _.cloneDeep(task)},
     }).afterClosed().pipe(filter((task) => task)).subscribe(task => {
       this.taskService.updateTask(task);
@@ -53,6 +59,9 @@ export class TaskDialogService {
 
   public showTaskDetailsDialog(task: Task) {
     this.dialog.open(TaskDetailsComponent, {
+      minWidth: '300px',
+      maxWidth: '95vw',
+      maxHeight: '95vh',
       data: { fromPopup: true, task: task },
     }).afterClosed().pipe(filter((task) => task)).subscribe(task => {});
   }

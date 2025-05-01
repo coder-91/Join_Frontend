@@ -3,8 +3,16 @@
 
 .title-container {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  justify-content: space-between;
   color: inherit;
+
+  .title {
+    margin-right: auto;
+    color: white;
+  }
 }
 
 .category {
@@ -60,7 +68,6 @@
   .user-container {
     display: flex;
     align-items: center;
-
     column-gap: 10px;
     padding-left: 10px;
   }
@@ -71,41 +78,23 @@
   flex-direction: column;
 }
 
+:host ::ng-deep .mat-dialog-container {
+  height: fit-content;
+  width: fit-content;
+}
+
+.cdk-overlay-pane {
+  margin: 0 10px !important;
+}
+
+mat-dialog-content {
+  padding: 0 24px !important;
+}
+
 mat-dialog-actions {
   padding-left: 24px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
-
-@media (min-width: $extra-large-screen + 1px ) {
-  .task-details-container {
-    min-width: 50vw;
-  }
-}
-
-@include extra-large-screen {
-  .task-details-container {
-    min-width: 50vw;
-  }
-}
-
-@include large-screen {
-  .task-details-container {
-    min-width: 50vw;
-  }
-}
-
-@include medium-screen {
-  .task-details-container {
-    min-width: 50vw;
-  }
-}
-
-
-@include small-screen {
-  .task-details-container {
-    min-width: 75vw;
-  }
-}
-
-
 
 
