@@ -10,7 +10,7 @@
 
     <div class="cont-lvl-2-2">
         <app-avatar [initials]="getInitials(user.name)" [size]="80" [backgroundColor]="user.avatarColor"></app-avatar>
-      
+
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()" class="user-form">
             <mat-form-field>
                 <mat-label>Name</mat-label>
@@ -42,7 +42,7 @@
 
             <div class="button-box">
                 <button mat-raised-button color="primary" type="submit" [disabled]="!userForm.valid">
-          <span>{{user? 'Update': 'Create'}}</span>
+          <span>{{user? 'Save': 'Create'}}</span>
         </button>
 
                 <button mat-raised-button type="button" (click)="onCancel()">
