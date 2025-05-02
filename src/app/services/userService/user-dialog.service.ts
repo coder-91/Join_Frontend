@@ -14,6 +14,10 @@ export class UserDialogService {
 
   public updateUserDialog(user: User) {
     this.dialog.open(UserFormComponent, {
+      minWidth: '300px',
+      width: '95vw',
+      maxWidth: '700px',
+      maxHeight: '95vh',
       data: user,
     }).afterClosed().pipe(filter((user) => user)).subscribe(user => {
       this.userService.updateUser(user);
