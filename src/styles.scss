@@ -43,7 +43,7 @@ a {
 }
 
 .max-width {
-  max-width: $max-width;
+  max-width: #{$max-width}px;
   margin: 0 auto;
 }
 

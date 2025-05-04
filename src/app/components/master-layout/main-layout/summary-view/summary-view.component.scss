@@ -1,5 +1,6 @@
 @import '../../../../../styles/variables';
 @import '../../../../../styles/media-queries';
+@import '../../../../../styles/functions';
 
 @mixin common-styles-box {
   display: flex;
@@ -16,7 +17,6 @@
   height: 100%;
   display: flex;
   flex-direction: column;
-  row-gap: 30px;
   align-items: center;
 }
 
@@ -27,7 +27,7 @@
 }
 
 .headline {
-  font-size: clamp(20px, 3vw, 40px);
+  font-size: scale-between(24, 48);
   font-weight: bold;
 }
 
@@ -38,6 +38,7 @@
 }
 
 .sub-headline {
+  font-size: scale-between(16, 32);
   color: $col-dark-gray;
 }
 
@@ -106,21 +107,22 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  row-gap: 10px;
 
   .greeting {
-    font-size: 25px;
+    font-size: scale-between(16, 32);
     color: $col-primary;
   }
 
   .username {
-    font-size: 30px;
+    font-size: scale-between(16, 32);
     color: $col-light-blue;
     font-weight: bold;
   }
 }
 
 .grid-box {
-  max-width: $max-width;
+  max-width: #{$max-width}px;
   display: grid;
   grid-template-columns: repeat(6, 50px);
   grid-template-rows: auto;

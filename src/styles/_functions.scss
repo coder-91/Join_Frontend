@@ -1,0 +1,19 @@
+@use 'sass:math';
+@use './variables';
+
+@function rem($pixel) {
+  @if math.is-unitless($pixel) {
+    @return math.div($pixel, 16) + rem;
+  } @else {
+    @error 'Don\'t use units when using the rem() function. Only numbers!';
+  }
+}
+
+@function scale-between($min-value, $max-value, $min-viewport: variables.$xs-screen-max, $max-viewport: variables.$max-width) {
+  // clamp([min-value], calc([min-value] + ([max-value] - [min-value]) * ((100vw - [min-viewport]) / ([max-viewport] - [min-viewport]), [max-value]));
+  @return clamp(
+    rem($min-value),
+    calc(rem($min-value) + ($max-value - $min-value) * ((100vw - $min-viewport * rem(1)) / ($max-viewport - $min-viewport))),
+    rem($max-value)
+  );
+}
