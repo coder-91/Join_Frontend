@@ -13,7 +13,7 @@
 
 ## 🚀 Live Demo
 
-[VIEW LIVE](https://join.veysel-karaali.com/)
+[View Live](https://join.veysel-karaali.com/)
 
 ## 🛠️ Tech Stack
 
