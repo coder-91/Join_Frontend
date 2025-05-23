@@ -1,27 +1,33 @@
-# JoinFrontend
+# Join Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.3.
+**Join Frontend** is a Kanban-based task management system built with Angular and Material Design. It enables users to create, manage, and assign tasks through an intuitive drag-and-drop interface.
 
-## Development server
+## 🎮 Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Kanban-style task board with drag-and-drop functionality
+- User login and registration system
+- Task assignment to individual users
+- Responsive design using Angular Material
+- State management with RxJS observables
+- Clean and modular architecture with Angular and TypeScript
 
-## Code scaffolding
+## 🚀 Live Demo
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+[View Live](https://join.veysel-karaali.com/)
 
-## Build
+## 🛠️ Tech Stack
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Angular
+- TypeScript
+- RxJS
+- CSS
+- HTML
+- Angular Material Design
 
-## Running unit tests
+## 📖 About the Project
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+This frontend application implements a task management system focused on usability and efficiency. Users can organize tasks in a Kanban board, move them easily between columns, and collaborate by assigning tasks to different users.
 
-## Running end-to-end tests
+## 📩 Contact
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+If you have any questions or feedback, feel free to reach out via [email](mailto:mail@veysel-karaali.com)!
