@@ -1,8 +1,3 @@
-export function getRandomHexCode(hexCodes: string[]): string {
-  const randomIndex: number = Math.floor(Math.random() * hexCodes.length);
-  return hexCodes[randomIndex];
-}
-
 export function getInitials(name: string | undefined): string {
   if (!name) return '';
 

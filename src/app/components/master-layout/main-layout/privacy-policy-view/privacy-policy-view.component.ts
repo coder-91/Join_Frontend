@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {MatIcon} from "@angular/material/icon";
 import {Location} from "@angular/common";
+import {CONTACT_DATA} from "../../../../constants/contact-data";
 
 @Component({
   selector: 'app-privacy-policy-view',
@@ -12,6 +13,7 @@ import {Location} from "@angular/common";
   styleUrl: './privacy-policy-view.component.scss'
 })
 export class PrivacyPolicyViewComponent {
+  contactData = CONTACT_DATA;
   constructor(private location: Location) {}
 
   public goToPreviousPage() {

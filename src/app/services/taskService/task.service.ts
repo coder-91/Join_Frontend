@@ -9,8 +9,9 @@ import {TaskStatus} from "../../models/interfaces/task-status";
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from "@angular/cdk/drag-drop";
 import {DtoMapperService} from "../dtoMapperService/dto-mapper.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
-import {SNACKBAR_DURATION} from "../../utils/constants";
 import {TaskReceiveDto} from "../../models/dtos/task-receive-dto";
+
+import {SNACKBAR_DURATION} from "../../constants/app-constants";
 
 @Injectable({
   providedIn: 'root'

@@ -5,7 +5,8 @@ import {DtoMapperService} from "../dtoMapperService/dto-mapper.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {SubtaskHttpService} from "./subtask-http.service";
 import {SubtaskDto} from "../../models/dtos/subtask-dto";
-import {SNACKBAR_DURATION} from "../../utils/constants";
+
+import {SNACKBAR_DURATION} from "../../constants/app-constants";
 
 @Injectable({
   providedIn: 'root'

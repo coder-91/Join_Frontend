@@ -5,7 +5,7 @@
   </div>
 
   <h2>Exploring the Board</h2>
-  <p>Email: <a href="mailto:veysel-karaali&#64;outlook.de">veysel-karaali&#64;outlook.de</a></p>
+  <p>Email: <a [href]="'mailto:' + contactData.email">{{ contactData.email }}</a></p>
 
   <h2>Acceptance of terms</h2>
   <p>By accessing and using <span class="text-color">Join</span> (Product), you acknowledge and agree to the following
@@ -45,6 +45,6 @@
     and our affiliates, partners, officers, directors, agents, and employees, from and against any claim, demand, loss,
     damage, cost, or liability (including reasonable legal fees) arising out of or relating to your use of <span
       class="text-color">Join</span> and/or your breach of this Legal Notice.</p>
-  <p>For any questions or notices, please contact us at <a href="mailto:veysel-karaali&#64;outlook.de">veysel-karaali&#64;outlook.de</a>.</p>
+  <p>For any questions or notices, please contact us at <a [href]="'mailto:' + contactData.email">{{ contactData.email }}</a>.</p>
   <p>Date: July 26, 2023</p>
 </div>

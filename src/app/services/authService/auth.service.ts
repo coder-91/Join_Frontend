@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import {User} from "../../models/entity/user";
-import {SNACKBAR_DURATION} from "../../utils/constants";
 import {Router} from "@angular/router";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthHttpService} from "./auth-http.service";
@@ -8,6 +7,8 @@ import {UserDto} from "../../models/dtos/user-dto";
 import {DtoMapperService} from "../dtoMapperService/dto-mapper.service";
 import {BehaviorSubject, catchError, map, Observable, of} from "rxjs";
 import {SessionService} from "../sessionService/session.service";
+
+import {SNACKBAR_DURATION} from "../../constants/app-constants";
 
 @Injectable({
   providedIn: 'root'

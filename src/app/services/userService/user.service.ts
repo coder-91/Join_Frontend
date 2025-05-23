@@ -3,12 +3,13 @@ import {BehaviorSubject, Observable} from "rxjs";
 import {User} from "../../models/entity/user";
 import {UserHttpService} from "./user-http.service";
 import {Router} from "@angular/router";
-import {SNACKBAR_DURATION} from "../../utils/constants";
 import {DtoMapperService} from "../dtoMapperService/dto-mapper.service";
 import {UserDto} from "../../models/dtos/user-dto";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthService} from "../authService/auth.service";
 import {SessionService} from "../sessionService/session.service";
+
+import {SNACKBAR_DURATION} from "../../constants/app-constants";
 
 @Injectable({
   providedIn: 'root'
